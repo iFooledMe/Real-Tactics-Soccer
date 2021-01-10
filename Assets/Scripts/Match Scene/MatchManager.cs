@@ -1,6 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MatchManager : SingletonScriptableObject<MatchManager>
 {
@@ -8,6 +7,7 @@ public class MatchManager : SingletonScriptableObject<MatchManager>
     
     /* #region ---- Dependencies -------------------------------------------------------------- */
     public GameManager GameManager {get; private set;}
+    public PitchManager PitchManager {get; private set;}
 
     /* #endregion */
     /* ---------------------------------------------------------------------------------------- */
@@ -29,9 +29,25 @@ public class MatchManager : SingletonScriptableObject<MatchManager>
     {
         getDependenciesBeforeLoadMatch();
         GameManager.RefTest("MatchManager");
-        //loadMatch();
+        loadMatchScene();
     }
     /* #endregion */
     /* ======================================================================================== */
+
+    
+    /* #region ==== LOAD MATCH ================================================================ */
+    void loadMatchScene() 
+    {
+        this.PitchManager = PitchManager.Instance;
+        SceneManager.LoadScene("Match", LoadSceneMode.Single);
+    }
+    /* #endregion */
+    /* ======================================================================================== */
+    
+    
+    public void RefTest(string fromClass)
+    {
+        Debug.Log("MatchManager reference from " + fromClass + " - OK!");
+    }
 
 }

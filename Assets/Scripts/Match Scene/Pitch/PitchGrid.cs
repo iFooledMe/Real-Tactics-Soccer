@@ -7,7 +7,7 @@ public class PitchGrid : SingletonMonoBehaviour<PitchGrid>
     /* #region ==== FIELDS & PROPERTIES ======================================================= */
     
     /* #region ---- Pitch --------------------------------------------------------------------- */
-    private GameObject [,] _pitchTiles = new GameObject[200, 200];
+    public GameObject [,] PitchTilesArray {get; private set;}
     public float XOffset {get; private set;}
     public float ZOffset {get; private set;}
 
@@ -177,29 +177,28 @@ public class PitchGrid : SingletonMonoBehaviour<PitchGrid>
     /* #region ---- CreatePitch --------------------------------------------------------------- */
     private void createPitch() 
     {     
-
         int pitchWidth = MatchManager.PitchManager.PitchWidth;
         int pitchLength = MatchManager.PitchManager.PitchLength;
         setPosOffset(pitchWidth, pitchLength);
+        PitchTilesArray = new GameObject [pitchWidth + 1, pitchLength + 1];
 
         Debug.Log($"Create pitch --- Width: {pitchWidth} - Length: {pitchLength}");
 
         for (int x = 1; x <= pitchWidth; x++) {
             for (int z = 1; z <= pitchLength; z++) 
             {    
-                GameObject _pitchTileObject = InstantiateGameObject(returnPitchTilePrefab(x, z));
-                //PitchTile _pitchTile = _pitchTileObject.GetComponent<PitchTile>();   
-                //_pitchTile.PitchGrid = this;
-                //_pitchTile.CoordX = x;
-                //_pitchTile.CoordZ = z;
-                _pitchTileObject.transform.position = new Vector3(
-                _pitchTileObject.transform.position.x - XOffset + x, 
-                _pitchTileObject.transform.position.y,
-                _pitchTileObject.transform.position.z - ZOffset + z);
-                //_pitchTile.setVectorPositions();
-                _pitchTileObject.name = "Pitch tile - " + x + ":" + z;
-                _pitchTileObject.transform.SetParent(this.transform);
-                //pitchTiles[x,z] = _pitchTileObject;
+                GameObject pitchTileObj = InstantiateGameObject(returnPitchTilePrefab(x, z));
+                pitchTileObj.transform.position = new Vector3(
+                pitchTileObj.transform.position.x - XOffset + x, 
+                pitchTileObj.transform.position.y,
+                pitchTileObj.transform.position.z - ZOffset + z);
+                pitchTileObj.name = "Pitch tile - " + x + ":" + z;
+                pitchTileObj.transform.SetParent(this.transform);
+                
+                PitchTile pitchTile = pitchTileObj.GetComponent<PitchTile>();   
+                pitchTile.SetCoodinates(x, z);
+                
+                PitchTilesArray[x,z] = pitchTileObj;
             }
         }
     }

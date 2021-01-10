@@ -6,6 +6,13 @@ public class PitchTile : MonoBehaviour
 {
     /* #region ==== FIELDS & PROPERTIES ======================================================= */
     
+    /* #region ---- Coordinates / Position ---------------------------------------------------- */
+    public int CoordX;
+    public int CoordZ;
+
+    /* #endregion */
+    /* ---------------------------------------------------------------------------------------- */
+
     /* #region ---- Dependencies -------------------------------------------------------------- */
     private MatchManager MatchManager;
 
@@ -42,6 +49,19 @@ public class PitchTile : MonoBehaviour
     {
         
     }
+
+    /* #endregion */
+    /* ======================================================================================== */
+
+    /* #region ==== GENERAL HELPER FUNCTIONS ================================================== */
+    
+    /* #region ---- Helper - Set this tiles vector positions ---------------------------------- */
+    public void SetCoodinates(int coordX, int coordZ) {
+        this.CoordX = coordX;
+        this.CoordZ = coordZ;
+    }
+    /* #endregion */
+    /* ---------------------------------------------------------------------------------------- */
 
     /* #endregion */
     /* ======================================================================================== */

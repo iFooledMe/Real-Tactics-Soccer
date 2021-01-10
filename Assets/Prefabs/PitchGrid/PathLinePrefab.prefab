@@ -10,9 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 3448171269951096530}
   - component: {fileID: 3448171269951096529}
+  - component: {fileID: 3852686518040405180}
   m_Layer: 0
   m_Name: PathLinePrefab
-  m_TagString: PathLine
+  m_TagString: PitchTile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -49,7 +50,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: de4d3b0b6f8e60845aa584ff223edfea, type: 2}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -128,3 +129,18 @@ LineRenderer:
     generateLightingData: 0
   m_UseWorldSpace: 0
   m_Loop: 0
+--- !u!114 &3852686518040405180
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3448171269951096528}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83a10b5c872b3ed4493482f668511d0a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fitta: Vad faan!!!
+  CoordX: 0
+  CoordZ: 0

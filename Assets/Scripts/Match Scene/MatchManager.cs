@@ -10,6 +10,8 @@ public class MatchManager : SingletonScriptableObject<MatchManager>
     public PitchManager PitchManager {get; private set;}
     public PitchGrid PitchGrid {get; private set;}
 
+    public CameraManager CameraManager {get; private set;}
+    public MainCameraControler MainCameraControler {get; private set;}
 
     /* #endregion */
     /* ---------------------------------------------------------------------------------------- */
@@ -28,6 +30,16 @@ public class MatchManager : SingletonScriptableObject<MatchManager>
     public void SetPitchGrid()
     {
         this.PitchGrid = PitchGrid.Instance;
+    }
+
+    public void SetCameraManager()
+    {
+        this.CameraManager = CameraManager.Instance;
+    }
+
+    public void SetMainCameraController()
+    {
+        this.MainCameraControler = MainCameraControler.Instance;
     }
 
     /* #endregion */

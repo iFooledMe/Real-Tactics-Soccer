@@ -7,8 +7,8 @@ public class PitchTile : MonoBehaviour
     /* #region ==== FIELDS & PROPERTIES ======================================================= */
     
     /* #region ---- Coordinates / Position ---------------------------------------------------- */
-    public int CoordX;
-    public int CoordZ;
+    public int CoordX { get; private set; }
+    public int CoordZ { get; private set; }
 
     /* #endregion */
     /* ---------------------------------------------------------------------------------------- */
@@ -45,18 +45,14 @@ public class PitchTile : MonoBehaviour
         getDependencies();
     }
     
-    void Start()
-    {
-        
-    }
-
     /* #endregion */
     /* ======================================================================================== */
 
     /* #region ==== GENERAL HELPER FUNCTIONS ================================================== */
     
-    /* #region ---- Helper - Set this tiles vector positions ---------------------------------- */
-    public void SetCoodinates(int coordX, int coordZ) {
+    /* #region ---- Helper - Set this tiles coordinates in the grid --------------------------- */
+    public void SetCoodinates(int coordX, int coordZ) 
+    {
         this.CoordX = coordX;
         this.CoordZ = coordZ;
     }

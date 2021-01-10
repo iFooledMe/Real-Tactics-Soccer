@@ -4,14 +4,13 @@ using UnityEngine;
 
 public class PitchGrid : SingletonMonoBehaviour<PitchGrid>
 {
+    
     /* #region ==== FIELDS & PROPERTIES ======================================================= */
     
     /* #region ---- Pitch --------------------------------------------------------------------- */
     public GameObject [,] PitchTilesArray {get; private set;}
     public float XOffset {get; private set;}
     public float ZOffset {get; private set;}
-
-    //TODO: Instantiate _pitchTileObjects with pitchWidth and PitchLenght. Trying to do so now cause the pitch to not be created propperly.
     
     /* #endregion */
     /* ---------------------------------------------------------------------------------------- */
@@ -909,7 +908,5 @@ public class PitchGrid : SingletonMonoBehaviour<PitchGrid>
 
     /* #endregion */
     /* ======================================================================================== */
-
-
 
 }

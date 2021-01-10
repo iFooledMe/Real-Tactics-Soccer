@@ -6,6 +6,19 @@ public class PitchManager : SingletonScriptableObject<PitchManager>
 {
     /* #region ==== FIELDS & PROPERTIES ======================================================= */
 
+    /* #region ---- Pitch Settings ------------------------------------------------------------ */
+    private int _pitchWidth = 20; 
+    private int _pitchLength = 40;
+    public int PitchWidth { get => _pitchWidth; private set => _pitchLength = value; }
+    public int PitchLength { get => _pitchLength; private set => _pitchLength = value; }
+
+
+    //TODO: Instantiate _pitchTileObjects with pitchWidth and PitchLenght. Trying to do so now cause the pitch to not be created propperly.
+    
+    /* #endregion */
+    /* ---------------------------------------------------------------------------------------- */
+    
+    
     /* #region ---- Dependencies -------------------------------------------------------------- */
     private MatchManager MatchManager;
 
@@ -28,8 +41,13 @@ public class PitchManager : SingletonScriptableObject<PitchManager>
     void OnEnable() 
     {
         getDependencies();
-        MatchManager.RefTest("PitchManager");
     }
     /* #endregion */
     /* ======================================================================================== */
+
+    public void RefTest(string fromClass)
+    {
+        Debug.Log("PitchManager reference from " + fromClass + " - OK!");
+    }
+
 }

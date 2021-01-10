@@ -8,6 +8,8 @@ public class MatchManager : SingletonScriptableObject<MatchManager>
     /* #region ---- Dependencies -------------------------------------------------------------- */
     public GameManager GameManager {get; private set;}
     public PitchManager PitchManager {get; private set;}
+    public PitchGrid PitchGrid {get; private set;}
+
 
     /* #endregion */
     /* ---------------------------------------------------------------------------------------- */
@@ -16,10 +18,20 @@ public class MatchManager : SingletonScriptableObject<MatchManager>
     /* ======================================================================================== */
 
     /* #region ==== GET DEPENDENCIES ========================================================== */
-    private void getDependenciesBeforeLoadMatch()
+    private void preSceneLoads()
     {
         GameManager = GameManager.Instance;
+        PitchManager = PitchManager.Instance;
     }
+
+    /* #region ---- Classes call theese functions to set themselfs as ref here on Instantiation */
+    public void SetPitchGrid()
+    {
+        this.PitchGrid = PitchGrid.Instance;
+    }
+
+    /* #endregion */
+    /* ---------------------------------------------------------------------------------------- */
 
     /* #endregion */
     /* ======================================================================================== */
@@ -27,9 +39,9 @@ public class MatchManager : SingletonScriptableObject<MatchManager>
     /* #region ==== ON ENABLE ================================================================= */
     void OnEnable()
     {
-        getDependenciesBeforeLoadMatch();
-        GameManager.RefTest("MatchManager");
+        preSceneLoads();
         loadMatchScene();
+        
     }
     /* #endregion */
     /* ======================================================================================== */

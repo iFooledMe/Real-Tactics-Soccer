@@ -1,10 +1,11 @@
-﻿using UnityEngine.SceneManagement;
+﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : SingletonScriptableObject<GameManager>
 {
 	/* #region ==== FIELDS & PROPERTIES ======================================================= */
 	
-	/* #region ---- Misc Fields --------------------------------------------------------------- */
+    /* #region ---- Misc Fields --------------------------------------------------------------- */
 	private bool _firstTimeInit = true;
     
     /* #endregion */
@@ -47,11 +48,16 @@ public class GameManager : SingletonScriptableObject<GameManager>
 	/* #region ---- Load Match Scene ---------------------------------------------------------- */
 	public void LoadMatchManager()
 	{
-		//MatchManager _matchManager = MatchManager.Instance;
+		MatchManager _matchManager = MatchManager.Instance;
 	}
 	/* #endregion */
-	/* ----------------------------------------------------------------------------------------- */
+	/* ---------------------------------------------------------------------------------------- */
 
     /* #endregion */
     /* ======================================================================================== */
+
+    public void RefTest(string fromClass)
+    {
+        Debug.Log("GameManager reference from " + fromClass + " - OK!");
+    }
 }

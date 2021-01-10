@@ -29,7 +29,7 @@ public class GameManager : SingletonScriptableObject<GameManager>
 	{
 		if(_firstTimeInit)
 		{
-			LoadStartMenu();
+			LoadMainMenu();
 			_firstTimeInit = false;
 		}
 	}
@@ -37,9 +37,9 @@ public class GameManager : SingletonScriptableObject<GameManager>
 	/* ---------------------------------------------------------------------------------------- */
 
 	/* #region ---- Load Start Menu Scene ----------------------------------------------------- */
-	public void LoadStartMenu()
+	public void LoadMainMenu()
 	{
-		//SceneManager.LoadScene("StartMenu", LoadSceneMode.Single);
+		SceneManager.LoadScene("Main Menu", LoadSceneMode.Single);
 	}
 	/* #endregion */
 	/* ----------------------------------------------------------------------------------------- */

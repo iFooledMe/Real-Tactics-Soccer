@@ -7,8 +7,24 @@ public class PitchTile : MonoBehaviour
     /* #region ==== FIELDS & PROPERTIES ======================================================= */
     
     /* #region ---- Coordinates / Position ---------------------------------------------------- */
+    [SerializeField]
     public int CoordX { get; private set; }
+    
+    [SerializeField]
     public int CoordZ { get; private set; }
+
+    /* #endregion */
+    /* ---------------------------------------------------------------------------------------- */
+
+    /* #region ---- Movement/Pathfinding Fields ----------------------------------------------- */
+    [SerializeField]
+    public List<PitchTile> NeighbourTiles { get; set; }
+    
+    
+    int _costToEnter = PitchManager.EnterCostDefault;
+    
+    private bool _isViableTarget = false;
+    public bool IsViableTarget { get => _isViableTarget; set => _isViableTarget = value; }
 
     /* #endregion */
     /* ---------------------------------------------------------------------------------------- */
@@ -56,6 +72,20 @@ public class PitchTile : MonoBehaviour
         this.CoordX = coordX;
         this.CoordZ = coordZ;
     }
+    /* #endregion */
+    /* ---------------------------------------------------------------------------------------- */
+
+    /* #region ---- Creates/Add to a new list of all neighbouring tiles ----------------------- */
+    public void CreateNeighbourTilesList()
+    {
+        NeighbourTiles = new List<PitchTile>();
+    }
+
+    public void AddTileToList(PitchTile pitchTile)
+    {
+        NeighbourTiles.Add(pitchTile);
+    }
+
     /* #endregion */
     /* ---------------------------------------------------------------------------------------- */
 

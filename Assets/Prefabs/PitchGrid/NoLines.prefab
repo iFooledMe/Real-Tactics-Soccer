@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2093639509869462739}
   - component: {fileID: 6327185622814309244}
   - component: {fileID: 9150660532569405141}
-  - component: {fileID: 6561327202352700313}
+  - component: {fileID: 1345791382386816469}
   m_Layer: 0
   m_Name: NoLines
   m_TagString: PitchTile
@@ -94,7 +94,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &6561327202352700313
+--- !u!114 &1345791382386816469
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

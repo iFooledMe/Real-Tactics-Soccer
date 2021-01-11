@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PitchManager : SingletonScriptableObject<PitchManager>
 {
+    
     /* #region ==== FIELDS & PROPERTIES ======================================================= */
 
     /* #region ---- Pitch Settings ------------------------------------------------------------ */
@@ -12,9 +13,13 @@ public class PitchManager : SingletonScriptableObject<PitchManager>
     public int PitchWidth { get => _pitchWidth; private set => _pitchLength = value; }
     public int PitchLength { get => _pitchLength; private set => _pitchLength = value; }
 
+    /* #endregion */
+    /* ---------------------------------------------------------------------------------------- */
 
-    //TODO: Instantiate _pitchTileObjects with pitchWidth and PitchLenght. Trying to do so now cause the pitch to not be created propperly.
-    
+    /* #region ---- Move Costs (Costs to enter tiles with different state --------------------- */
+    public const int EnterCostDefault = 1;
+    public const int EnterCostOtherPlayer = 2;
+
     /* #endregion */
     /* ---------------------------------------------------------------------------------------- */
     
@@ -45,9 +50,18 @@ public class PitchManager : SingletonScriptableObject<PitchManager>
     /* #endregion */
     /* ======================================================================================== */
 
-    public void RefTest(string fromClass)
+    /* #region ==== GENERAL HELPERS =========================================================== */
+
+    /* #region ---- Get a single PitchTile reference ------------------------------------------ */
+    public PitchTile GetPitchTile(int x, int z) 
     {
-        Debug.Log("PitchManager reference from " + fromClass + " - OK!");
+        GameObject pitchTile = MatchManager.PitchGrid.PitchTilesArray[x,z];
+        return pitchTile.GetComponent<PitchTile>();
     }
+    /* #endregion */
+    /* ---------------------------------------------------------------------------------------- */
+
+    /* #endregion */
+    /* ======================================================================================== */
 
 }

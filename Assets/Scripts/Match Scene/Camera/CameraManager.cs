@@ -68,7 +68,7 @@ public class CameraManager : SingletonMonoBehaviour<CameraManager>
     /* #endregion */  
     /* ======================================================================================== */
 
-    /* #region ==== ROTATE MAIN CAMERA ======================================================== */
+    /* #region ==== R O T A T E  M A I N  C A M E R A ========================================= */
     private void rotate(RotationDir direction) 
     {   
         if (direction == RotationDir.Left) 
@@ -91,7 +91,7 @@ public class CameraManager : SingletonMonoBehaviour<CameraManager>
     /* #endregion */  
     /* ======================================================================================== */
 
-    /* #region ==== GET CURRENT CAMERA POSITION =============================================== */
+    /* #region ==== G E T  C U R R E N T  C A M E R A  P O S I T I O N ======================== */
     private void getCameraPosition(RotationDir direction) 
     {
         if (CamPos == CameraPosition.South) 

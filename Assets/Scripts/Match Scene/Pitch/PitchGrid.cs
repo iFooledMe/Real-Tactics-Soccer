@@ -123,6 +123,7 @@ public class PitchGrid : SingletonMonoBehaviour<PitchGrid>
 
     /* #region ---- Dependencies -------------------------------------------------------------- */
     private MatchManager MatchManager;
+    private CreateGraph CreateGraph;
 
     /* #endregion */
     /* ---------------------------------------------------------------------------------------- */
@@ -134,6 +135,7 @@ public class PitchGrid : SingletonMonoBehaviour<PitchGrid>
     private void getDependencies()
     {
         getSetMatchManager();
+        createPathFinding();
     }
 
     /* #region ---- Get/Set MatchManager (Get Instance and sets itself as ref on the same ----- */
@@ -144,6 +146,15 @@ public class PitchGrid : SingletonMonoBehaviour<PitchGrid>
     }
     /* #endregion */
     /* ---------------------------------------------------------------------------------------- */
+
+    /* #region ---- Set pathfinding ----------------------------------------------------------- */
+    void createPathFinding() 
+    {
+        CreateGraph = new CreateGraph(MatchManager);
+    }
+    /* #endregion */
+    /* ---------------------------------------------------------------------------------------- */
+
 
     /* #endregion */
     /* ======================================================================================== */
@@ -157,6 +168,7 @@ public class PitchGrid : SingletonMonoBehaviour<PitchGrid>
     void Start()
     {
         createPitch();
+        CreateGraph.AddNeighbourTiles();
     }
 
     /* #endregion */
@@ -204,7 +216,7 @@ public class PitchGrid : SingletonMonoBehaviour<PitchGrid>
     /* #endregion */
     /* ---------------------------------------------------------------------------------------- */
 
-     /* #region ---- Return a tile prefab for position ----------------------------------------- */
+    /* #region ---- Return a tile prefab for position ----------------------------------------- */
     GameObject returnPitchTilePrefab (int x, int z) 
     {
         int pitchWidth = MatchManager.PitchManager.PitchWidth;
@@ -890,7 +902,7 @@ public class PitchGrid : SingletonMonoBehaviour<PitchGrid>
         /* #endregion */
     }               
     /* #endregion */
-    /* ---------------------------------------------------------------------------------------- */ 
+    /* ---------------------------------------------------------------------------------------- */
 
     /* #endregion */
     /* ======================================================================================== */
@@ -902,6 +914,14 @@ public class PitchGrid : SingletonMonoBehaviour<PitchGrid>
     {
         GameObject _pitchTileObject = (GameObject)Instantiate(prefab);
         return _pitchTileObject;
+    }
+    /* #endregion */
+    /* ---------------------------------------------------------------------------------------- */
+
+    /* #region ---- Destroy GameObject -------------------------------------------------------- */
+    public void DestroyObjectsByTag(string tag) 
+    {
+        Destroy(GameObject.FindGameObjectWithTag(tag));
     }
     /* #endregion */
     /* ---------------------------------------------------------------------------------------- */

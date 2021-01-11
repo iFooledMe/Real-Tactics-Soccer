@@ -51,7 +51,7 @@ public class MainCameraControler : SingletonMonoBehaviour<MainCameraControler>
     /* #endregion */
     /* ======================================================================================== */
 
-    /* #region ==== SET CAMERA START POSITION ================================================= */
+    /* #region ==== S E T  C A M E R A  S T A R T  P O S I T I O N ============================ */
 	private void setStartPos()
 	{
         resetCameraPos();
@@ -66,7 +66,7 @@ public class MainCameraControler : SingletonMonoBehaviour<MainCameraControler>
     /* #endregion */  
     /* ======================================================================================== */
 
-    /* #region ==== UPDATE CAMERA POSITION ==================================================== */
+    /* #region ==== U P D A T E  C A M E R A P O S I T I O N ================================== */
     
     /* #region ---- Get/Set new camera position ----------------------------------------------- */
     public void UpdateCamera(CameraManager.CameraPosition camPos) 

@@ -8,7 +8,7 @@ public class GridOverlay : MonoBehaviour
     /* #region ==== FIELDS & PROPERTIES ======================================================= */
     
     /* #region ---- Grid Overlay -------------------------------------------------------------- */
-    private GameObject [,] _gridOverlay = new GameObject[200, 200];
+    private GameObject [,] _gridOverlay;
     private bool _gridOn = false;
 
     /* #endregion */
@@ -51,16 +51,29 @@ public class GridOverlay : MonoBehaviour
     {
         getDependencies();
     }
+
+    private void Start()
+    {
+        CreateGridArray();
+    }
     
     /* #endregion */
     /* ======================================================================================== */
 
     /* #region ==== T O G G L E  O V E R L A Y  G R I D ======================================= */
     
+    
+    private void CreateGridArray()
+    {
+        int pitchWidth = MatchManager.PitchManager.PitchWidth;
+        int pitchLength = MatchManager.PitchManager.PitchLength;
+        
+        _gridOverlay = new GameObject[pitchWidth + 1, pitchLength + 1];    
+    }
+    
     /* #region ---- Toggle OverlayGrid -------------------------------------------------------- */
     public void toggleOverlayGrid() 
-    {          
-        
+    {     
         PitchManager PitchManager = MatchManager.PitchManager;
         PitchGrid PitchGrid = MatchManager.PitchGrid;
 

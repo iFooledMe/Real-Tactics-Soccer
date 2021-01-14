@@ -751,7 +751,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 998624003}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0ebd29159a3a84a4c91703c042b36508, type: 3}
+  m_Script: {fileID: 11500000, guid: 15235979b45bfa14c8fec61103639ba7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   gridOverlayPrefab: {fileID: 7799967086265956921, guid: fb8893ec51e6d7444ad0b9dbcb364e91,
@@ -1371,7 +1371,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 998624005}
-        m_MethodName: ToggleOverlayGrid
+        m_MethodName: toggleOverlayGrid
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

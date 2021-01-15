@@ -6,7 +6,7 @@ public class MatchTeamManager : SingletonScriptableObject<MatchTeamManager>
 {
     /* #region ==== FIELDS & PROPERTIES ======================================================= */
     
-    /* #region ---- Dependencies -------------------------------------------------------------- */
+    /* #region ---- Teams --------------------------------------------------------------------- */
     public Team PlayerTeam {get; private set;}
 
 

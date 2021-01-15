@@ -17,6 +17,8 @@ public class Team
     private void createPlayers()
     {
         createPlayer("Teesti Eesti", 1, 1);
+        createPlayer("Player 2", 5, 5);
+        createPlayer("Player 3", 5, 10);
     }
 
     private void createPlayer(string name, int startCoordX, int startCoordZ)

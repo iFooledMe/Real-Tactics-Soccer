@@ -146,7 +146,7 @@ public class PitchGrid : SingletonMonoBehaviour<PitchGrid>
     /* #region ---- Get/Set MatchManager (Get Instance and sets itself as ref on the same ----- */
     public void getSetMatchManager()
     {
-        MatchManager = MatchManager.Instance;
+        this.MatchManager = MatchManager.Instance;
         MatchManager.SetPitchGrid();
     }
     /* #endregion */

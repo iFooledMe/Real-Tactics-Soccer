@@ -11,20 +11,18 @@ public class MatchManager : SingletonScriptableObject<MatchManager>
 
     /* #endregion */
     /* ---------------------------------------------------------------------------------------- */
-
-    /* #region ---- Public Properties --------------------------------------------------------- */
-    
-
-    /* #endregion */
-    /* ---------------------------------------------------------------------------------------- */
     
     /* #region ---- Dependencies -------------------------------------------------------------- */
     public GameManager GameManager {get; private set;}
+    
     public PitchManager PitchManager {get; private set;}
     public PitchGrid PitchGrid {get; private set;}
 
     public CameraManager CameraManager {get; private set;}
     public MainCameraControler MainCameraControler {get; private set;}
+
+    public MatchTeamManager MatchTeamManager {get; private set;}
+    public MatchPlayerManager MatchPlayerManager {get; private set;}
 
     /* #endregion */
     /* ---------------------------------------------------------------------------------------- */
@@ -55,6 +53,11 @@ public class MatchManager : SingletonScriptableObject<MatchManager>
         this.MainCameraControler = MainCameraControler.Instance;
     }
 
+    public void SetMatchPlayerManager()
+    {
+        this.MatchPlayerManager = MatchPlayerManager.Instance;
+    }
+
     /* #endregion */
     /* ---------------------------------------------------------------------------------------- */
 
@@ -71,20 +74,20 @@ public class MatchManager : SingletonScriptableObject<MatchManager>
     /* #endregion */
     /* ======================================================================================== */
 
-    
     /* #region ==== LOAD MATCH ================================================================ */
     void loadMatchScene() 
     {
         this.PitchManager = PitchManager.Instance;
+        this.MatchTeamManager = MatchTeamManager.Instance;
+        MatchTeamManager.SetupTeams ("Aik", "None");
         SceneManager.LoadScene("Match", LoadSceneMode.Single);
     }
     /* #endregion */
     /* ======================================================================================== */
-    
-    
-    public void RefTest(string fromClass)
+
+    public void ReferenceTest(string from)
     {
-        Debug.Log("MatchManager reference from " + fromClass + " - OK!");
+        Debug.Log($"MatchManager reference from {from} ok");
     }
 
 }

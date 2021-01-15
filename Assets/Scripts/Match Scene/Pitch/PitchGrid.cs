@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
+public delegate void PitchCreatedNote();
+
 public class PitchGrid : SingletonMonoBehaviour<PitchGrid>
 {
     
@@ -11,6 +14,8 @@ public class PitchGrid : SingletonMonoBehaviour<PitchGrid>
     public GameObject [,] PitchTilesArray {get; private set;}
     public float XOffset {get; private set;}
     public float ZOffset {get; private set;}
+
+    public event PitchCreatedNote PitchCreated;
     
     /* #endregion */
     /* ---------------------------------------------------------------------------------------- */
@@ -169,6 +174,12 @@ public class PitchGrid : SingletonMonoBehaviour<PitchGrid>
     {
         createPitch();
         CreateGraph.AddNeighbourTiles();
+        OnPitchCreated();
+    }
+
+    protected virtual void OnPitchCreated()
+    {
+        PitchCreated?.Invoke();
     }
 
     /* #endregion */

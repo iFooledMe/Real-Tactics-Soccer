@@ -36,7 +36,6 @@ public class GameManager : SingletonScriptableObject<GameManager>
 		
 		//TODO: createTeam() is temporary here. Move to a separate class to set up a game
 		createTeam("Aik");
-		createTeam("Team2");
 	}
 
 	/* #endregion */

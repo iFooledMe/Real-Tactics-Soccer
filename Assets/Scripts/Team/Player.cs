@@ -4,15 +4,22 @@ using UnityEngine;
 
 public class Player
 {
-    // Start is called before the first frame update
-    void Start()
+    public enum StartPos
     {
-        
+        X,
+        Z
     }
+    
+    public string Name {get; private set;}
+    public Dictionary<StartPos, int> startPosition {get; private set;}
 
-    // Update is called once per frame
-    void Update()
+    public Player(string name, int startCoordX, int startCoordZ)
     {
-        
+        startPosition = new Dictionary<StartPos, int>();
+        this.Name = name;
+        this.startPosition.Add(StartPos.X, startCoordX);
+        this.startPosition.Add(StartPos.Z, startCoordZ);
+
+        Debug.Log($"Player {Name} created");
     }
 }

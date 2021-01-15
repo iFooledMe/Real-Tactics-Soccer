@@ -6,6 +6,12 @@ public class MatchPlayerManager : SingletonMonoBehaviour<MatchPlayerManager>
 {
     /* #region ==== FIELDS & PROPERTIES ======================================================= */
     
+    /* #region ---- List of player GameObjects ------------------------------------------------ */
+
+
+    /* #endregion */
+    /* ---------------------------------------------------------------------------------------- */
+    
     /* #region ---- Prefabs ------------------------------------------------------------------- */
     [SerializeField] private GameObject playerPrefab;
 
@@ -59,42 +65,78 @@ public class MatchPlayerManager : SingletonMonoBehaviour<MatchPlayerManager>
     private void createPlayers()
     {
         List<Player> players = MatchManager.MatchTeamManager.PlayerTeam.Players;
+        Team team = MatchManager.MatchTeamManager.PlayerTeam;
         
-        foreach(var player in players)
+        if (players.Count < 1 || players == null)
         {
-            //Get players start coordinates on the pitch
-            int coordX = 0;
-            int coordZ = 0;
-            foreach(KeyValuePair<Player.StartPos,int> pos in player.startPosition)
+            Debug.Log("The team has no players", this);
+        }
+        else
+        {
+            int count = 0;
+            foreach(var player in players)
             {
-                if(pos.Key == Player.StartPos.X)
+                count++;
+                
+                /* #region ---- Get start position -------------------------------------------- */
+                int coordX = 0;
+                int coordZ = 0;
+                foreach(KeyValuePair<Player.StartPos,int> pos in player.startPosition)
                 {
-                    coordX = pos.Value;
+                    if(pos.Key == Player.StartPos.X)
+                    {
+                        coordX = pos.Value;
+                    }
+                    if (pos.Key == Player.StartPos.Z)
+                    {
+                        coordZ = pos.Value;
+                    }
                 }
-                if (pos.Key == Player.StartPos.Z)
-                {
-                    coordZ = pos.Value;
-                }
-            }
+                /* #endregion */
+                /* ---------------------------------------------------------------------------- */
 
-            PitchTile pitchTile = MatchManager.PitchManager.GetPitchTile(coordX, coordZ);
-            GameObject playerObj = (GameObject)Instantiate(playerPrefab);
-            playerObj.transform.position = getPosition(pitchTile, playerObj);
+                PitchTile pitchTile = MatchManager.PitchManager.GetPitchTile(coordX, coordZ);
+                GameObject playerObj = (GameObject)Instantiate(playerPrefab);
+                setPlayerInfo(playerObj, player, team, count, coordX, coordZ);
+                setPosition(pitchTile, playerObj);
+            }    
+        }
+    
+    }
+    
 
-        }        
+    /* #region ---- Set player info ----------------------------------------------------------- */
+    private void setPlayerInfo(GameObject playerObj, Player player, Team team, int count, int coordX, int coordZ)
+    {
+        playerObj.name = $"{team.Name} - Player {count} - {player.Name}";
+        playerObj.transform.SetParent(this.transform);
+
+        MatchPlayer matchPlayer = playerObj.GetComponent<MatchPlayer>();
+        matchPlayer.SetPlayer(player);
+        matchPlayer.SetCoordinates(coordX, coordZ);
     }
 
-    private Vector3 getPosition(PitchTile pitchTile, GameObject playerObj)
+    /* #endregion */
+    /* ---------------------------------------------------------------------------------------- */
+
+    /* #region ---- Set player position ------------------------------------------------------- */
+    private void setPosition(PitchTile pitchTile, GameObject playerObj)
     {
         GameObject pitchTileObj = pitchTile.gameObject;
 
-        Vector3 returnPosition = new Vector3(
+        Vector3 position = new Vector3 (
             pitchTileObj.transform.position.x, 
             playerObj.transform.position.y, 
             pitchTileObj.transform.position.z);
-
-        return returnPosition;
+        
+        playerObj.transform.position = position;
     }
+    
+    /* #endregion */
+    /* ---------------------------------------------------------------------------------------- */
+
+    /* #endregion */
+    /* ======================================================================================== */
 
 
 

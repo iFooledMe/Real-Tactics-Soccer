@@ -61,6 +61,14 @@ public class PitchManager : SingletonScriptableObject<PitchManager>
     /* #endregion */
     /* ---------------------------------------------------------------------------------------- */
 
+    /* #region ---- Set a pitchTile instance to occupied (by player) -------------------------- */
+    public void setPitchTileOccupied(PitchTile pitchTile) 
+    {
+
+    }
+    /* #endregion */
+    /* ---------------------------------------------------------------------------------------- */
+
 
 
 

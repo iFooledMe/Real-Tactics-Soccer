@@ -28,10 +28,7 @@ public class MatchPlayer : MonoBehaviour
         this.CoordZ = coordZ;
     }
 
-    void OnDisable() 
-    {
-        Player.Stats.ActionPoints = 100; 
-    }
+
 
 
 

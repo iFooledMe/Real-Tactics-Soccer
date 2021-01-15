@@ -24,12 +24,11 @@ public class GameManager : SingletonScriptableObject<GameManager>
 
     /* #region ==== GET DEPENDENCIES ========================================================== */
     
-
-
 	/* #endregion */
     /* ======================================================================================== */
 
 	/* #region ==== ON ENABLE ================================================================= */
+	
 	private void OnEnable() 
 	{
 		checkFirstTimeInit();
@@ -41,7 +40,7 @@ public class GameManager : SingletonScriptableObject<GameManager>
 	/* #endregion */
     /* ======================================================================================== */
 
-	/* #region ==== ON ENABLE ================================================================= */
+	/* #region ==== CREATE TEAM =============================================================== */
 	private void createTeam(string teamName) 
 	{
 		bool teamNameExist = false;
@@ -70,7 +69,6 @@ public class GameManager : SingletonScriptableObject<GameManager>
 
 	/* #endregion */
     /* ======================================================================================== */
-	
 	
 	/* #region ==== LOAD SCENES =============================================================== */
     
@@ -105,8 +103,4 @@ public class GameManager : SingletonScriptableObject<GameManager>
     /* #endregion */
     /* ======================================================================================== */
 
-    public void RefTest(string fromClass)
-    {
-        Debug.Log("GameManager reference from " + fromClass + " - OK!");
-    }
 }

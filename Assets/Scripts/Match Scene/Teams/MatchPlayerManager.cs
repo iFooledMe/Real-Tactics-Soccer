@@ -6,12 +6,6 @@ public class MatchPlayerManager : SingletonMonoBehaviour<MatchPlayerManager>
 {
     /* #region ==== FIELDS & PROPERTIES ======================================================= */
     
-    /* #region ---- List of player GameObjects ------------------------------------------------ */
-
-
-    /* #endregion */
-    /* ---------------------------------------------------------------------------------------- */
-    
     /* #region ---- Prefabs ------------------------------------------------------------------- */
     [SerializeField] private GameObject playerPrefab;
 
@@ -55,14 +49,14 @@ public class MatchPlayerManager : SingletonMonoBehaviour<MatchPlayerManager>
     
     private void Start()
     {
-        MatchManager.PitchGrid.PitchCreated += createPlayers;
+        MatchManager.PitchGrid.PitchCreated += addPlayersToPitch;
     }
 
     /* #endregion */
     /* ======================================================================================== */
 
     /* #region ==== C R E A T E  P L A Y E R S ================================================ */
-    private void createPlayers()
+    private void addPlayersToPitch()
     {
         List<Player> players = MatchManager.MatchTeamManager.PlayerTeam.Players;
         Team team = MatchManager.MatchTeamManager.PlayerTeam;

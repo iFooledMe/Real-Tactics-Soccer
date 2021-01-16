@@ -24,6 +24,8 @@ public class MatchManager : SingletonScriptableObject<MatchManager>
     public MatchTeamManager MatchTeamManager {get; private set;}
     public MatchPlayerManager MatchPlayerManager {get; private set;}
 
+    public PlayerInput PlayerInput {get; private set;}
+
     /* #endregion */
     /* ---------------------------------------------------------------------------------------- */
 
@@ -34,7 +36,6 @@ public class MatchManager : SingletonScriptableObject<MatchManager>
     private void preSceneLoads()
     {
         GameManager = GameManager.Instance;
-        PitchManager = PitchManager.Instance;
     }
 
     /* #region ---- Classes call theese functions to set themselfs as ref here on Instantiation */
@@ -79,15 +80,11 @@ public class MatchManager : SingletonScriptableObject<MatchManager>
     {
         this.PitchManager = PitchManager.Instance;
         this.MatchTeamManager = MatchTeamManager.Instance;
+        this.PlayerInput = PlayerInput.Instance;
         MatchTeamManager.SetupTeams ("Aik", "None");
         SceneManager.LoadScene("Match", LoadSceneMode.Single);
     }
     /* #endregion */
     /* ======================================================================================== */
-
-    public void ReferenceTest(string from)
-    {
-        Debug.Log($"MatchManager reference from {from} ok");
-    }
 
 }

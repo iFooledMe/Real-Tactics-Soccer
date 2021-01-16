@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System;
 using UnityEngine;
 
 public class MatchPlayer : MonoBehaviour
@@ -26,9 +25,13 @@ public class MatchPlayer : MonoBehaviour
     /* #region ---- Player States ------------------------------------------------------------- */
     public bool IsActive {get; private set;}
 
+    private Color defaultColor = Color.green;
+    private Color highLightColor = Color.blue;
+    private Color activeColor = Color.red;
+
     /* #endregion */
     /* ---------------------------------------------------------------------------------------- */
-
+    
     /* #region ---- Components ---------------------------------------------------------------- */
     private Renderer _renderer;
 
@@ -103,14 +106,51 @@ public class MatchPlayer : MonoBehaviour
     public void SetPlayerActive()
     {
         IsActive = true;
-        _renderer.material.color = Color.red;
+        _renderer.material.color = activeColor;
     }
 
 
     public void SetPlayerInactive()
     {
         IsActive = false;
-        _renderer.material.color = Color.green;
+        _renderer.material.color = defaultColor;
+    }
+
+    /* #endregion */
+    /* ---------------------------------------------------------------------------------------- */
+
+    /* #region ---- Player Highlight ---------------------------------------------------------- */
+    public void PlayerHighlightOn()
+    {
+        _renderer.material.color = highLightColor;
+    }
+
+    public void PlayerHighlightOff()
+    {
+        if (IsActive)
+        {
+            _renderer.material.color = activeColor;
+        }
+
+        else
+        {
+            _renderer.material.color = defaultColor;
+        } 
+    }
+
+    /* #endregion */
+    /* ---------------------------------------------------------------------------------------- */
+
+    /* #region ---- MouseOver / MouseExit ----------------------------------------------------- */
+    
+    private void OnMouseEnter() 
+    {
+       MatchManager.PlayerInput.OnPlayerMouseEnter(this);
+    }
+
+    private void OnMouseExit()
+    {
+        MatchManager.PlayerInput.OnPlayerMouseExit(this);
     }
 
     /* #endregion */

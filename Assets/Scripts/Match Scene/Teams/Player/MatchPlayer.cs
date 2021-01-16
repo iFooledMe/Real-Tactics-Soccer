@@ -15,17 +15,13 @@ public class MatchPlayer : MonoBehaviour
     public int CoordX {get; private set;}
     public int CoordZ {get; private set;}
 
-    public void SetPlayer(Player player)
+    public void SetPlayerInfo(Player player, int coordX, int coordZ)
     {
-        this.Player = player;
+        CoordX = coordX;
+        CoordZ = coordZ;
+        Player = player;
         playerName = Player.Name;
         actionPoints = Player.Stats.ActionPoints;
-    }
-
-    public void SetCoordinates(int coordX, int coordZ)
-    {
-        this.CoordX = coordX;
-        this.CoordZ = coordZ;
     }
 
 

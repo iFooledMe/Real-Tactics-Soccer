@@ -107,8 +107,7 @@ public class MatchPlayerManager : SingletonMonoBehaviour<MatchPlayerManager>
         playerObj.transform.SetParent(this.transform);
 
         MatchPlayer matchPlayer = playerObj.GetComponent<MatchPlayer>();
-        matchPlayer.SetPlayer(player);
-        matchPlayer.SetCoordinates(coordX, coordZ);
+        matchPlayer.SetPlayerInfo(player, coordX, coordZ);
     }
 
     /* #endregion */

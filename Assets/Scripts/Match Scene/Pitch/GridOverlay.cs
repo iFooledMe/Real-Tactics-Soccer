@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GridOverlay : MonoBehaviour
+public class GridOverlay : SingletonMonoBehaviour<GridOverlay>
 {
 
     /* #region ==== FIELDS & PROPERTIES ======================================================= */
@@ -32,13 +32,14 @@ public class GridOverlay : MonoBehaviour
     /* #region ==== GET DEPENDENCIES ========================================================== */
     private void getDependencies()
     {
-        getMatchManager();
+        getSetMatchManager();
     }
 
-    /* #region ---- Get MatchManager ---------------------------------------------------------- */
-    public void getMatchManager()
+    /* #region ---- Get/Set MatchManager (Get Instance and sets itself as ref on the same ----- */
+    public void getSetMatchManager()
     {
-        MatchManager = MatchManager.Instance;
+        this.MatchManager = MatchManager.Instance;
+        MatchManager.SetGridOverLay();
     }
     /* #endregion */
     /* ---------------------------------------------------------------------------------------- */
@@ -62,7 +63,7 @@ public class GridOverlay : MonoBehaviour
 
     /* #region ==== T O G G L E  O V E R L A Y  G R I D ======================================= */
     
-    
+    /* #region ---- Create Grid Array --------------------------------------------------------- */
     private void CreateGridArray()
     {
         int pitchWidth = MatchManager.PitchManager.PitchWidth;
@@ -70,9 +71,12 @@ public class GridOverlay : MonoBehaviour
         
         _gridOverlay = new GameObject[pitchWidth + 1, pitchLength + 1];    
     }
+
+    /* #endregion */
+    /* ---------------------------------------------------------------------------------------- */
     
     /* #region ---- Toggle OverlayGrid -------------------------------------------------------- */
-    public void toggleOverlayGrid() 
+    public void ToggleOverlayGrid() 
     {     
         PitchManager PitchManager = MatchManager.PitchManager;
         PitchGrid PitchGrid = MatchManager.PitchGrid;

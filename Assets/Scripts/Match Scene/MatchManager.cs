@@ -17,6 +17,7 @@ public class MatchManager : SingletonScriptableObject<MatchManager>
     
     public PitchManager PitchManager {get; private set;}
     public PitchGrid PitchGrid {get; private set;}
+    public GridOverlay GridOverlay {get; private set;}
 
     public CameraManager CameraManager {get; private set;}
     public MainCameraControler MainCameraControler {get; private set;}
@@ -24,7 +25,7 @@ public class MatchManager : SingletonScriptableObject<MatchManager>
     public MatchTeamManager MatchTeamManager {get; private set;}
     public MatchPlayerManager MatchPlayerManager {get; private set;}
 
-    public PlayerInput PlayerInput {get; private set;}
+    public MatchPlayerInput MatchPlayerInput {get; private set;}
 
     /* #endregion */
     /* ---------------------------------------------------------------------------------------- */
@@ -39,6 +40,7 @@ public class MatchManager : SingletonScriptableObject<MatchManager>
     }
 
     /* #region ---- Classes call theese functions to set themselfs as ref here on Instantiation */
+    //TODO: Make a more generic method for all of this
     public void SetPitchGrid()
     {
         this.PitchGrid = PitchGrid.Instance;
@@ -57,6 +59,16 @@ public class MatchManager : SingletonScriptableObject<MatchManager>
     public void SetMatchPlayerManager()
     {
         this.MatchPlayerManager = MatchPlayerManager.Instance;
+    }
+
+    public void SetGridOverLay()
+    {
+        this.GridOverlay = GridOverlay.Instance;
+    }
+
+    public void SetMatchPlayerInput()
+    {
+        this.MatchPlayerInput = MatchPlayerInput.Instance;
     }
 
     /* #endregion */
@@ -80,7 +92,6 @@ public class MatchManager : SingletonScriptableObject<MatchManager>
     {
         this.PitchManager = PitchManager.Instance;
         this.MatchTeamManager = MatchTeamManager.Instance;
-        this.PlayerInput = PlayerInput.Instance;
         MatchTeamManager.SetupTeams ("Aik", "None");
         SceneManager.LoadScene("Match", LoadSceneMode.Single);
     }

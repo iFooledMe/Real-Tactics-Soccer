@@ -1,0 +1,97 @@
+﻿using System;
+using UnityEngine;
+
+public class MatchPlayerInput : SingletonMonoBehaviour<MatchPlayerInput>
+{
+    /* #region ==== FIELDS & PROPERTIES ======================================================= */
+
+    /* #region ---- Dependencies -------------------------------------------------------------- */
+    private MatchManager MatchManager;
+
+    /* #endregion */
+    /* ---------------------------------------------------------------------------------------- */
+    
+    /* #endregion */
+    /* ======================================================================================== */
+
+    /* #region ==== GET DEPENDENCIES ========================================================== */
+    private void getDependencies()
+    {
+        getSetMatchManager();
+    }
+
+    /* #region ---- Get/Set MatchManager (Get Instance and sets itself as ref on the same ----- */
+    public void getSetMatchManager()
+    {
+        this.MatchManager = MatchManager.Instance;
+        MatchManager.SetMatchPlayerInput();
+    }
+    /* #endregion */
+    /* ---------------------------------------------------------------------------------------- */
+
+    /* #endregion */
+    /* ======================================================================================== */
+
+    /* #region ==== ON ENABLE ================================================================= */
+    private void OnEnable() 
+    {
+        getDependencies();
+    }
+    /* #endregion */
+    /* ======================================================================================== */
+
+    /* #region ==== P L A Y E R  E V E N T S ================================================== */
+    
+    /* #region ---- Player MouseEnter / MouseExit --------------------------------------------- */
+    public void OnPlayerMouseEnter(MatchPlayer player)
+    {
+        player.PlayerHighlightOn();
+    }
+
+    public void OnPlayerMouseExit(MatchPlayer player)
+    {
+        player.PlayerHighlightOff();
+    }
+
+    /* #endregion */
+    /* ---------------------------------------------------------------------------------------- */
+
+    /* #endregion */
+    /* ======================================================================================== */  
+
+    /* #region ==== C A M E R A  C O N T R O L ================================================ */
+    
+    /* #region ---- Rotate Main Camera -------------------------------------------------------- */
+    public void OnBtnRotateMainCameraLeft()
+    {
+        MatchManager.CameraManager.RotateLeft();
+    }
+
+    public void OnBtnRotateMainCameraRight()
+    {
+        MatchManager.CameraManager.RotateRight();
+    }
+
+    /* #endregion */
+    /* ---------------------------------------------------------------------------------------- */
+
+    /* #endregion */
+    /* ======================================================================================== */
+
+    /* #region ==== G E N E R A L  U I ======================================================== */
+
+    /* #region ---- Toggle Overlay Grid ------------------------------------------------------- */
+    public void OnBtnToggleGrid()
+    {
+        MatchManager.GridOverlay.ToggleOverlayGrid();
+    }
+
+    /* #endregion */
+    /* ---------------------------------------------------------------------------------------- */
+
+    /* #endregion */
+    /* ======================================================================================== */
+
+
+
+}

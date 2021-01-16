@@ -145,12 +145,12 @@ public class MatchPlayer : MonoBehaviour
     
     private void OnMouseEnter() 
     {
-       MatchManager.PlayerInput.OnPlayerMouseEnter(this);
+       MatchManager.MatchPlayerInput.OnPlayerMouseEnter(this);
     }
 
     private void OnMouseExit()
     {
-        MatchManager.PlayerInput.OnPlayerMouseExit(this);
+        MatchManager.MatchPlayerInput.OnPlayerMouseExit(this);
     }
 
     /* #endregion */

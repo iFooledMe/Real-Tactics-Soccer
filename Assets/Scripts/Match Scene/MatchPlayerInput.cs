@@ -56,6 +56,15 @@ public class MatchPlayerInput : SingletonMonoBehaviour<MatchPlayerInput>
     /* #endregion */
     /* ---------------------------------------------------------------------------------------- */
 
+    /* #region ---- Mouse Left click ---------------------------------------------------------- */
+    public void OnPlayerLeftClick(MatchPlayer player)
+    {
+        player.SetPlayerActive();
+    }
+
+    /* #endregion */
+    /* ---------------------------------------------------------------------------------------- */
+
     /* #endregion */
     /* ======================================================================================== */  
 

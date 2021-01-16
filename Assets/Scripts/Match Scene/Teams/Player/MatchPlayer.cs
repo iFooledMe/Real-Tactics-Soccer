@@ -86,6 +86,36 @@ public class MatchPlayer : MonoBehaviour
 
     /* #endregion */
     /* ======================================================================================== */
+
+    /* #region ==== INTERACTIONS ============================================================== */
+    
+    /* #region ---- MouseOver / MouseExit ----------------------------------------------------- */
+    
+    private void OnMouseEnter() 
+    {
+       MatchManager.MatchPlayerInput.OnPlayerMouseEnter(this);
+    }
+
+    private void OnMouseExit()
+    {
+        MatchManager.MatchPlayerInput.OnPlayerMouseExit(this);
+    }
+
+    /* #endregion */
+    /* ---------------------------------------------------------------------------------------- */
+
+    /* #region ---- Left click ---------------------------------------------------------------- */
+    
+    private void OnMouseUp() 
+    {
+        MatchManager.MatchPlayerInput.OnPlayerLeftClick(this);
+    }
+
+    /* #endregion */
+    /* ---------------------------------------------------------------------------------------- */
+    
+    /* #endregion */
+    /* ======================================================================================== */
     
     /* #region ==== M A I N  M E T H O D S ==================================================== */
     
@@ -107,8 +137,8 @@ public class MatchPlayer : MonoBehaviour
     {
         IsActive = true;
         _renderer.material.color = activeColor;
+        MatchManager.MatchPlayerManager.SetOtherPlayersInactive(this);
     }
-
 
     public void SetPlayerInactive()
     {
@@ -136,21 +166,6 @@ public class MatchPlayer : MonoBehaviour
         {
             _renderer.material.color = defaultColor;
         } 
-    }
-
-    /* #endregion */
-    /* ---------------------------------------------------------------------------------------- */
-
-    /* #region ---- MouseOver / MouseExit ----------------------------------------------------- */
-    
-    private void OnMouseEnter() 
-    {
-       MatchManager.MatchPlayerInput.OnPlayerMouseEnter(this);
-    }
-
-    private void OnMouseExit()
-    {
-        MatchManager.MatchPlayerInput.OnPlayerMouseExit(this);
     }
 
     /* #endregion */

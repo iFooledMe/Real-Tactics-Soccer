@@ -23,7 +23,6 @@ public class PitchManager : SingletonScriptableObject<PitchManager>
     /* #endregion */
     /* ---------------------------------------------------------------------------------------- */
     
-    
     /* #region ---- Dependencies -------------------------------------------------------------- */
     private MatchManager MatchManager;
 

@@ -6,6 +6,12 @@ public class MatchPlayerManager : SingletonMonoBehaviour<MatchPlayerManager>
 {
     /* #region ==== FIELDS & PROPERTIES ======================================================= */
     
+    /* #region ---- Players ------------------------------------------------------------------- */
+    private List<MatchPlayer> matchPlayersList = new List<MatchPlayer>();
+
+    /* #endregion */
+    /* ---------------------------------------------------------------------------------------- */
+    
     /* #region ---- Prefabs ------------------------------------------------------------------- */
     [SerializeField] private GameObject playerPrefab;
 
@@ -58,17 +64,17 @@ public class MatchPlayerManager : SingletonMonoBehaviour<MatchPlayerManager>
     /* #region ==== C R E A T E  P L A Y E R S ================================================ */
     private void addPlayersToPitch()
     {
-        List<Player> players = MatchManager.MatchTeamManager.PlayerTeam.Players;
+        List<Player> playersList = MatchManager.MatchTeamManager.PlayerTeam.Players;
         Team team = MatchManager.MatchTeamManager.PlayerTeam;
         
-        if (players.Count < 1 || players == null)
+        if (playersList.Count < 1 || playersList == null)
         {
             Debug.Log("The team has no players", this);
         }
         else
         {
             int count = 0;
-            foreach(var player in players)
+            foreach(var player in playersList)
             {
                 count++;
                 
@@ -91,20 +97,22 @@ public class MatchPlayerManager : SingletonMonoBehaviour<MatchPlayerManager>
 
                 PitchTile pitchTile = MatchManager.PitchManager.GetPitchTile(coordX, coordZ);
                 GameObject playerObj = (GameObject)Instantiate(playerPrefab);
-                setPlayerInfo(playerObj, player, team, count, coordX, coordZ);
+                MatchPlayer matchPlayer = playerObj.GetComponent<MatchPlayer>();
+                setPlayerInfo(playerObj, matchPlayer, player, team, count, coordX, coordZ);
                 setPlayerActiveState(playerObj, player);
                 setVectorPosition(pitchTile, playerObj);
                 setTileOccupied(pitchTile, playerObj);
+                matchPlayersList.Add(matchPlayer);
             }    
         }
     }
     
     /* #region ---- Set player info ----------------------------------------------------------- */
-    private void setPlayerInfo(GameObject playerObj, Player player, Team team, int count, int coordX, int coordZ)
+    private void setPlayerInfo(GameObject playerObj, MatchPlayer matchPlayer, Player player, Team team, int count, int coordX, int coordZ)
     {
         playerObj.name = $"{team.Name} - Player {count} - {player.Name}";
         playerObj.transform.SetParent(this.transform);
-        MatchPlayer matchPlayer = playerObj.GetComponent<MatchPlayer>();
+        
         matchPlayer.SetPlayerInfo(player, coordX, coordZ);
     }
 
@@ -145,7 +153,7 @@ public class MatchPlayerManager : SingletonMonoBehaviour<MatchPlayerManager>
     /* #endregion */
     /* ---------------------------------------------------------------------------------------- */
 
-    /* #region ---- Set pitchTile Occupied ---------------------------------------------------- */
+    /* #region ---- Set pitchTile Occupied by player ------------------------------------------ */
     private void setTileOccupied(PitchTile pitchTile, GameObject playerObj)
     {
         MatchManager.PitchManager.setPitchTileOccupied(pitchTile, playerObj);
@@ -157,9 +165,25 @@ public class MatchPlayerManager : SingletonMonoBehaviour<MatchPlayerManager>
     /* #endregion */
     /* ======================================================================================== */
 
+    /* #region ==== G E N E R A L  H E L P E R S ============================================== */
+    
+    /* #region ---- Set other players inactive (get a player and set all others inactive ------ */
+    public void SetOtherPlayersInactive(MatchPlayer activePlayer)
+    {
+        foreach(MatchPlayer player in matchPlayersList)
+        {
+            if (player != activePlayer)
+            {
+                player.SetPlayerInactive();
+            }
+        }
+    }
 
+    /* #endregion */
+    /* ---------------------------------------------------------------------------------------- */
 
-
-
+        
+    /* #endregion */
+    /* ======================================================================================== */
     
 }

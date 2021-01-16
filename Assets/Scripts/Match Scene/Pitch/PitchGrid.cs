@@ -219,7 +219,7 @@ public class PitchGrid : SingletonMonoBehaviour<PitchGrid>
                 
                 PitchTile pitchTile = pitchTileObj.GetComponent<PitchTile>();   
                 pitchTile.SetCoodinates(x, z);
-                
+                pitchTile.setUnOccupied();
                 PitchTilesArray[x,z] = pitchTileObj;
             }
         }

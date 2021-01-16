@@ -28,8 +28,7 @@ public class PitchTile : MonoBehaviour
     [SerializeField]
     public List<PitchTile> NeighbourTiles { get; set; }
     
-    
-    int _costToEnter = PitchManager.EnterCostDefault;
+    public int CostToEnter {get; private set;}
     
     private bool _isViableTarget = false;
     public bool IsViableTarget { get => _isViableTarget; set => _isViableTarget = value; }
@@ -100,14 +99,16 @@ public class PitchTile : MonoBehaviour
     /* #region ---- Set tile occupied/unoccupied ---------------------------------------------- */
     public void setOccupied(GameObject player)
     {
-        this.IsOccupied = true;
-        this.OccupiedByPlayer = player;
+        IsOccupied = true;
+        OccupiedByPlayer = player;
+        CostToEnter = PitchManager.EnterCostOtherPlayer;
     }
 
     public void setUnOccupied()
     {
         this.IsOccupied = false;
         this.OccupiedByPlayer = null;
+        CostToEnter = PitchManager.EnterCostDefault;
     }
 
     /* #endregion */

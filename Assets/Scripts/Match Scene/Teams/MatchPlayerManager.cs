@@ -52,8 +52,6 @@ public class MatchPlayerManager : SingletonMonoBehaviour<MatchPlayerManager>
         MatchManager.PitchGrid.PitchCreated += addPlayersToPitch;
     }
 
-
-
     /* #endregion */
     /* ======================================================================================== */
 
@@ -94,7 +92,8 @@ public class MatchPlayerManager : SingletonMonoBehaviour<MatchPlayerManager>
                 PitchTile pitchTile = MatchManager.PitchManager.GetPitchTile(coordX, coordZ);
                 GameObject playerObj = (GameObject)Instantiate(playerPrefab);
                 setPlayerInfo(playerObj, player, team, count, coordX, coordZ);
-                setPosition(pitchTile, playerObj);
+                setPlayerActiveState(playerObj, player);
+                setVectorPosition(pitchTile, playerObj);
                 setTileOccupied(pitchTile, playerObj);
             }    
         }
@@ -105,7 +104,6 @@ public class MatchPlayerManager : SingletonMonoBehaviour<MatchPlayerManager>
     {
         playerObj.name = $"{team.Name} - Player {count} - {player.Name}";
         playerObj.transform.SetParent(this.transform);
-
         MatchPlayer matchPlayer = playerObj.GetComponent<MatchPlayer>();
         matchPlayer.SetPlayerInfo(player, coordX, coordZ);
     }
@@ -113,8 +111,26 @@ public class MatchPlayerManager : SingletonMonoBehaviour<MatchPlayerManager>
     /* #endregion */
     /* ---------------------------------------------------------------------------------------- */
 
-    /* #region ---- Set player position ------------------------------------------------------- */
-    private void setPosition(PitchTile pitchTile, GameObject playerObj)
+    /* #region ---- Set player Active status -------------------------------------------------- */
+    private void setPlayerActiveState(GameObject playerObj, Player player)
+    {
+        MatchPlayer matchPlayer = playerObj.GetComponent<MatchPlayer>();
+
+        if (player.startActive)
+        {
+            matchPlayer.SetPlayerActive();
+        }
+        else
+        {
+            matchPlayer.SetPlayerInactive();
+        }
+    }
+
+    /* #endregion */
+    /* ---------------------------------------------------------------------------------------- */
+
+    /* #region ---- Set player Vector position ------------------------------------------------ */
+    private void setVectorPosition(PitchTile pitchTile, GameObject playerObj)
     {
         GameObject pitchTileObj = pitchTile.gameObject;
 

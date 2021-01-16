@@ -16,8 +16,4 @@ public class Stats
         return Random.Range(min, max + 1);
     }
 
-
-
-
-
 }

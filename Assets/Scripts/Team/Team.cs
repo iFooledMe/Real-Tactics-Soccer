@@ -16,20 +16,19 @@ public class Team
 
     private void createPlayers()
     {
-        createPlayer("Teesti Eesti", 1, 1);
-        createPlayer("Arne Duck", 5, 5);
-        createPlayer("Just Anotherplayer", 5, 10);
+        createPlayer("Teesti Eesti", 1, 1, true);
+        createPlayer("Arne Duck", 5, 5, false);
+        createPlayer("Just Anotherplayer", 5, 10, false);
     }
 
-    private void createPlayer(string name, int startCoordX, int startCoordZ)
+    private void createPlayer(string name, int startCoordX, int startCoordZ, bool startActive)
     {
         if (Players == null)
         {
             Players = new List<Player>();
         }
         
-        Player newPlayer = new Player(name, startCoordX, startCoordZ);
+        Player newPlayer = new Player(name, startCoordX, startCoordZ, startActive);
         Players.Add(newPlayer);
     }
-
 }

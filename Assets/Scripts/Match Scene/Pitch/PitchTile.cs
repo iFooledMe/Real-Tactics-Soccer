@@ -16,6 +16,14 @@ public class PitchTile : MonoBehaviour
     /* #endregion */
     /* ---------------------------------------------------------------------------------------- */
 
+    /* #region ---- Occupation state ---------------------------------------------------------- */
+    public bool IsOccupied {get; private set;}
+    public GameObject OccupiedByPlayer {get; private set;}
+
+
+    /* #endregion */
+    /* ---------------------------------------------------------------------------------------- */
+
     /* #region ---- Movement/Pathfinding Fields ----------------------------------------------- */
     [SerializeField]
     public List<PitchTile> NeighbourTiles { get; set; }
@@ -84,6 +92,22 @@ public class PitchTile : MonoBehaviour
     public void AddTileToList(PitchTile pitchTile)
     {
         NeighbourTiles.Add(pitchTile);
+    }
+
+    /* #endregion */
+    /* ---------------------------------------------------------------------------------------- */
+
+    /* #region ---- Set tile occupied/unoccupied ---------------------------------------------- */
+    public void setOccupied(GameObject player)
+    {
+        this.IsOccupied = true;
+        this.OccupiedByPlayer = player;
+    }
+
+    public void setUnOccupied()
+    {
+        this.IsOccupied = false;
+        this.OccupiedByPlayer = null;
     }
 
     /* #endregion */

@@ -52,6 +52,8 @@ public class MatchPlayerManager : SingletonMonoBehaviour<MatchPlayerManager>
         MatchManager.PitchGrid.PitchCreated += addPlayersToPitch;
     }
 
+
+
     /* #endregion */
     /* ======================================================================================== */
 
@@ -93,12 +95,11 @@ public class MatchPlayerManager : SingletonMonoBehaviour<MatchPlayerManager>
                 GameObject playerObj = (GameObject)Instantiate(playerPrefab);
                 setPlayerInfo(playerObj, player, team, count, coordX, coordZ);
                 setPosition(pitchTile, playerObj);
+                setTileOccupied(pitchTile, playerObj);
             }    
         }
-    
     }
     
-
     /* #region ---- Set player info ----------------------------------------------------------- */
     private void setPlayerInfo(GameObject playerObj, Player player, Team team, int count, int coordX, int coordZ)
     {
@@ -124,6 +125,15 @@ public class MatchPlayerManager : SingletonMonoBehaviour<MatchPlayerManager>
             pitchTileObj.transform.position.z);
         
         playerObj.transform.position = position;
+    }
+    
+    /* #endregion */
+    /* ---------------------------------------------------------------------------------------- */
+
+    /* #region ---- Set pitchTile Occupied ---------------------------------------------------- */
+    private void setTileOccupied(PitchTile pitchTile, GameObject playerObj)
+    {
+        MatchManager.PitchManager.setPitchTileOccupied(pitchTile, playerObj);
     }
     
     /* #endregion */

@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 public class MatchManager : SingletonScriptableObject<MatchManager>
 {
     /* #region ==== FIELDS & PROPERTIES ======================================================= */ 
-    
+        
     /* #region ---- Match states ------------------------------------------------------------- */
     private bool _playInAction = false;
     public bool PlayInAction { get => _playInAction; set => _playInAction = value; }

@@ -129,6 +129,7 @@ public class PitchGrid : SingletonMonoBehaviour<PitchGrid>
     /* #region ---- Dependencies -------------------------------------------------------------- */
     private MatchManager MatchManager;
     private CreateGraph CreateGraph;
+    public PathFinding PathFinding {get; private set;}
 
     /* #endregion */
     /* ---------------------------------------------------------------------------------------- */
@@ -140,7 +141,6 @@ public class PitchGrid : SingletonMonoBehaviour<PitchGrid>
     private void getDependencies()
     {
         getSetMatchManager();
-        createPathFinding();
     }
 
     /* #region ---- Get/Set MatchManager (Get Instance and sets itself as ref on the same ----- */
@@ -156,6 +156,8 @@ public class PitchGrid : SingletonMonoBehaviour<PitchGrid>
     void createPathFinding() 
     {
         CreateGraph = new CreateGraph(MatchManager);
+        PathFinding = new PathFinding();
+        CreateGraph.AddNeighbourTiles();
     }
     /* #endregion */
     /* ---------------------------------------------------------------------------------------- */
@@ -173,8 +175,8 @@ public class PitchGrid : SingletonMonoBehaviour<PitchGrid>
     void Start()
     {
         createPitch();
-        CreateGraph.AddNeighbourTiles();
         OnPitchCreated();
+        createPathFinding();
     }
 
     protected virtual void OnPitchCreated()

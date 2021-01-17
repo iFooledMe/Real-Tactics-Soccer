@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: -3783212471921696761}
   m_Layer: 0
   m_Name: bl_1_3
-  m_TagString: PathLine
+  m_TagString: PitchTile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

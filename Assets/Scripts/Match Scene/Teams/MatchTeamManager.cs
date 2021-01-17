@@ -65,10 +65,6 @@ public class MatchTeamManager : SingletonScriptableObject<MatchTeamManager>
         {
             Debug.Log($"No team with name {teamName} exist!");
         }
-        else
-        {
-            Debug.Log($"Team {returnTeam.Name} Added to MatchTeamManager");
-        }
 
         return returnTeam;
     }

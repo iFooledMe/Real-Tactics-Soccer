@@ -182,6 +182,30 @@ public class MatchPlayerManager : SingletonMonoBehaviour<MatchPlayerManager>
     /* #endregion */
     /* ---------------------------------------------------------------------------------------- */
 
+    /* #region ---- Get Active Player --------------------------------------------------------- */
+    public MatchPlayer GetActivePlayer()
+    {
+        MatchPlayer activePlayer = null;
+
+        foreach(var player in matchPlayersList)
+        {
+            if (player.IsActive)
+            {
+                activePlayer = player;
+                break;
+            }
+        }
+
+        if (activePlayer == null)
+        {
+            Debug.Log("No player is set to active", this);
+        }
+
+        return activePlayer;
+    }
+
+    /* #endregion */
+    /* ---------------------------------------------------------------------------------------- */
         
     /* #endregion */
     /* ======================================================================================== */

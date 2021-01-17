@@ -8,7 +8,7 @@ public class MatchPlayer : MonoBehaviour
     /* #region ---- Player Info --------------------------------------------------------------- */
     public Player Player {get; private set;}
 
-    private string playerName;
+    public string Name {get; private set;}
 
     public int CoordX {get; private set;}
     public int CoordZ {get; private set;}
@@ -17,7 +17,7 @@ public class MatchPlayer : MonoBehaviour
     /* ---------------------------------------------------------------------------------------- */
 
     /* #region ---- Player Stats -------------------------------------------------------------- */
-    private int actionPoints;
+    public int ActionPoints {get; private set;}
 
     /* #endregion */
     /* ---------------------------------------------------------------------------------------- */
@@ -125,8 +125,8 @@ public class MatchPlayer : MonoBehaviour
         CoordX = coordX;
         CoordZ = coordZ;
         Player = player;
-        playerName = Player.Name;
-        actionPoints = Player.Stats.ActionPoints;
+        Name = Player.Name;
+        ActionPoints = Player.Stats.ActionPoints;
     }
 
     /* #endregion */

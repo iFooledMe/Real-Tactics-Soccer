@@ -71,6 +71,19 @@ public class PitchTile : MonoBehaviour
     /* #endregion */
     /* ======================================================================================== */
 
+    /* #region ==== INTERACTIONS ============================================================== */
+    
+    /* #region ---- MouseOver / MouseExit ----------------------------------------------------- */
+    void OnMouseEnter() 
+    {
+        MatchManager.MatchPlayerInput.OnPitchTileMouseEnter(this);
+    }
+    
+    /* #endregion */
+    /* ---------------------------------------------------------------------------------------- */
+    /* #endregion */
+    /* ======================================================================================== */
+
     /* #region ==== GENERAL HELPER FUNCTIONS ================================================== */
     
     /* #region ---- Helper - Set this tiles coordinates in the grid --------------------------- */

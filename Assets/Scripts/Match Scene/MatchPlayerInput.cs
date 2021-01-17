@@ -68,7 +68,7 @@ public class MatchPlayerInput : SingletonMonoBehaviour<MatchPlayerInput>
     /* #endregion */
     /* ======================================================================================== */  
 
-    /* #region ==== P L A Y E R  E V E N T S ================================================== */
+    /* #region ==== P I T C H  T I L E  E V E N T S =========================================== */
     
     /* #region ---- PitchTile MouseEnter / MouseExit ------------------------------------------ */
     public void OnPitchTileMouseEnter(PitchTile tile)
@@ -80,9 +80,9 @@ public class MatchPlayerInput : SingletonMonoBehaviour<MatchPlayerInput>
     /* ---------------------------------------------------------------------------------------- */
 
     /* #region ---- PitchTile Mouse Left click ------------------------------------------------ */
-    public void OnPitchTileLeftClick(MatchPlayer player)
+    public void OnPitchTileLeftClick(PitchTile targetTile)
     {
-        
+        MatchManager.MatchPlayerManager.CurrentActivePlayer.PlayerActions.CheckForMovement(targetTile);
     }
 
     /* #endregion */

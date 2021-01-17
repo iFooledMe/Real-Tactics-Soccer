@@ -6,8 +6,16 @@ public class MatchPlayerManager : SingletonMonoBehaviour<MatchPlayerManager>
 {
     /* #region ==== FIELDS & PROPERTIES ======================================================= */
     
+    /* #region ---- Settings ------------------------------------------------------------------ */
+    public float OnScreenPlayerMoveSpeed = 3f;
+    
+    /* #endregion */
+    /* ---------------------------------------------------------------------------------------- */
+
     /* #region ---- Players ------------------------------------------------------------------- */
     private List<MatchPlayer> matchPlayersList = new List<MatchPlayer>();
+    public MatchPlayer CurrentActivePlayer = null;
+    public bool PlayInAction { get; private set; }
 
     /* #endregion */
     /* ---------------------------------------------------------------------------------------- */
@@ -101,10 +109,12 @@ public class MatchPlayerManager : SingletonMonoBehaviour<MatchPlayerManager>
                 setPlayerInfo(playerObj, matchPlayer, player, team, count, coordX, coordZ);
                 setPlayerActiveState(playerObj, player);
                 setVectorPosition(pitchTile, playerObj);
-                setTileOccupied(pitchTile, playerObj);
+                setTileOccupied(pitchTile, matchPlayer);
                 matchPlayersList.Add(matchPlayer);
             }    
         }
+
+        Debug.Log(CurrentActivePlayer.Name);
     }
     
     /* #region ---- Set player info ----------------------------------------------------------- */
@@ -154,7 +164,7 @@ public class MatchPlayerManager : SingletonMonoBehaviour<MatchPlayerManager>
     /* ---------------------------------------------------------------------------------------- */
 
     /* #region ---- Set pitchTile Occupied by player ------------------------------------------ */
-    private void setTileOccupied(PitchTile pitchTile, GameObject playerObj)
+    private void setTileOccupied(PitchTile pitchTile, MatchPlayer playerObj)
     {
         MatchManager.PitchManager.setPitchTileOccupied(pitchTile, playerObj);
     }
@@ -166,6 +176,23 @@ public class MatchPlayerManager : SingletonMonoBehaviour<MatchPlayerManager>
     /* ======================================================================================== */
 
     /* #region ==== G E N E R A L  H E L P E R S ============================================== */
+    
+    /* #region ---- Set Player in Action State ------------------------------------------------ */
+    public void setPlayerInActionState(bool playerInAction)
+    {
+        if(playerInAction)
+        {
+            this.PlayInAction = true; 
+        }
+
+        if(!playerInAction)
+        {
+            this.PlayInAction = false;
+        }
+    }
+
+    /* #endregion */
+    /* ---------------------------------------------------------------------------------------- */
     
     /* #region ---- Set other players inactive (get a player and set all others inactive ------ */
     public void SetOtherPlayersInactive(MatchPlayer activePlayer)

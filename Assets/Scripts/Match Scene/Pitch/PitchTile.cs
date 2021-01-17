@@ -18,7 +18,7 @@ public class PitchTile : MonoBehaviour
 
     /* #region ---- Occupation state ---------------------------------------------------------- */
     public bool IsOccupied {get; private set;}
-    public GameObject OccupiedByPlayer {get; private set;}
+    public MatchPlayer OccupiedByPlayer {get; private set;}
 
 
     /* #endregion */
@@ -28,7 +28,7 @@ public class PitchTile : MonoBehaviour
     [SerializeField]
     public List<PitchTile> NeighbourTiles { get; set; }
     
-    public int CostToEnter {get; private set;}
+    public int CostToEnter {get; set;}
     
     private bool _isViableTarget = false;
     public bool IsViableTarget { get => _isViableTarget; set => _isViableTarget = value; }
@@ -78,9 +78,20 @@ public class PitchTile : MonoBehaviour
     {
         MatchManager.MatchPlayerInput.OnPitchTileMouseEnter(this);
     }
-    
+
     /* #endregion */
     /* ---------------------------------------------------------------------------------------- */
+
+    /* #region ---- Left click ---------------------------------------------------------------- */
+    
+    private void OnMouseUp() 
+    {
+        MatchManager.MatchPlayerInput.OnPitchTileLeftClick(this);
+    }
+
+    /* #endregion */
+    /* ---------------------------------------------------------------------------------------- */
+    
     /* #endregion */
     /* ======================================================================================== */
 
@@ -110,7 +121,7 @@ public class PitchTile : MonoBehaviour
     /* ---------------------------------------------------------------------------------------- */
 
     /* #region ---- Set tile occupied/unoccupied ---------------------------------------------- */
-    public void setOccupied(GameObject player)
+    public void setOccupied(MatchPlayer player)
     {
         IsOccupied = true;
         OccupiedByPlayer = player;

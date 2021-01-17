@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class MatchPlayer : MonoBehaviour
@@ -40,6 +41,7 @@ public class MatchPlayer : MonoBehaviour
 
     /* #region ---- Dependencies -------------------------------------------------------------- */
     private MatchManager MatchManager;
+    public PlayerActions PlayerActions {get; private set;}
 
     /* #endregion */
     /* ---------------------------------------------------------------------------------------- */
@@ -51,6 +53,7 @@ public class MatchPlayer : MonoBehaviour
     private void getDependencies()
     {
         getMatchManager();
+        setPlayerActions();
     }
 
     private void getComponents()
@@ -74,6 +77,15 @@ public class MatchPlayer : MonoBehaviour
     /* #endregion */
     /* ---------------------------------------------------------------------------------------- */
 
+    /* #region ---- Set PlayerActions --------------------------------------------------------- */
+    public void setPlayerActions()
+    {
+        this.PlayerActions = new PlayerActions(this);
+    }
+
+    /* #endregion */
+    /* ---------------------------------------------------------------------------------------- */
+
     /* #endregion */
     /* ======================================================================================== */
 
@@ -82,6 +94,15 @@ public class MatchPlayer : MonoBehaviour
     {
         getDependencies();
         getComponents();
+    }
+
+    /* #endregion */
+    /* ======================================================================================== */
+
+    /* #region ==== UPDATE ==================================================================== */
+    void Update() 
+    {
+        PlayerActions.ActionSelector(PlayerActions.CurrentAction);
     }
 
     /* #endregion */
@@ -138,12 +159,23 @@ public class MatchPlayer : MonoBehaviour
         IsActive = true;
         _renderer.material.color = activeColor;
         MatchManager.MatchPlayerManager.SetOtherPlayersInactive(this);
+        MatchManager.MatchPlayerManager.CurrentActivePlayer = this;
     }
 
     public void SetPlayerInactive()
     {
         IsActive = false;
         _renderer.material.color = defaultColor;
+    }
+
+    /* #endregion */
+    /* ---------------------------------------------------------------------------------------- */
+
+    /* #region ---- Set player Coordinates by PitchTile --------------------------------------- */
+    public void SetPlayerCoordinatesByTile(PitchTile tile)
+    {
+        this.CoordX = tile.CoordX;
+        this.CoordZ = tile.CoordZ;
     }
 
     /* #endregion */
@@ -173,5 +205,39 @@ public class MatchPlayer : MonoBehaviour
 
     /* #endregion */
     /* ======================================================================================== */
+    int _currentWaypoint = 0;
+    float _onScreenMoveSpeed = 3f;
+
+    public void MovePlayer(Vector3 _nextPos, List<PitchTile> _waypoints)
+    {
+        _nextPos = new Vector3(_waypoints[
+        _currentWaypoint].transform.position.x, 
+        transform.position.y, 
+        _waypoints[_currentWaypoint].transform.position.z);
+
+        
+        
+        float distance = Vector3.Distance(_nextPos, transform.position);
+        transform.position = Vector3.MoveTowards(transform.position, _nextPos, _onScreenMoveSpeed * Time.deltaTime);
+
+        Debug.Log(distance);
+        
+        if (distance <= 0.005)
+        {
+            transform.position = _nextPos;
+            _currentWaypoint++;
+        }
+
+        if (_currentWaypoint >= _waypoints.Count)
+        {
+            _waypoints[_waypoints.Count - 1].CostToEnter = 0;
+            _waypoints = null;
+            _currentWaypoint = 0;
+            MatchManager.MatchPlayerManager.setPlayerInActionState(false);
+            PlayerActions.CurrentAction = PlayerAction.Idle;
+        }
+    }
+
+
 
 }

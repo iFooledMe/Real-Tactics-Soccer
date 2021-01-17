@@ -13,7 +13,6 @@ public class DrawPathLine
     /* #endregion */
     /* ---------------------------------------------------------------------------------------- */
 
-
     /* #region ---- Dependencies -------------------------------------------------------------- */
     MatchManager MatchManager;
 
@@ -40,9 +39,9 @@ public class DrawPathLine
         PitchGrid PitchGrid = MatchManager.PitchGrid;
         MatchPlayer player = MatchManager.MatchPlayerManager.GetActivePlayer();
 
-        if (!MatchManager.PlayInAction)
+        if (!MatchManager.MatchPlayerManager.PlayInAction)
         {
-            ClearPlayerMovePathLines(PitchGrid);
+            ClearPlayerMovePathLines();
             setAllTilesNoneViableTarget(PitchManager);
             accumulatedMoveCost = 0;
             List<PitchTile> pathToTarget = PitchGrid.PathFinding.GetPathToTarget(targetIn, player);
@@ -66,11 +65,9 @@ public class DrawPathLine
                             pathTile.transform.position.z);
                     
                         listLinePoints.Add(linePoint);
-                        if(counter != 1)
-                        {
-                            accumulatedMoveCost += pathTile.CostToEnter;
-                            pathTile.IsViableTarget = true;
-                        }
+                        
+                        if(counter != 1){ accumulatedMoveCost += pathTile.CostToEnter; }
+                        pathTile.IsViableTarget = true;
                     }
                 }
                 
@@ -83,9 +80,9 @@ public class DrawPathLine
     /* ---------------------------------------------------------------------------------------- */
     
     /* #region ---- Clear Player Movement Path Line(s) ---------------------------------------- */
-    public void ClearPlayerMovePathLines(PitchGrid PitchGrid) 
+    public void ClearPlayerMovePathLines() 
     {
-        PitchGrid.DestroyObjectsByTag("PathLine"); 
+        MatchManager.PitchGrid.DestroyObjectsByTag("PathLine"); 
     }
     /* #endregion */
     /* ---------------------------------------------------------------------------------------- */

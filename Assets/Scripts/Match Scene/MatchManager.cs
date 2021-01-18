@@ -25,6 +25,8 @@ public class MatchManager : SingletonScriptableObject<MatchManager>
 
     public MatchPlayerInput MatchPlayerInput {get; private set;}
 
+    public BallGrid BallGrid {get; private set;}
+
     /* #endregion */
 
     /* #endregion */
@@ -66,6 +68,11 @@ public class MatchManager : SingletonScriptableObject<MatchManager>
     public void SetMatchPlayerInput()
     {
         this.MatchPlayerInput = MatchPlayerInput.Instance;
+    }
+
+    public void SetBallGrid()
+    {
+        this.BallGrid = BallGrid.Instance;
     }
 
     /* #endregion */
@@ -125,19 +132,21 @@ public class MatchManager : SingletonScriptableObject<MatchManager>
 
     /* #region ==== G E N E R A L  H E L P E R S ============================================== */
     
+    /* #region ---- Instantiate GameObject ---------------------------------------------------- */
+    public GameObject InstantiateGameObject(GameObject prefab) 
+    {
+        GameObject gameObject = (GameObject)Instantiate(prefab);
+        return gameObject;
+    }
+
+    /* #endregion */
+
     /* #region ---- Destroy GameObject -------------------------------------------------------- */
     public void DestroyObjectsByTag(string tag) 
     {
         Destroy(GameObject.FindGameObjectWithTag(tag));
     }
     /* #endregion */
-
-    /* #region ---- Instantiate GameObject ---------------------------------------------------- */
-    public GameObject InstantiateGameObject(GameObject prefab) 
-    {
-        GameObject _pitchTileObject = (GameObject)Instantiate(prefab);
-        return _pitchTileObject;
-    }
 
     /* #endregion */
     /* ======================================================================================== */

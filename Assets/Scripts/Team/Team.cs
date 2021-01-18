@@ -15,7 +15,7 @@ public class Team
 
     private void createPlayers()
     {
-        createPlayer("Teesti Eesti", 1, 1, true);
+        createPlayer("Teesti Eesti", 10, 1, true);
         createPlayer("Arne Duck", 5, 5, false);
         createPlayer("Just Anotherplayer", 5, 10, false);
     }

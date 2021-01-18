@@ -5,12 +5,11 @@ public class MatchManager : SingletonScriptableObject<MatchManager>
 {
     /* #region ==== FIELDS & PROPERTIES ======================================================= */ 
         
-    /* #region ---- Match states ------------------------------------------------------------- */
-
+    /* #region ---- Match states -------------------------------------------------------------- */
+    public int Score = 0;
 
     /* #endregion */
-    /* ---------------------------------------------------------------------------------------- */
-    
+
     /* #region ---- Dependencies -------------------------------------------------------------- */
     public GameManager GameManager {get; private set;}
     
@@ -27,7 +26,6 @@ public class MatchManager : SingletonScriptableObject<MatchManager>
     public MatchPlayerInput MatchPlayerInput {get; private set;}
 
     /* #endregion */
-    /* ---------------------------------------------------------------------------------------- */
 
     /* #endregion */
     /* ======================================================================================== */
@@ -39,7 +37,7 @@ public class MatchManager : SingletonScriptableObject<MatchManager>
     }
 
     /* #region ---- Classes call theese functions to set themselfs as ref here on Instantiation */
-    //TODO: Make a more generic method for all of this
+    //TODO: Set up observer pattern with events instead
     public void SetPitchGrid()
     {
         this.PitchGrid = PitchGrid.Instance;
@@ -71,7 +69,6 @@ public class MatchManager : SingletonScriptableObject<MatchManager>
     }
 
     /* #endregion */
-    /* ---------------------------------------------------------------------------------------- */
 
     /* #endregion */
     /* ======================================================================================== */
@@ -79,9 +76,8 @@ public class MatchManager : SingletonScriptableObject<MatchManager>
     /* #region ==== ON ENABLE ================================================================= */
     void OnEnable()
     {
-        Debug.Log("matchManager enabled");
         preSceneLoads();
-        loadMatchScene();        
+        loadMatchScene();    
     }
     /* #endregion */
     /* ======================================================================================== */
@@ -89,11 +85,43 @@ public class MatchManager : SingletonScriptableObject<MatchManager>
     /* #region ==== LOAD MATCH ================================================================ */
     void loadMatchScene() 
     {
-        this.PitchManager = PitchManager.Instance;
-        this.MatchTeamManager = MatchTeamManager.Instance;
+        loadPitchManager();
+        loadMatchTeamManager();
+        
         MatchTeamManager.SetupTeams ("Aik", "None");
         SceneManager.LoadScene("Match", LoadSceneMode.Single);
     }
+
+    /* #region ---- Load PitchManager -------------------------------------------------------- */
+    private void loadPitchManager()
+    {
+        if(PitchManager != null)
+		{
+			PitchManager.ResetInstance();
+		}
+		else
+		{
+			PitchManager = ScriptableObject.CreateInstance<PitchManager>();
+		}
+    }
+    /* #Endregion */
+
+    /* #region ---- Load MatchTeamManager ---------------------------------------------------- */
+    private void loadMatchTeamManager()
+    {
+        if(MatchTeamManager != null)
+		{
+			Debug.Log("MatchTeamManager Instance Reset...");
+			MatchTeamManager.ResetInstance();
+		}
+		else
+		{
+			Debug.Log("Create new MatchTeamManager Instance...");
+			MatchTeamManager = ScriptableObject.CreateInstance<MatchTeamManager>();
+		}
+    }
+    /* #endregion */
+
     /* #endregion */
     /* ======================================================================================== */
 

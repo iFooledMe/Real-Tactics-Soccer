@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public abstract class SingletonScriptableObject<T> : ScriptableObject where T : ScriptableObject 
 {
@@ -17,4 +18,14 @@ public abstract class SingletonScriptableObject<T> : ScriptableObject where T : 
             return _instance;
         }
     }
+
+    public void ResetInstance()
+    {
+        if(_instance != null)
+        {
+            _instance = null;
+            _instance = ScriptableObject.CreateInstance<T>();
+        }
+    }
 }
+

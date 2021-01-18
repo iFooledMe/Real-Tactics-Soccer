@@ -14,20 +14,17 @@ public class PitchManager : SingletonScriptableObject<PitchManager>
     public int PitchLength { get => _pitchLength; private set => _pitchLength = value; }
 
     /* #endregion */
-    /* ---------------------------------------------------------------------------------------- */
 
     /* #region ---- Move Costs (Costs to enter tiles with different state --------------------- */
     public const int EnterCostDefault = 1;
     public const int EnterCostOtherPlayer = 2;
 
     /* #endregion */
-    /* ---------------------------------------------------------------------------------------- */
     
     /* #region ---- Dependencies -------------------------------------------------------------- */
     private MatchManager MatchManager;
 
     /* #endregion */
-    /* ---------------------------------------------------------------------------------------- */
     
     /* #endregion */
     /* ======================================================================================== */
@@ -58,7 +55,6 @@ public class PitchManager : SingletonScriptableObject<PitchManager>
         return pitchTile.GetComponent<PitchTile>();
     }
     /* #endregion */
-    /* ---------------------------------------------------------------------------------------- */
 
     /* #region ---- Set a pitchTile instance to occupied (by player) -------------------------- */
     public void setPitchTileOccupied(PitchTile pitchTile, MatchPlayer player) 
@@ -66,7 +62,6 @@ public class PitchManager : SingletonScriptableObject<PitchManager>
        pitchTile.setOccupied(player);
     }
     /* #endregion */
-    /* ---------------------------------------------------------------------------------------- */
 
     /* #region ---- Set a pitchTile instance to unoccupied ------------------------------------ */
     public void setPitchTileUnOccupied(PitchTile pitchTile) 
@@ -74,7 +69,6 @@ public class PitchManager : SingletonScriptableObject<PitchManager>
        pitchTile.setUnOccupied();
     }
     /* #endregion */
-    /* ---------------------------------------------------------------------------------------- */
 
     /* #endregion */
     /* ======================================================================================== */

@@ -134,5 +134,9 @@ public class MatchPlayerInput : SingletonMonoBehaviour<MatchPlayerInput>
     /* ======================================================================================== */
 
 
-
+    public void updateScore()
+    {
+        MatchManager.Score++;
+        Debug.Log(MatchManager.Score.ToString());
+    }
 }

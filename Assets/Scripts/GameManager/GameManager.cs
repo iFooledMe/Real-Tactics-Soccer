@@ -10,20 +10,17 @@ public class GameManager : SingletonScriptableObject<GameManager>
 	private bool _firstTimeInit = true;
     
     /* #endregion */
-    /* ---------------------------------------------------------------------------------------- */
 
 	//TODO: List<Team> Teams is temporary here. Move to a separate class to set up a game
 	/* #region ---- Create Team --------------------------------------------------------------- */
 	public List<Team> Teams {get; private set;}
     
     /* #endregion */
-    /* ---------------------------------------------------------------------------------------- */
-	
+
 	/* #region ---- Dependencies -------------------------------------------------------------- */
 	MatchManager MatchManager;
     
     /* #endregion */
-    /* ---------------------------------------------------------------------------------------- */
 
 	/* #endregion */
     /* ======================================================================================== */
@@ -88,7 +85,6 @@ public class GameManager : SingletonScriptableObject<GameManager>
 		}
 	}
 	/* #endregion */
-	/* ---------------------------------------------------------------------------------------- */
 
 	/* #region ---- Load Start Menu Scene ----------------------------------------------------- */
 	public void LoadMainMenu()
@@ -96,19 +92,22 @@ public class GameManager : SingletonScriptableObject<GameManager>
 		SceneManager.LoadScene("Main Menu", LoadSceneMode.Single);
 	}
 	/* #endregion */
-	/* ----------------------------------------------------------------------------------------- */
-	
+
 	/* #region ---- Load Match Scene ---------------------------------------------------------- */
 	public void LoadMatchManager()
-	{
-		Debug.Log("LoadMatchManager loaded from GameManager");
-		MatchManager = ScriptableObject.CreateInstance<MatchManager>();
+	{    
+        if(MatchManager != null)
+		{
+			MatchManager.ResetInstance();
+		}
+		else
+		{
+			MatchManager = ScriptableObject.CreateInstance<MatchManager>();
+		}
 	}
 	/* #endregion */
-	/* ---------------------------------------------------------------------------------------- */
 
     /* #endregion */
     /* ======================================================================================== */
-
 
 }

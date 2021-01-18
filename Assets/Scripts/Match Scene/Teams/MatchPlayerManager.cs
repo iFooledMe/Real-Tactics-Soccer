@@ -10,7 +10,6 @@ public class MatchPlayerManager : SingletonMonoBehaviour<MatchPlayerManager>
     public float OnScreenPlayerMoveSpeed = 3f;
     
     /* #endregion */
-    /* ---------------------------------------------------------------------------------------- */
 
     /* #region ---- Players ------------------------------------------------------------------- */
     private List<MatchPlayer> matchPlayersList = new List<MatchPlayer>();
@@ -18,19 +17,16 @@ public class MatchPlayerManager : SingletonMonoBehaviour<MatchPlayerManager>
     public bool PlayInAction { get; private set; }
 
     /* #endregion */
-    /* ---------------------------------------------------------------------------------------- */
     
     /* #region ---- Prefabs ------------------------------------------------------------------- */
     [SerializeField] private GameObject playerPrefab;
 
-    /* #endregion */
-    /* ---------------------------------------------------------------------------------------- */
+    /* #endregion ------------------------------------------------------------------------------*/
 
     /* #region ---- Dependencies -------------------------------------------------------------- */
     private MatchManager MatchManager;
 
     /* #endregion */
-    /* ---------------------------------------------------------------------------------------- */
 
     /* #endregion */
     /* ======================================================================================== */
@@ -48,8 +44,6 @@ public class MatchPlayerManager : SingletonMonoBehaviour<MatchPlayerManager>
         MatchManager.SetMatchPlayerManager();
     }
     /* #endregion */
-    /* ---------------------------------------------------------------------------------------- */
-
 
     /* #endregion */
     /* ======================================================================================== */
@@ -58,7 +52,6 @@ public class MatchPlayerManager : SingletonMonoBehaviour<MatchPlayerManager>
     private void Awake() 
     {
         getDependencies();
-        
     }
     
     private void Start()
@@ -101,7 +94,6 @@ public class MatchPlayerManager : SingletonMonoBehaviour<MatchPlayerManager>
                     }
                 }
                 /* #endregion */
-                /* ---------------------------------------------------------------------------- */
 
                 PitchTile pitchTile = MatchManager.PitchManager.GetPitchTile(coordX, coordZ);
                 GameObject playerObj = (GameObject)Instantiate(playerPrefab);
@@ -127,7 +119,6 @@ public class MatchPlayerManager : SingletonMonoBehaviour<MatchPlayerManager>
     }
 
     /* #endregion */
-    /* ---------------------------------------------------------------------------------------- */
 
     /* #region ---- Set player Active status -------------------------------------------------- */
     private void setPlayerActiveState(GameObject playerObj, Player player)
@@ -145,7 +136,6 @@ public class MatchPlayerManager : SingletonMonoBehaviour<MatchPlayerManager>
     }
 
     /* #endregion */
-    /* ---------------------------------------------------------------------------------------- */
 
     /* #region ---- Set player Vector position ------------------------------------------------ */
     private void setVectorPosition(PitchTile pitchTile, GameObject playerObj)
@@ -161,7 +151,6 @@ public class MatchPlayerManager : SingletonMonoBehaviour<MatchPlayerManager>
     }
     
     /* #endregion */
-    /* ---------------------------------------------------------------------------------------- */
 
     /* #region ---- Set pitchTile Occupied by player ------------------------------------------ */
     private void setTileOccupied(PitchTile pitchTile, MatchPlayer playerObj)
@@ -170,7 +159,6 @@ public class MatchPlayerManager : SingletonMonoBehaviour<MatchPlayerManager>
     }
     
     /* #endregion */
-    /* ---------------------------------------------------------------------------------------- */
 
     /* #endregion */
     /* ======================================================================================== */
@@ -192,7 +180,6 @@ public class MatchPlayerManager : SingletonMonoBehaviour<MatchPlayerManager>
     }
 
     /* #endregion */
-    /* ---------------------------------------------------------------------------------------- */
     
     /* #region ---- Set other players inactive (get a player and set all others inactive ------ */
     public void SetOtherPlayersInactive(MatchPlayer activePlayer)
@@ -207,7 +194,6 @@ public class MatchPlayerManager : SingletonMonoBehaviour<MatchPlayerManager>
     }
 
     /* #endregion */
-    /* ---------------------------------------------------------------------------------------- */
 
     /* #region ---- Get Active Player --------------------------------------------------------- */
     public MatchPlayer GetActivePlayer()
@@ -232,7 +218,6 @@ public class MatchPlayerManager : SingletonMonoBehaviour<MatchPlayerManager>
     }
 
     /* #endregion */
-    /* ---------------------------------------------------------------------------------------- */
         
     /* #endregion */
     /* ======================================================================================== */

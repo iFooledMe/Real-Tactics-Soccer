@@ -6,7 +6,7 @@ public class GameManager : SingletonScriptableObject<GameManager>
 {
 	/* #region ==== FIELDS & PROPERTIES ======================================================= */
 	
-    /* #region ---- Misc Fields --------------------------------------------------------------- */
+	/* #region ---- Misc Fields --------------------------------------------------------------- */
 	private bool _firstTimeInit = true;
     
     /* #endregion */
@@ -19,6 +19,12 @@ public class GameManager : SingletonScriptableObject<GameManager>
     /* #endregion */
     /* ---------------------------------------------------------------------------------------- */
 	
+	/* #region ---- Dependencies -------------------------------------------------------------- */
+	MatchManager MatchManager;
+    
+    /* #endregion */
+    /* ---------------------------------------------------------------------------------------- */
+
 	/* #endregion */
     /* ======================================================================================== */
 
@@ -95,12 +101,14 @@ public class GameManager : SingletonScriptableObject<GameManager>
 	/* #region ---- Load Match Scene ---------------------------------------------------------- */
 	public void LoadMatchManager()
 	{
-		MatchManager _matchManager = MatchManager.Instance;
+		Debug.Log("LoadMatchManager loaded from GameManager");
+		MatchManager = ScriptableObject.CreateInstance<MatchManager>();
 	}
 	/* #endregion */
 	/* ---------------------------------------------------------------------------------------- */
 
     /* #endregion */
     /* ======================================================================================== */
+
 
 }

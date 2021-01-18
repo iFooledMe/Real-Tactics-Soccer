@@ -10,12 +10,7 @@ public class MainMenu : MonoBehaviour
     {
         this.GameManager = GameManager.Instance;
     }
-    
-    public void LoadMainMenu()
-    {
-        loadScene("Main Menu");
-    }
-    
+        
     public void StartMatch()
     {
         GameManager.LoadMatchManager();
@@ -28,7 +23,8 @@ public class MainMenu : MonoBehaviour
 
     private void loadScene(string scene)
 	{
-		SceneManager.LoadScene(scene, LoadSceneMode.Single);
+		
+        SceneManager.LoadScene(scene, LoadSceneMode.Single);
 	}
 
 }

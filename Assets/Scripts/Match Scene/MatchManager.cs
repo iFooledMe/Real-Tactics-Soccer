@@ -79,9 +79,9 @@ public class MatchManager : SingletonScriptableObject<MatchManager>
     /* #region ==== ON ENABLE ================================================================= */
     void OnEnable()
     {
+        Debug.Log("matchManager enabled");
         preSceneLoads();
-        loadMatchScene();
-        
+        loadMatchScene();        
     }
     /* #endregion */
     /* ======================================================================================== */

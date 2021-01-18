@@ -112,6 +112,15 @@ public class MatchPlayerInput : SingletonMonoBehaviour<MatchPlayerInput>
 
     /* #region ==== G E N E R A L  U I ======================================================== */
 
+    /* #region ---- Back to Main Menu --------------------------------------------------------- */
+    public void OnBtnMainMenu()
+    {
+        MatchManager.GameManager.LoadMainMenu();
+    }
+
+    /* #endregion */
+    /* ---------------------------------------------------------------------------------------- */
+    
     /* #region ---- Toggle Overlay Grid ------------------------------------------------------- */
     public void OnBtnToggleGrid()
     {

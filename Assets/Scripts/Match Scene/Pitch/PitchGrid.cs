@@ -202,7 +202,7 @@ public class PitchGrid : SingletonMonoBehaviour<PitchGrid>
         for (int x = 1; x <= pitchWidth; x++) {
             for (int z = 1; z <= pitchLength; z++) 
             {    
-                GameObject pitchTileObj = InstantiateGameObject(returnPitchTilePrefab(x, z));
+                GameObject pitchTileObj = MatchManager.InstantiateGameObject(returnPitchTilePrefab(x, z));
                 pitchTileObj.transform.position = new Vector3(
                 pitchTileObj.transform.position.x - XOffset + x, 
                 pitchTileObj.transform.position.y,
@@ -911,20 +911,7 @@ public class PitchGrid : SingletonMonoBehaviour<PitchGrid>
 
     /* #region ==== GENERAL HELPERS =========================================================== */
 
-    /* #region ---- Instantiate GameObject ---------------------------------------------------- */
-    public GameObject InstantiateGameObject(GameObject prefab) 
-    {
-        GameObject _pitchTileObject = (GameObject)Instantiate(prefab);
-        return _pitchTileObject;
-    }
-    /* #endregion */
 
-    /* #region ---- Destroy GameObject -------------------------------------------------------- */
-    public void DestroyObjectsByTag(string tag) 
-    {
-        Destroy(GameObject.FindGameObjectWithTag(tag));
-    }
-    /* #endregion */
 
     /* #endregion */
     /* ======================================================================================== */

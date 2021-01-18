@@ -149,6 +149,7 @@ public class MatchPlayer : MonoBehaviour
         _renderer.material.color = activeColor;
         MatchManager.MatchPlayerManager.SetOtherPlayersInactive(this);
         MatchManager.MatchPlayerManager.CurrentActivePlayer = this;
+        MatchManager.DestroyObjectsByTag("PathLine");
     }
 
     public void SetPlayerInactive()

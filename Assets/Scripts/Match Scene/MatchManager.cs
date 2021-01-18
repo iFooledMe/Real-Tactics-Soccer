@@ -82,7 +82,7 @@ public class MatchManager : SingletonScriptableObject<MatchManager>
     /* #endregion */
     /* ======================================================================================== */
 
-    /* #region ==== LOAD MATCH ================================================================ */
+    /* #region ==== L O A D  M A T C H ======================================================== */
     void loadMatchScene() 
     {
         loadPitchManager();
@@ -119,6 +119,25 @@ public class MatchManager : SingletonScriptableObject<MatchManager>
 		}
     }
     /* #endregion */
+
+    /* #endregion */
+    /* ======================================================================================== */
+
+    /* #region ==== G E N E R A L  H E L P E R S ============================================== */
+    
+    /* #region ---- Destroy GameObject -------------------------------------------------------- */
+    public void DestroyObjectsByTag(string tag) 
+    {
+        Destroy(GameObject.FindGameObjectWithTag(tag));
+    }
+    /* #endregion */
+
+    /* #region ---- Instantiate GameObject ---------------------------------------------------- */
+    public GameObject InstantiateGameObject(GameObject prefab) 
+    {
+        GameObject _pitchTileObject = (GameObject)Instantiate(prefab);
+        return _pitchTileObject;
+    }
 
     /* #endregion */
     /* ======================================================================================== */

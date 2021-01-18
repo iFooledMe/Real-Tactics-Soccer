@@ -47,7 +47,7 @@ public class DrawPathLine
 
             if (pathToTarget != null) 
             {
-                GameObject PathLineObject = PitchGrid.InstantiateGameObject(PitchGrid.PathLinePrefab);
+                GameObject PathLineObject = MatchManager.InstantiateGameObject(PitchGrid.PathLinePrefab);
                 PathLineObject.name = "PlayerMove PathLine";
                 LineRenderer lineRenderer = PathLineObject.GetComponent<LineRenderer>();
                 int counter = 0;
@@ -79,7 +79,7 @@ public class DrawPathLine
     /* #region ---- Clear Player Movement Path Line(s) ---------------------------------------- */
     public void ClearPlayerMovePathLines() 
     {
-        MatchManager.PitchGrid.DestroyObjectsByTag("PathLine"); 
+        MatchManager.DestroyObjectsByTag("PathLine"); 
     }
     /* #endregion */
 

@@ -10,7 +10,6 @@ public class Team
     public Team(string teamName)
     {
         this.Name = teamName;
-        Debug.Log($"Team {Name} created");
         createPlayers();
     }
 

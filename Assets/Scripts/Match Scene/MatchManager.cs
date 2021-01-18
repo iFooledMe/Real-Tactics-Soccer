@@ -111,12 +111,10 @@ public class MatchManager : SingletonScriptableObject<MatchManager>
     {
         if(MatchTeamManager != null)
 		{
-			Debug.Log("MatchTeamManager Instance Reset...");
 			MatchTeamManager.ResetInstance();
 		}
 		else
 		{
-			Debug.Log("Create new MatchTeamManager Instance...");
 			MatchTeamManager = ScriptableObject.CreateInstance<MatchTeamManager>();
 		}
     }

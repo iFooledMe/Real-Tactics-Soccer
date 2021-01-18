@@ -14,7 +14,6 @@ public class PitchTile : MonoBehaviour
     public int CoordZ { get; private set; }
 
     /* #endregion */
-    /* ---------------------------------------------------------------------------------------- */
 
     /* #region ---- Occupation state ---------------------------------------------------------- */
     public bool IsOccupied {get; private set;}
@@ -22,7 +21,6 @@ public class PitchTile : MonoBehaviour
 
 
     /* #endregion */
-    /* ---------------------------------------------------------------------------------------- */
 
     /* #region ---- Movement/Pathfinding Fields ----------------------------------------------- */
     [SerializeField]
@@ -34,13 +32,11 @@ public class PitchTile : MonoBehaviour
     public bool IsViableTarget { get => _isViableTarget; set => _isViableTarget = value; }
 
     /* #endregion */
-    /* ---------------------------------------------------------------------------------------- */
 
     /* #region ---- Dependencies -------------------------------------------------------------- */
     private MatchManager MatchManager;
 
     /* #endregion */
-    /* ---------------------------------------------------------------------------------------- */
 
     /* #endregion */
     /* ======================================================================================== */
@@ -57,7 +53,6 @@ public class PitchTile : MonoBehaviour
         MatchManager = MatchManager.Instance;
     }
     /* #endregion */
-    /* ---------------------------------------------------------------------------------------- */
 
     /* #endregion */
     /* ======================================================================================== */
@@ -80,7 +75,6 @@ public class PitchTile : MonoBehaviour
     }
 
     /* #endregion */
-    /* ---------------------------------------------------------------------------------------- */
 
     /* #region ---- Left click ---------------------------------------------------------------- */
     
@@ -90,7 +84,6 @@ public class PitchTile : MonoBehaviour
     }
 
     /* #endregion */
-    /* ---------------------------------------------------------------------------------------- */
     
     /* #endregion */
     /* ======================================================================================== */
@@ -104,7 +97,6 @@ public class PitchTile : MonoBehaviour
         this.CoordZ = coordZ;
     }
     /* #endregion */
-    /* ---------------------------------------------------------------------------------------- */
 
     /* #region ---- Creates/Add to a new list of all neighbouring tiles ----------------------- */
     public void CreateNeighbourTilesList()
@@ -118,7 +110,6 @@ public class PitchTile : MonoBehaviour
     }
 
     /* #endregion */
-    /* ---------------------------------------------------------------------------------------- */
 
     /* #region ---- Set tile occupied/unoccupied ---------------------------------------------- */
     public void setOccupied(MatchPlayer player)
@@ -136,7 +127,6 @@ public class PitchTile : MonoBehaviour
     }
 
     /* #endregion */
-    /* ---------------------------------------------------------------------------------------- */
 
     /* #endregion */
     /* ======================================================================================== */

@@ -18,7 +18,6 @@ public class PitchGrid : SingletonMonoBehaviour<PitchGrid>
     public event PitchCreatedNote PitchCreated;
     
     /* #endregion */
-    /* ---------------------------------------------------------------------------------------- */
     
     /* #region ---- Prefabs ------------------------------------------------------------------- */
     public GameObject PathLinePrefab; //Accessed by PathFinding class
@@ -124,7 +123,6 @@ public class PitchGrid : SingletonMonoBehaviour<PitchGrid>
     [SerializeField] private GameObject penaltyBox_n_5_3;
     [SerializeField] private GameObject penaltyBox_n_5_4;
     /* #endregion */
-    /* ---------------------------------------------------------------------------------------- */
 
     /* #region ---- Dependencies -------------------------------------------------------------- */
     private MatchManager MatchManager;
@@ -132,7 +130,6 @@ public class PitchGrid : SingletonMonoBehaviour<PitchGrid>
     public PathFinding PathFinding {get; private set;}
 
     /* #endregion */
-    /* ---------------------------------------------------------------------------------------- */
 
     /* #endregion */
     /* ======================================================================================== */
@@ -150,7 +147,6 @@ public class PitchGrid : SingletonMonoBehaviour<PitchGrid>
         MatchManager.SetPitchGrid();
     }
     /* #endregion */
-    /* ---------------------------------------------------------------------------------------- */
 
     /* #region ---- Set pathfinding ----------------------------------------------------------- */
     void createPathFinding() 
@@ -160,8 +156,6 @@ public class PitchGrid : SingletonMonoBehaviour<PitchGrid>
         CreateGraph.AddNeighbourTiles();
     }
     /* #endregion */
-    /* ---------------------------------------------------------------------------------------- */
-
 
     /* #endregion */
     /* ======================================================================================== */
@@ -196,7 +190,6 @@ public class PitchGrid : SingletonMonoBehaviour<PitchGrid>
         ZOffset = (PitchLength/2) + 0.5f;
     }
     /* #endregion */
-    /* ---------------------------------------------------------------------------------------- */
     
     /* #region ---- CreatePitch --------------------------------------------------------------- */
     private void createPitch() 
@@ -205,8 +198,6 @@ public class PitchGrid : SingletonMonoBehaviour<PitchGrid>
         int pitchLength = MatchManager.PitchManager.PitchLength;
         setPosOffset(pitchWidth, pitchLength);
         PitchTilesArray = new GameObject [pitchWidth + 1, pitchLength + 1];
-
-        Debug.Log($"Create pitch --- Width: {pitchWidth} - Length: {pitchLength}");
 
         for (int x = 1; x <= pitchWidth; x++) {
             for (int z = 1; z <= pitchLength; z++) 
@@ -227,7 +218,6 @@ public class PitchGrid : SingletonMonoBehaviour<PitchGrid>
         }
     }
     /* #endregion */
-    /* ---------------------------------------------------------------------------------------- */
 
     /* #region ---- Return a tile prefab for position ----------------------------------------- */
     GameObject returnPitchTilePrefab (int x, int z) 
@@ -915,7 +905,6 @@ public class PitchGrid : SingletonMonoBehaviour<PitchGrid>
         /* #endregion */
     }               
     /* #endregion */
-    /* ---------------------------------------------------------------------------------------- */
 
     /* #endregion */
     /* ======================================================================================== */
@@ -929,7 +918,6 @@ public class PitchGrid : SingletonMonoBehaviour<PitchGrid>
         return _pitchTileObject;
     }
     /* #endregion */
-    /* ---------------------------------------------------------------------------------------- */
 
     /* #region ---- Destroy GameObject -------------------------------------------------------- */
     public void DestroyObjectsByTag(string tag) 
@@ -937,7 +925,6 @@ public class PitchGrid : SingletonMonoBehaviour<PitchGrid>
         Destroy(GameObject.FindGameObjectWithTag(tag));
     }
     /* #endregion */
-    /* ---------------------------------------------------------------------------------------- */
 
     /* #endregion */
     /* ======================================================================================== */

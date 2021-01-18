@@ -11,13 +11,11 @@ public class DrawPathLine
     private List<Vector3> listLinePoints;
 
     /* #endregion */
-    /* ---------------------------------------------------------------------------------------- */
 
     /* #region ---- Dependencies -------------------------------------------------------------- */
     MatchManager MatchManager;
 
     /* #endregion */
-    /* ---------------------------------------------------------------------------------------- */
 
     /* #endregion */
     /* ======================================================================================== */
@@ -77,7 +75,6 @@ public class DrawPathLine
         }
     }
     /* #endregion */
-    /* ---------------------------------------------------------------------------------------- */
     
     /* #region ---- Clear Player Movement Path Line(s) ---------------------------------------- */
     public void ClearPlayerMovePathLines() 
@@ -85,9 +82,8 @@ public class DrawPathLine
         MatchManager.PitchGrid.DestroyObjectsByTag("PathLine"); 
     }
     /* #endregion */
-    /* ---------------------------------------------------------------------------------------- */
 
-    /* #region ---- Set all tiles MovableTo = false; ------------------------------------------ */
+    /* #region ---- Reset all tiles to none viable movement targets --------------------------- */
     void setAllTilesNoneViableTarget(PitchManager PitchManager)
     {
         for (int x = 1; x <= PitchManager.PitchWidth; x++) {
@@ -98,7 +94,6 @@ public class DrawPathLine
         }
     }
     /* #endregion */
-    /* ---------------------------------------------------------------------------------------- */
 
     /* #endregion */
     /* ======================================================================================== */

@@ -9,7 +9,6 @@ public class MatchPlayerInput : SingletonMonoBehaviour<MatchPlayerInput>
     private MatchManager MatchManager;
 
     /* #endregion */
-    /* ---------------------------------------------------------------------------------------- */
     
     /* #endregion */
     /* ======================================================================================== */
@@ -27,7 +26,6 @@ public class MatchPlayerInput : SingletonMonoBehaviour<MatchPlayerInput>
         MatchManager.SetMatchPlayerInput();
     }
     /* #endregion */
-    /* ---------------------------------------------------------------------------------------- */
 
     /* #endregion */
     /* ======================================================================================== */
@@ -54,7 +52,6 @@ public class MatchPlayerInput : SingletonMonoBehaviour<MatchPlayerInput>
     }
 
     /* #endregion */
-    /* ---------------------------------------------------------------------------------------- */
 
     /* #region ---- Player Mouse Left click --------------------------------------------------- */
     public void OnPlayerLeftClick(MatchPlayer player)
@@ -63,7 +60,6 @@ public class MatchPlayerInput : SingletonMonoBehaviour<MatchPlayerInput>
     }
 
     /* #endregion */
-    /* ---------------------------------------------------------------------------------------- */
 
     /* #endregion */
     /* ======================================================================================== */  
@@ -77,7 +73,6 @@ public class MatchPlayerInput : SingletonMonoBehaviour<MatchPlayerInput>
     }
 
     /* #endregion */
-    /* ---------------------------------------------------------------------------------------- */
 
     /* #region ---- PitchTile Mouse Left click ------------------------------------------------ */
     public void OnPitchTileLeftClick(PitchTile targetTile)
@@ -86,7 +81,6 @@ public class MatchPlayerInput : SingletonMonoBehaviour<MatchPlayerInput>
     }
 
     /* #endregion */
-    /* ---------------------------------------------------------------------------------------- */
 
     /* #endregion */
     /* ======================================================================================== */  
@@ -105,7 +99,6 @@ public class MatchPlayerInput : SingletonMonoBehaviour<MatchPlayerInput>
     }
 
     /* #endregion */
-    /* ---------------------------------------------------------------------------------------- */
 
     /* #endregion */
     /* ======================================================================================== */
@@ -119,7 +112,6 @@ public class MatchPlayerInput : SingletonMonoBehaviour<MatchPlayerInput>
     }
 
     /* #endregion */
-    /* ---------------------------------------------------------------------------------------- */
     
     /* #region ---- Toggle Overlay Grid ------------------------------------------------------- */
     public void OnBtnToggleGrid()
@@ -128,15 +120,8 @@ public class MatchPlayerInput : SingletonMonoBehaviour<MatchPlayerInput>
     }
 
     /* #endregion */
-    /* ---------------------------------------------------------------------------------------- */
 
     /* #endregion */
     /* ======================================================================================== */
 
-
-    public void updateScore()
-    {
-        MatchManager.Score++;
-        Debug.Log(MatchManager.Score.ToString());
-    }
 }

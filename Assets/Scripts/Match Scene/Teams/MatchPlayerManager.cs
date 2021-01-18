@@ -105,8 +105,6 @@ public class MatchPlayerManager : SingletonMonoBehaviour<MatchPlayerManager>
                 matchPlayersList.Add(matchPlayer);
             }    
         }
-
-        Debug.Log(CurrentActivePlayer.Name);
     }
     
     /* #region ---- Set player info ----------------------------------------------------------- */

@@ -15,13 +15,11 @@ public class MatchPlayer : MonoBehaviour
     public int CoordZ {get; private set;}
 
     /* #endregion */
-    /* ---------------------------------------------------------------------------------------- */
 
     /* #region ---- Player Stats -------------------------------------------------------------- */
     public int ActionPoints {get; private set;}
 
     /* #endregion */
-    /* ---------------------------------------------------------------------------------------- */
 
     /* #region ---- Player States ------------------------------------------------------------- */
     public bool IsActive {get; private set;}
@@ -31,20 +29,17 @@ public class MatchPlayer : MonoBehaviour
     private Color activeColor = Color.red;
 
     /* #endregion */
-    /* ---------------------------------------------------------------------------------------- */
     
     /* #region ---- Components ---------------------------------------------------------------- */
     private Renderer _renderer;
 
     /* #endregion */
-    /* ---------------------------------------------------------------------------------------- */
 
     /* #region ---- Dependencies -------------------------------------------------------------- */
     private MatchManager MatchManager;
     public PlayerActions PlayerActions {get; private set;}
 
     /* #endregion */
-    /* ---------------------------------------------------------------------------------------- */
     
     /* #endregion */
     /* ======================================================================================== */
@@ -67,7 +62,6 @@ public class MatchPlayer : MonoBehaviour
         MatchManager = MatchManager.Instance;
     }
     /* #endregion */
-    /* ---------------------------------------------------------------------------------------- */
 
     /* #region ---- Get Renderer Component ---------------------------------------------------- */
     public void getRenderer()
@@ -75,7 +69,6 @@ public class MatchPlayer : MonoBehaviour
         _renderer = this.GetComponent<Renderer>();
     }
     /* #endregion */
-    /* ---------------------------------------------------------------------------------------- */
 
     /* #region ---- Set PlayerActions --------------------------------------------------------- */
     public void setPlayerActions()
@@ -84,7 +77,6 @@ public class MatchPlayer : MonoBehaviour
     }
 
     /* #endregion */
-    /* ---------------------------------------------------------------------------------------- */
 
     /* #endregion */
     /* ======================================================================================== */
@@ -123,7 +115,6 @@ public class MatchPlayer : MonoBehaviour
     }
 
     /* #endregion */
-    /* ---------------------------------------------------------------------------------------- */
 
     /* #region ---- Left click ---------------------------------------------------------------- */
     
@@ -133,7 +124,6 @@ public class MatchPlayer : MonoBehaviour
     }
 
     /* #endregion */
-    /* ---------------------------------------------------------------------------------------- */
     
     /* #endregion */
     /* ======================================================================================== */
@@ -151,7 +141,6 @@ public class MatchPlayer : MonoBehaviour
     }
 
     /* #endregion */
-    /* ---------------------------------------------------------------------------------------- */
 
     /* #region ---- Set player Active / Inactive ---------------------------------------------- */
     public void SetPlayerActive()
@@ -169,7 +158,6 @@ public class MatchPlayer : MonoBehaviour
     }
 
     /* #endregion */
-    /* ---------------------------------------------------------------------------------------- */
 
     /* #region ---- Set player Coordinates by PitchTile --------------------------------------- */
     public void SetPlayerCoordinatesByTile(PitchTile tile)
@@ -179,7 +167,6 @@ public class MatchPlayer : MonoBehaviour
     }
 
     /* #endregion */
-    /* ---------------------------------------------------------------------------------------- */
 
     /* #region ---- Player Highlight ---------------------------------------------------------- */
     public void PlayerHighlightOn()
@@ -201,43 +188,8 @@ public class MatchPlayer : MonoBehaviour
     }
 
     /* #endregion */
-    /* ---------------------------------------------------------------------------------------- */
 
     /* #endregion */
     /* ======================================================================================== */
-    int _currentWaypoint = 0;
-    float _onScreenMoveSpeed = 3f;
-
-    public void MovePlayer(Vector3 _nextPos, List<PitchTile> _waypoints)
-    {
-        _nextPos = new Vector3(_waypoints[
-        _currentWaypoint].transform.position.x, 
-        transform.position.y, 
-        _waypoints[_currentWaypoint].transform.position.z);
-
-        
-        
-        float distance = Vector3.Distance(_nextPos, transform.position);
-        transform.position = Vector3.MoveTowards(transform.position, _nextPos, _onScreenMoveSpeed * Time.deltaTime);
-
-        Debug.Log(distance);
-        
-        if (distance <= 0.005)
-        {
-            transform.position = _nextPos;
-            _currentWaypoint++;
-        }
-
-        if (_currentWaypoint >= _waypoints.Count)
-        {
-            _waypoints[_waypoints.Count - 1].CostToEnter = 0;
-            _waypoints = null;
-            _currentWaypoint = 0;
-            MatchManager.MatchPlayerManager.setPlayerInActionState(false);
-            PlayerActions.CurrentAction = PlayerAction.Idle;
-        }
-    }
-
-
 
 }

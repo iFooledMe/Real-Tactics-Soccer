@@ -18,7 +18,6 @@ public class PlayerActions
     public PlayerAction CurrentAction = PlayerAction.Idle;
 
     /* #endregion */
-    /* ---------------------------------------------------------------------------------------- */
 
     /* #region ---- Move ---------------------------------------------------------------------- */
     private PitchTile MoveTargetTile;
@@ -28,14 +27,12 @@ public class PlayerActions
     private int currentWaypoint = 0;
 
     /* #endregion */
-    /* ---------------------------------------------------------------------------------------- */
 
     /* #region ---- Dependencies -------------------------------------------------------------- */
     private MatchManager MatchManager;
     private MatchPlayer Player;
     
     /* #endregion */
-    /* ---------------------------------------------------------------------------------------- */
 
     /* #endregion */
     /* ======================================================================================== */
@@ -115,7 +112,6 @@ public class PlayerActions
     }
 
     /* #endregion */
-    /* ---------------------------------------------------------------------------------------- */
     
     /* #region ---- 2. SETUP & START MOVEMENT ------------------------------------------------- */
     public void MovePlayerSetup(PitchTile targetTile)
@@ -134,7 +130,6 @@ public class PlayerActions
     }
 
     /* #endregion */
-    /* ---------------------------------------------------------------------------------------- */
     
     /* #region ---- 3. MOVE [Executed in MatchPlayer.Update() ] ------------------------------- */
     private void Move()
@@ -166,7 +161,6 @@ public class PlayerActions
     }
 
     /* #endregion */
-    /* ---------------------------------------------------------------------------------------- */
 
     /* #region ---- helper - Stop and Reset --------------------------------------------------- */
     private void stopAndReset()
@@ -178,7 +172,6 @@ public class PlayerActions
     }
     
     /* #endregion */
-    /* ---------------------------------------------------------------------------------------- */
     
     /* #region ---- helper - Set Player States ------------------------------------------------ */
     private void setPlayerStates()
@@ -200,7 +193,6 @@ public class PlayerActions
     }
     
     /* #endregion */
-    /* ---------------------------------------------------------------------------------------- */
     
     /* #region ---- helper - Set Tiles States ------------------------------------------------- */
     private void setTilesStates()
@@ -210,7 +202,6 @@ public class PlayerActions
     }
 
     /* #endregion */
-    /* ---------------------------------------------------------------------------------------- */
 
     /* #endregion */
     /* ======================================================================================== */

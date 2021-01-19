@@ -169,6 +169,7 @@ public class MatchPlayer : MonoBehaviour
     {
         PlayerMode = PlayerMode.Idle;
         clearMovePaths();
+        deactivateBallGrid();
         
     }
 
@@ -178,6 +179,7 @@ public class MatchPlayer : MonoBehaviour
     private void setMoveMode()
     {
         PlayerMode = PlayerMode.Move;
+        deactivateBallGrid();
     }
 
     /* #endregion */
@@ -186,6 +188,7 @@ public class MatchPlayer : MonoBehaviour
     private void setPassMode()
     {
         PlayerMode = PlayerMode.Pass;
+        MatchManager.BallGrid.ActivateBallGrid();
         clearMovePaths();
     }
 
@@ -195,6 +198,11 @@ public class MatchPlayer : MonoBehaviour
     private void clearMovePaths()
     {
         MatchManager.DestroyObjectsByTag("PathLine");
+    }
+
+    private void deactivateBallGrid()
+    {
+        MatchManager.BallGrid.DeactivateBallGrid();
     }
 
     /* #endregion */

@@ -12,7 +12,8 @@ public class BallGrid : SingletonMonoBehaviour<BallGrid>
     /* #endregion */
 
     /* #region ---- BallGrid ----------------------------------------------------------------- */
-    public List<BallGridPoint> BallGridPointList;
+    private List<BallGridPoint> ballGridPoints = new List<BallGridPoint>();
+    public List<BallGridPoint> BallGridPoints {get => ballGridPoints; }
 
     /* #endregion */
     
@@ -74,6 +75,8 @@ public class BallGrid : SingletonMonoBehaviour<BallGrid>
                 createBallGridPoints(MatchManager.PitchManager.GetPitchTile(x,z));
             }
         }
+
+        DeactivateBallGrid();
     }
 
     /* #region ---- Create Ball Grid points --------------------------------------------------- */
@@ -87,6 +90,7 @@ public class BallGrid : SingletonMonoBehaviour<BallGrid>
             ballGridPoint.AddToReachableTiles(pitchTile);
             setVectorPosition(pitchTile, ballGridPoint, x);
             ballGridPointObj.transform.SetParent(this.transform);
+            ballGridPoints.Add(ballGridPoint);
         }
     }
 
@@ -172,6 +176,31 @@ public class BallGrid : SingletonMonoBehaviour<BallGrid>
         ballGridPoint.transform.position = position;
     }
     
+    /* #endregion */
+
+    /* #endregion */
+    /* ======================================================================================== */
+
+
+    /* #region ==== GENERAL HELPERS =========================================================== */
+
+    /* #region ---- Activate / Deactivate Ball Grid ------------------------------------------- */
+    public void ActivateBallGrid()
+    {
+        foreach (var ballPoint in BallGridPoints)
+        {
+            ballPoint.gameObject.SetActive(true);
+        }
+    }
+
+    public void DeactivateBallGrid()
+    {
+        foreach (var ballPoint in BallGridPoints)
+        {
+            ballPoint.gameObject.SetActive(false);
+        }
+    }
+
     /* #endregion */
 
     /* #endregion */

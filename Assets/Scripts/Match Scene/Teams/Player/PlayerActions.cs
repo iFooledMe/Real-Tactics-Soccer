@@ -53,13 +53,13 @@ public class PlayerActions
         switch(playerAction) 
         {
             case PlayerAction.Idle:
-                Idle();
+                idle();
                 break;
             case PlayerAction.Move:
-                Move();
+                move();
                 break;
             default:
-                Idle();
+                idle();
                 break;
         }
     }
@@ -68,7 +68,7 @@ public class PlayerActions
     /* ======================================================================================== */
 
     /* #region ==== I D L E  a c t i o n ====================================================== */
-    private void Idle()
+    private void idle()
     {
         return;
     }
@@ -81,40 +81,43 @@ public class PlayerActions
     /* #region ---- 1. CHECK FOR MOVEMENT ----------------------------------------------------- */
     public void CheckForMovement(PitchTile targetTile)
     {
-        if (targetTile.IsViableTarget)
+        if (MatchManager.MatchPlayerManager.CurrentActivePlayer.PlayerMode == PlayerMode.Move)
         {
-            if (targetTile.IsOccupied)
+            if (targetTile.IsViableTarget)
             {
-                if (targetTile.OccupiedByPlayer == MatchManager.MatchPlayerManager.CurrentActivePlayer)
+                if (targetTile.IsOccupied)
                 {
-                    Debug.Log("Tile already occupied by the active player");
-                    return;
+                    if (targetTile.OccupiedByPlayer == MatchManager.MatchPlayerManager.CurrentActivePlayer)
+                    {
+                        Debug.Log("Tile already occupied by the active player");
+                        return;
+                    }
+                    else
+                    {
+                        Debug.Log("Can't move here! Tile is occupied by other player");
+                        return;
+                    }
                 }
                 else
                 {
-                    Debug.Log("Can't move here! Tile is occupied by other player");
-                    return;
+                    if(!MatchManager.MatchPlayerManager.PlayInAction) 
+                    {
+                        movePlayerSetup(targetTile);
+                    }
                 }
             }
             else
             {
-                if(!MatchManager.MatchPlayerManager.PlayInAction) 
-                {
-                    MovePlayerSetup(targetTile);
-                }
+                Debug.Log("This tile is out of movement reach");
+                return;
             }
-        }
-        else
-        {
-            Debug.Log("This tile is out of movement reach");
-            return;
         }
     }
 
     /* #endregion */
     
     /* #region ---- 2. SETUP & START MOVEMENT ------------------------------------------------- */
-    public void MovePlayerSetup(PitchTile targetTile)
+    private void movePlayerSetup(PitchTile targetTile)
     {
         MoveTargetTile = targetTile;
         MoveSourceTile = MatchManager.PitchManager.GetPitchTile(Player.CoordX, Player.CoordZ);
@@ -132,7 +135,7 @@ public class PlayerActions
     /* #endregion */
     
     /* #region ---- 3. MOVE [Executed in MatchPlayer.Update() ] ------------------------------- */
-    private void Move()
+    private void move()
     {   
         nextWaypoint = new Vector3(waypoints[
         currentWaypoint].transform.position.x, 
@@ -202,6 +205,18 @@ public class PlayerActions
     }
 
     /* #endregion */
+
+    /* #endregion */
+    /* ======================================================================================== */
+
+    /* #region ==== PASS  a c t i o n ====================================================== */
+    private void pass()
+    {
+        if (MatchManager.MatchPlayerManager.CurrentActivePlayer.PlayerMode == PlayerMode.Pass)
+        {
+
+        }
+    }
 
     /* #endregion */
     /* ======================================================================================== */

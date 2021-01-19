@@ -14,12 +14,14 @@ public class BallGrid : SingletonMonoBehaviour<BallGrid>
     /* #region ---- BallGrid ----------------------------------------------------------------- */
     private List<BallGridPoint> ballGridPoints = new List<BallGridPoint>();
     public List<BallGridPoint> BallGridPoints {get => ballGridPoints; }
+    public GameObject BallPointerObj {get; private set;}
 
     /* #endregion */
     
     /* #region ---- Prefabs ------------------------------------------------------------------- */
     [SerializeField] private GameObject BallPrefab;
     [SerializeField] private GameObject BallGridPointPrefab;
+    [SerializeField] private GameObject BallPointerPrefab;
 
     /* #endregion ------------------------------------------------------------------------------*/
 
@@ -76,6 +78,7 @@ public class BallGrid : SingletonMonoBehaviour<BallGrid>
             }
         }
 
+        createBallPointer();
         DeactivateBallGrid();
     }
 
@@ -178,9 +181,18 @@ public class BallGrid : SingletonMonoBehaviour<BallGrid>
     
     /* #endregion */
 
+    /* #region ---- Create Ball Pointer (Follows Mouse on the Pitch in Pass Mode) ------------- */
+    private void createBallPointer()
+    {
+        BallPointerObj = MatchManager.InstantiateGameObject(BallGridPointPrefab);
+        BallPointerObj.transform.SetParent(this.transform);
+        BallPointerObj.transform.position = new Vector3 (0,0,0);
+        //BallPointerSetActive(false);
+    }
+    /* #endregion */
+
     /* #endregion */
     /* ======================================================================================== */
-
 
     /* #region ==== GENERAL HELPERS =========================================================== */
 
@@ -191,6 +203,7 @@ public class BallGrid : SingletonMonoBehaviour<BallGrid>
         {
             ballPoint.gameObject.SetActive(true);
         }
+        BallPointerSetActive(true);
     }
 
     public void DeactivateBallGrid()
@@ -199,7 +212,22 @@ public class BallGrid : SingletonMonoBehaviour<BallGrid>
         {
             ballPoint.gameObject.SetActive(false);
         }
+        BallPointerSetActive(false);
     }
+
+    public void BallPointerSetActive(bool setActive)
+    {
+        switch(setActive) 
+        {
+            case true:
+                BallPointerObj.SetActive(true);
+                break; 
+            case false:
+                BallPointerObj.SetActive(false);
+                break; 
+        }
+    }
+
 
     /* #endregion */
 

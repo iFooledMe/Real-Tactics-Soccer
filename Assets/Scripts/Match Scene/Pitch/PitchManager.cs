@@ -8,6 +8,7 @@ public class PitchManager : SingletonScriptableObject<PitchManager>
     /* #region ==== FIELDS & PROPERTIES ======================================================= */
 
     /* #region ---- Pitch Settings ------------------------------------------------------------ */
+    //TODO: Fix issue with pitch being created skewed when PitchWidth is set to uneven number
     private int _pitchWidth = 20; 
     private int _pitchLength = 40;
     public int PitchWidth { get => _pitchWidth; private set => _pitchLength = value; }

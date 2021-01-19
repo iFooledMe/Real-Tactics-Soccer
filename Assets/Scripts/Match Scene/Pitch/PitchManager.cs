@@ -51,7 +51,7 @@ public class PitchManager : SingletonScriptableObject<PitchManager>
     /* #region ---- Get a single PitchTile script reference ----------------------------------- */
     public PitchTile GetPitchTile(int x, int z) 
     {
-        GameObject pitchTile = MatchManager.PitchGrid.PitchTilesArray[x,z];
+        GameObject pitchTile = MatchManager.PitchGrid.PitchTiles[x,z];
         return pitchTile.GetComponent<PitchTile>();
     }
     /* #endregion */

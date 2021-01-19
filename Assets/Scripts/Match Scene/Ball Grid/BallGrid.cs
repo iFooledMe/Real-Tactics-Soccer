@@ -61,66 +61,41 @@ public class BallGrid : SingletonMonoBehaviour<BallGrid>
     /* #endregion */
     /* ======================================================================================== */
 
-    /* #region ==== C R E A T E  B A L L  G R I D ============================================= */
+    /* #region ==== C R E A T E  B A L L  G R I D  ============================================ */
     private void createBallGrid()
     {
-        int iterations = 0;
-        string maxRightTop = "none";
-
         int pitchWidth = MatchManager.PitchManager.PitchWidth;
         int pitchLength = MatchManager.PitchManager.PitchLength;
-        
-        for (int x = 1; x <= pitchWidth; x++) {
+
+        for (int x = 1; x <= pitchWidth; x++) 
+        {
             for (int z = 1; z <= pitchLength; z++) 
-            {  
-                if (x == pitchWidth && z == pitchLength)
-                {
-                    iterations = 9;
-                }
-                else if (x == pitchWidth)
-                {
-                    iterations = 6;
-                    maxRightTop = "maxRight";
-
-                }
-                else if (z == pitchLength)
-                {
-                    iterations = 6;
-                    maxRightTop = "maxTop";
-
-                }
-                else
-                {
-                    iterations = 4;
-                }
-
-
-
-
-
-                PitchTile pitchTile = MatchManager.PitchManager.GetPitchTile(x, z);
-                createBallGridPoints(pitchTile, iterations, maxRightTop);
-                
-  
+            {     
+                createBallGridPoints(MatchManager.PitchManager.GetPitchTile(x,z));
             }
         }
     }
 
-    /* #region ---- Set tempList -------------------------------------------------------------- */
-    private void createBallGridPoints(PitchTile pitchTile, int iterations, string maxRightTop)
-    {
-        for (int x = 1; x <= iterations; x++) 
+    /* #region ---- Create Ball Grid points --------------------------------------------------- */
+    private void createBallGridPoints(PitchTile pitchTile)
+    {        
+        for (int x = 1; x <= 9; x++) 
         {
-            GameObject ballGridPoint = MatchManager.InstantiateGameObject(BallGridPointPrefab);
-            setVectorPosition(pitchTile, ballGridPoint, x, maxRightTop);
+            GameObject ballGridPointObj = MatchManager.InstantiateGameObject(BallGridPointPrefab);
+            BallGridPoint ballGridPoint = ballGridPointObj.GetComponent<BallGridPoint>();
+            ballGridPoint.PitchTile = pitchTile;
+            ballGridPoint.AddToReachableTiles(pitchTile);
+            setVectorPosition(pitchTile, ballGridPoint, x);
+            ballGridPointObj.transform.SetParent(this.transform);
         }
-
     }
 
     /* #endregion */
 
+        /* #endregion */
+
     /* #region ---- Set player Vector position ------------------------------------------------ */
-    private void setVectorPosition(PitchTile pitchTile, GameObject ballGridPoint, int iteration, string maxRightTop)
+    private void setVectorPosition(PitchTile pitchTile, BallGridPoint ballGridPoint, int iteration)
     {
         float offsetX = 0f;
         float offsetZ = 0f;
@@ -128,93 +103,84 @@ public class BallGrid : SingletonMonoBehaviour<BallGrid>
         
         if (iteration == 1)
         {
-            // --- Left Bottom
+            // 1 : 1
             offsetX = -0.5f;
-            offsetZ = -0.5f;    
+            offsetZ = -0.5f;
+            ballGridPoint.gameObject.name = $"Tile - {pitchTile.CoordX} : {pitchTile.CoordZ} | BallPoint 1:1";    
 
         }
         else if (iteration == 2)
         {
-            // --- Middle Bottom
+            // 1 : 2
             offsetX = 0f;
-            offsetZ = -0.5f; 
+            offsetZ = -0.5f;
+            ballGridPoint.gameObject.name = $"Tile - {pitchTile.CoordX} : {pitchTile.CoordZ} | BallPoint 1:2";    
         }
         else if (iteration == 3)
         {
-            // --- Left Center
-            offsetX = -0.5f;
-            offsetZ = 0f;
+            // 1 : 3
+            offsetX = 0.5f;
+            offsetZ = -0.5f; 
+            ballGridPoint.gameObject.name = $"Tile - {pitchTile.CoordX} : {pitchTile.CoordZ} | BallPoint 1:3";   
         }
         else if (iteration == 4)
         {
-            // --- Center Center
-            offsetX = 0f;
-            offsetZ = 0f;
+            // 2 : 1
+            offsetX = -0.5f;
+            offsetZ = 0f; 
+            ballGridPoint.gameObject.name = $"Tile - {pitchTile.CoordX} : {pitchTile.CoordZ} | BallPoint 2:1";   
         }
         else if (iteration == 5)
         {
-            if (maxRightTop == "maxRight")
-            {
-                // --- Right Bottom
-                offsetX = 0.5f;
-                offsetZ = -0.5f;
-            }
-            else if (maxRightTop == "maxTop")
-            {
-                // --- Left Top
-                offsetX = -0.5f;
-                offsetZ = 0.5f;
-            }
-
+            // 2 : 2 - Center
+            offsetX = 0f;
+            offsetZ = 0f; 
+            ballGridPoint.gameObject.name = $"Tile - {pitchTile.CoordX} : {pitchTile.CoordZ} | BallPoint 2:2";   
         }
         else if (iteration == 6)
         {
-            if (maxRightTop == "maxRight")
-            {
-                // --- Right Center
-                offsetX = 0.5f;
-                offsetZ = 0f;
-            }
-            else if (maxRightTop == "maxTop")
-            {
-                // --- Center Top
-                offsetX = 0f;
-                offsetZ = 0.5f;
-            }
+            // 2 : 3
+            offsetX = 0.5f;
+            offsetZ = 0f; 
+            ballGridPoint.gameObject.name = $"Tile - {pitchTile.CoordX} : {pitchTile.CoordZ} | BallPoint 2:3";   
         }
         else if (iteration == 7)
         {
-            // --- TopRightCorner - Left Top
+            // 3 : 1
             offsetX = -0.5f;
-            offsetZ = 0.5f;
+            offsetZ = 0.5f; 
+            ballGridPoint.gameObject.name = $"Tile - {pitchTile.CoordX} : {pitchTile.CoordZ} | BallPoint 3:1"; 
         }
         else if (iteration == 8)
         {
-            // --- TopRightCorner - Center Top
+            // 3 : 2
             offsetX = 0f;
-            offsetZ = 0.5f;
+            offsetZ = 0.5f; 
+            ballGridPoint.gameObject.name = $"Tile - {pitchTile.CoordX} : {pitchTile.CoordZ} | BallPoint 3:2"; 
         }
         else if (iteration == 9)
         {
-            // --- TopRightCorner - Right Top
+            // 3 : 3
             offsetX = 0.5f;
-            offsetZ = 0.5f;
+            offsetZ = 0.5f; 
+            ballGridPoint.gameObject.name = $"Tile - {pitchTile.CoordX} : {pitchTile.CoordZ} | BallPoint 3:3"; 
         }
         
-
-        
-        GameObject pitchTileObj = pitchTile.gameObject;
-
         Vector3 position = new Vector3 (
-            pitchTileObj.transform.position.x + offsetX, 
+            pitchTile.transform.position.x + offsetX, 
             ballGridPoint.transform.position.y, 
-            pitchTileObj.transform.position.z + offsetZ);
+            pitchTile.transform.position.z + offsetZ);
         
         ballGridPoint.transform.position = position;
     }
     
     /* #endregion */
 
+
+
     /* #endregion */
     /* ======================================================================================== */
+
+
+
 }

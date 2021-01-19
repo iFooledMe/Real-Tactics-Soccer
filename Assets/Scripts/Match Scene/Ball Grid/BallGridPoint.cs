@@ -11,6 +11,10 @@ public class BallGridPoint : MonoBehaviour
 
     /* #endregion */
 
+    public PitchTile PitchTile;
+    List<Collider> collidingPoints = new List<Collider>();
+    public List<PitchTile> ReachedFromTiles {get; private set;}
+
     /* #endregion */
     /* ======================================================================================== */
 
@@ -36,6 +40,59 @@ public class BallGridPoint : MonoBehaviour
         getDependencies();
     }
     
+    /* #endregion */
+    /* ======================================================================================== */
+
+    /* #region ==== INTERACTIONS ============================================================== */
+    
+    /* #region ---- MouseOver / MouseExit ----------------------------------------------------- */
+    void OnMouseEnter() 
+    {
+        
+    }
+
+    /* #endregion */
+
+    /* #region ---- Left click ---------------------------------------------------------------- */
+    private void OnMouseUp() 
+    {
+        foreach(var tile in ReachedFromTiles)
+        {
+            Debug.Log(tile.gameObject.name);
+        }
+    }
+
+    /* #endregion */
+    
+    /* #endregion */
+    /* ======================================================================================== */
+    
+    /* #region ==== GET OVERLAPPING BALL POINTS AND ADD THEIR PITCHTILE TO THIS LIST ========== */
+    private void OnTriggerEnter(Collider collidingPoint)
+    {
+        if (!collidingPoints.Contains(collidingPoint))
+        {
+            collidingPoints.Add(collidingPoint);
+            
+            BallGridPoint ballPoint = collidingPoint.GetComponent<BallGridPoint>();
+            PitchTile tile = ballPoint.PitchTile;
+            AddToReachableTiles(tile);
+        }
+    }
+
+    public void AddToReachableTiles(PitchTile tile)
+    {
+        if (ReachedFromTiles == null)
+        {
+            ReachedFromTiles = new List<PitchTile>();
+        }
+        
+        if (!ReachedFromTiles.Contains(tile))
+        {
+            ReachedFromTiles.Add(tile);
+        } 
+    }
+
     /* #endregion */
     /* ======================================================================================== */
 }

@@ -11,7 +11,7 @@ public class PitchGrid : SingletonMonoBehaviour<PitchGrid>
     /* #region ==== FIELDS & PROPERTIES ======================================================= */
     
     /* #region ---- Pitch --------------------------------------------------------------------- */
-    public GameObject [,] PitchTilesArray {get; private set;}
+    public GameObject [,] PitchTiles {get; private set;}
     public float XOffset {get; private set;}
     public float ZOffset {get; private set;}
 
@@ -197,9 +197,10 @@ public class PitchGrid : SingletonMonoBehaviour<PitchGrid>
         int pitchWidth = MatchManager.PitchManager.PitchWidth;
         int pitchLength = MatchManager.PitchManager.PitchLength;
         setPosOffset(pitchWidth, pitchLength);
-        PitchTilesArray = new GameObject [pitchWidth + 1, pitchLength + 1];
+        PitchTiles = new GameObject [pitchWidth + 1, pitchLength + 1];
 
-        for (int x = 1; x <= pitchWidth; x++) {
+        for (int x = 1; x <= pitchWidth; x++) 
+        {
             for (int z = 1; z <= pitchLength; z++) 
             {    
                 GameObject pitchTileObj = MatchManager.InstantiateGameObject(returnPitchTilePrefab(x, z));
@@ -213,7 +214,7 @@ public class PitchGrid : SingletonMonoBehaviour<PitchGrid>
                 PitchTile pitchTile = pitchTileObj.GetComponent<PitchTile>();   
                 pitchTile.SetCoodinates(x, z);
                 pitchTile.setUnOccupied();
-                PitchTilesArray[x,z] = pitchTileObj;
+                PitchTiles[x,z] = pitchTileObj;
             }
         }
 

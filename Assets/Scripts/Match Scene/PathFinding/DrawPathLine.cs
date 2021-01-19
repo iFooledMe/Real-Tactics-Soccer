@@ -33,44 +33,47 @@ public class DrawPathLine
     /* #region ---- Draw movement path line from active player to target tile ----------------- */
     public void Draw(PitchTile targetIn) 
     {
-        PitchManager PitchManager = MatchManager.PitchManager;
-        PitchGrid PitchGrid = MatchManager.PitchGrid;
-        MatchPlayer player = MatchManager.MatchPlayerManager.GetActivePlayer();
-
-        if (!MatchManager.MatchPlayerManager.PlayInAction)
+        if (MatchManager.MatchPlayerManager.CurrentActivePlayer.PlayerMode == PlayerMode.Move)
         {
-            ClearPlayerMovePathLines();
-            setAllTilesNoneViableTarget(PitchManager);
-            accumulatedMoveCost = 0;
-            List<PitchTile> pathToTarget = PitchGrid.PathFinding.GetPathToTarget(targetIn, player);
-            listLinePoints = new List<Vector3>();
+            PitchManager PitchManager = MatchManager.PitchManager;
+            PitchGrid PitchGrid = MatchManager.PitchGrid;
+            MatchPlayer player = MatchManager.MatchPlayerManager.GetActivePlayer();
 
-            if (pathToTarget != null) 
+            if (!MatchManager.MatchPlayerManager.PlayInAction)
             {
-                GameObject PathLineObject = MatchManager.InstantiateGameObject(PitchGrid.PathLinePrefab);
-                PathLineObject.name = "PlayerMove PathLine";
-                LineRenderer lineRenderer = PathLineObject.GetComponent<LineRenderer>();
-                int counter = 0;
-                foreach (PitchTile pathTile in pathToTarget) 
-                {
-                    counter++;
+                ClearPlayerMovePathLines();
+                setAllTilesNoneViableTarget(PitchManager);
+                accumulatedMoveCost = 0;
+                List<PitchTile> pathToTarget = PitchGrid.PathFinding.GetPathToTarget(targetIn, player);
+                listLinePoints = new List<Vector3>();
 
-                    if (accumulatedMoveCost < player.ActionPoints)
+                if (pathToTarget != null) 
+                {
+                    GameObject PathLineObject = MatchManager.InstantiateGameObject(PitchGrid.PathLinePrefab);
+                    PathLineObject.name = "PlayerMove PathLine";
+                    LineRenderer lineRenderer = PathLineObject.GetComponent<LineRenderer>();
+                    int counter = 0;
+                    foreach (PitchTile pathTile in pathToTarget) 
                     {
-                        Vector3 linePoint = new Vector3 (
-                            pathTile.transform.position.x, 
-                            PathLineObject.transform.position.y, 
-                            pathTile.transform.position.z);
-                    
-                        listLinePoints.Add(linePoint);
+                        counter++;
+
+                        if (accumulatedMoveCost < player.ActionPoints)
+                        {
+                            Vector3 linePoint = new Vector3 (
+                                pathTile.transform.position.x, 
+                                PathLineObject.transform.position.y, 
+                                pathTile.transform.position.z);
                         
-                        if(counter != 1){ accumulatedMoveCost += pathTile.CostToEnter; }
-                        pathTile.IsViableTarget = true;
+                            listLinePoints.Add(linePoint);
+                            
+                            if(counter != 1){ accumulatedMoveCost += pathTile.CostToEnter; }
+                            pathTile.IsViableTarget = true;
+                        }
                     }
+                    
+                    lineRenderer.positionCount = listLinePoints.Count;
+                    lineRenderer.SetPositions(listLinePoints.ToArray());
                 }
-                
-                lineRenderer.positionCount = listLinePoints.Count;
-                lineRenderer.SetPositions(listLinePoints.ToArray());
             }
         }
     }

@@ -2,6 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum PlayerMode
+{
+    Idle,
+    Move,
+    Pass
+}
+
 public class MatchPlayer : MonoBehaviour
 {
     /* #region ==== FIELDS & PROPERTIES ======================================================= */
@@ -27,6 +34,8 @@ public class MatchPlayer : MonoBehaviour
     private Color defaultColor = Color.green;
     private Color highLightColor = Color.blue;
     private Color activeColor = Color.red;
+
+    public PlayerMode PlayerMode = PlayerMode.Idle;
 
     /* #endregion */
     
@@ -128,7 +137,72 @@ public class MatchPlayer : MonoBehaviour
     /* #endregion */
     /* ======================================================================================== */
     
-    /* #region ==== M A I N  M E T H O D S ==================================================== */
+    /* #region ==== P L A Y E R  M O D E S  =================================================== */
+    
+    /* #region ---- Player Mode Switcher ------------------------------------------------------ */
+    public void SetPlayerMode(PlayerMode playerMode)
+    {
+        if (!MatchManager.MatchPlayerManager.PlayInAction)
+        {
+            switch(playerMode) 
+            {
+            case PlayerMode.Idle:
+                setIdleMode();
+                break;
+            case PlayerMode.Move:
+                setMoveMode();
+                break;
+            case PlayerMode.Pass:
+                setPassMode();
+                break;
+            default:
+                setIdleMode();
+                break;
+            }
+        }
+    }
+
+    /* #endregion */
+
+    /* #region ---- Idle Mode ------------------------------------------------------------------ */
+    private void setIdleMode()
+    {
+        PlayerMode = PlayerMode.Idle;
+        clearMovePaths();
+        
+    }
+
+    /* #endregion */
+
+    /* #region ---- Move Mode ------------------------------------------------------------------ */
+    private void setMoveMode()
+    {
+        PlayerMode = PlayerMode.Move;
+    }
+
+    /* #endregion */
+
+    /* #region ---- Pass Mode ------------------------------------------------------------------ */
+    private void setPassMode()
+    {
+        PlayerMode = PlayerMode.Pass;
+        clearMovePaths();
+    }
+
+    /* #endregion */
+
+    /* #region ---- Commen helpers ------------------------------------------------------------- */
+    private void clearMovePaths()
+    {
+        MatchManager.DestroyObjectsByTag("PathLine");
+    }
+
+    /* #endregion */
+    
+    /* #endregion */
+    /* ======================================================================================== */
+
+    /* #region ==== O T H E R  M E T H O D S ================================================== */
     
     /* #region ---- Set player info on Instantiation ------------------------------------------ */
     public void SetPlayerInfo(Player player, int coordX, int coordZ)
@@ -155,6 +229,7 @@ public class MatchPlayer : MonoBehaviour
     public void SetPlayerInactive()
     {
         IsActive = false;
+        PlayerMode = PlayerMode.Idle;
         _renderer.material.color = defaultColor;
     }
 

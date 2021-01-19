@@ -92,8 +92,6 @@ public class BallGrid : SingletonMonoBehaviour<BallGrid>
 
     /* #endregion */
 
-        /* #endregion */
-
     /* #region ---- Set player Vector position ------------------------------------------------ */
     private void setVectorPosition(PitchTile pitchTile, BallGridPoint ballGridPoint, int iteration)
     {
@@ -175,8 +173,6 @@ public class BallGrid : SingletonMonoBehaviour<BallGrid>
     }
     
     /* #endregion */
-
-
 
     /* #endregion */
     /* ======================================================================================== */

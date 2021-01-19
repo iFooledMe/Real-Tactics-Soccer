@@ -38,7 +38,7 @@ public class MatchPlayerInput : SingletonMonoBehaviour<MatchPlayerInput>
     /* #endregion */
     /* ======================================================================================== */
 
-    /* #region ==== P L A Y E R  E V E N T S ================================================== */
+    /* #region ==== G A M E  C O N T R O L S ================================================== */
     
     /* #region ---- Player MouseEnter / MouseExit --------------------------------------------- */
     public void OnPlayerMouseEnter(MatchPlayer player)
@@ -61,11 +61,6 @@ public class MatchPlayerInput : SingletonMonoBehaviour<MatchPlayerInput>
 
     /* #endregion */
 
-    /* #endregion */
-    /* ======================================================================================== */  
-
-    /* #region ==== P I T C H  T I L E  E V E N T S =========================================== */
-    
     /* #region ---- PitchTile MouseEnter / MouseExit ------------------------------------------ */
     public void OnPitchTileMouseEnter(PitchTile tile)
     {
@@ -78,6 +73,28 @@ public class MatchPlayerInput : SingletonMonoBehaviour<MatchPlayerInput>
     public void OnPitchTileLeftClick(PitchTile targetTile)
     {
         MatchManager.MatchPlayerManager.CurrentActivePlayer.PlayerActions.CheckForMovement(targetTile);
+    }
+
+    /* #endregion */
+
+    /* #region ---- Mode Buttons -------------------------------------------------------------- */
+    
+    // --- Idle Mode ---
+    public void OnBtnIdleMode()
+    {
+        MatchManager.MatchPlayerManager.CurrentActivePlayer.SetPlayerMode(PlayerMode.Idle);
+    }
+
+    // --- Move Mode ---
+    public void OnBtnMoveMode()
+    {
+        MatchManager.MatchPlayerManager.CurrentActivePlayer.SetPlayerMode(PlayerMode.Move);
+    }
+
+    // --- Pass Mode ---
+    public void OnBtnPassMode()
+    {
+        MatchManager.MatchPlayerManager.CurrentActivePlayer.SetPlayerMode(PlayerMode.Pass);
     }
 
     /* #endregion */

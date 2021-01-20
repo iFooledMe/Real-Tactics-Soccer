@@ -59,6 +59,7 @@ public class BallGrid : SingletonMonoBehaviour<BallGrid>
     private void Start()
     {
         MatchManager.PitchGrid.PitchCreated += createBallGrid;
+        createBallPointer();
     }
 
     /* #endregion */
@@ -184,10 +185,11 @@ public class BallGrid : SingletonMonoBehaviour<BallGrid>
     /* #region ---- Create Ball Pointer (Follows Mouse on the Pitch in Pass Mode) ------------- */
     private void createBallPointer()
     {
-        BallPointerObj = MatchManager.InstantiateGameObject(BallGridPointPrefab);
+        Debug.Log("BallPointer created");
+        BallPointerObj = MatchManager.InstantiateGameObject(BallPointerPrefab);
         BallPointerObj.transform.SetParent(this.transform);
         BallPointerObj.transform.position = new Vector3 (0,0,0);
-        //BallPointerSetActive(false);
+        BallPointerSetActive(false);
     }
     /* #endregion */
 
@@ -215,6 +217,9 @@ public class BallGrid : SingletonMonoBehaviour<BallGrid>
         BallPointerSetActive(false);
     }
 
+    /* #endregion */
+
+    /* #region ---- Activate / Deactivate Ball Pointer ---------------------------------------- */
     public void BallPointerSetActive(bool setActive)
     {
         switch(setActive) 
@@ -227,7 +232,6 @@ public class BallGrid : SingletonMonoBehaviour<BallGrid>
                 break; 
         }
     }
-
 
     /* #endregion */
 

@@ -26,6 +26,7 @@ public class MatchManager : SingletonScriptableObject<MatchManager>
     public MatchPlayerInput MatchPlayerInput {get; private set;}
 
     public BallGrid BallGrid {get; private set;}
+    public BallPointer BallPointer {get; private set;}
 
     /* #endregion */
 
@@ -40,11 +41,19 @@ public class MatchManager : SingletonScriptableObject<MatchManager>
 
     /* #region ---- Classes call theese functions to set themselfs as ref here on Instantiation */
     //TODO: Set up observer pattern with events instead
+    
+    // ---- Pitch Grid ----
     public void SetPitchGrid()
     {
         this.PitchGrid = PitchGrid.Instance;
     }
 
+    public void SetGridOverLay()
+    {
+        this.GridOverlay = GridOverlay.Instance;
+    }
+
+    // ---- Camera ----
     public void SetCameraManager()
     {
         this.CameraManager = CameraManager.Instance;
@@ -55,24 +64,27 @@ public class MatchManager : SingletonScriptableObject<MatchManager>
         this.MainCameraControler = MainCameraControler.Instance;
     }
 
+    // ---- Player ----
     public void SetMatchPlayerManager()
     {
         this.MatchPlayerManager = MatchPlayerManager.Instance;
     }
 
-    public void SetGridOverLay()
-    {
-        this.GridOverlay = GridOverlay.Instance;
-    }
-
+    // ---- Game Controller ----
     public void SetMatchPlayerInput()
     {
         this.MatchPlayerInput = MatchPlayerInput.Instance;
     }
 
+    // ---- Ball Grid ----
     public void SetBallGrid()
     {
         this.BallGrid = BallGrid.Instance;
+    }
+
+    public void SetBallPointer()
+    {
+        this.BallPointer = BallPointer.Instance;
     }
 
     /* #endregion */

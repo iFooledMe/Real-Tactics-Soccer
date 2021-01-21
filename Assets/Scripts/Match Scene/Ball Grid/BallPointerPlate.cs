@@ -36,6 +36,7 @@ public class BallPointerPlate : MonoBehaviour
     {
         BallGridPoint ballPoint = collidingPoint.GetComponent<BallGridPoint>();
         MatchManager.BallGrid.SetCurrentPoint(ballPoint);
+        MatchManager.BallPointer.SetPosition();
     }
 }
 

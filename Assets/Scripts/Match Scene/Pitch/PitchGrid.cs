@@ -217,8 +217,6 @@ public class PitchGrid : SingletonMonoBehaviour<PitchGrid>
                 PitchTiles[x,z] = pitchTileObj;
             }
         }
-
-        Debug.Log("Pitch created");
     }
     /* #endregion */
 

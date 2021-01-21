@@ -65,8 +65,6 @@ public class MatchPlayerManager : SingletonMonoBehaviour<MatchPlayerManager>
     /* #region ==== C R E A T E  P L A Y E R S ================================================ */
     private void addPlayersToPitch()
     {
-        Debug.Log("Create players...");
-
         List<Player> playersList = MatchManager.MatchTeamManager.PlayerTeam.Players;
         Team team = MatchManager.MatchTeamManager.PlayerTeam;
         

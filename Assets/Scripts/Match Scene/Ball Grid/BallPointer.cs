@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BallPointer : MonoBehaviour
+public class BallPointer : SingletonMonoBehaviour<BallPointer>
 {
     /* #region ==== FIELDS & PROPERTIES ======================================================= */
     
@@ -17,16 +17,17 @@ public class BallPointer : MonoBehaviour
     /* #endregion */
     /* ======================================================================================== */
 
-    /* #region ==== GET DEPENDENCIES & COMPONENTS ============================================= */
+    /* #region ==== GET DEPENDENCIES ========================================================== */
     private void getDependencies()
     {
-        getMatchManager();
+        getSetMatchManager();
     }
 
-    /* #region ---- Get MatchManager ---------------------------------------------------------- */
-    public void getMatchManager()
+    /* #region ---- Get/Set MatchManager (Get Instance and sets itself as ref on the same ----- */
+    public void getSetMatchManager()
     {
-        MatchManager = MatchManager.Instance;
+        this.MatchManager = MatchManager.Instance;
+        MatchManager.SetBallPointer();
     }
     /* #endregion */
 
@@ -46,23 +47,21 @@ public class BallPointer : MonoBehaviour
     /* #region ==== UPDATE ==================================================================== */
     void Update() 
     {
-        setPosition();
+        //setPosition();
     }
 
     /* #endregion */
     /* ======================================================================================== */
 
-    /* #region ==== SET POSITION ============================================================== */    
-    private void setPosition()
+    /* #region ==== S E T  P O S I T I O N ==================================================== */    
+    public void SetPosition()
     {
         BallGridPoint = MatchManager.BallGrid.CurrentPoint;
-        //Debug.Log(BallGridPoint.transform.position);
-
         position.x = BallGridPoint.transform.position.x;
-
         position.z = BallGridPoint.transform.position.z;
-
         this.transform.position = position;
+
+        Debug.Log(BallGridPoint.transform.position);
     }
 
     /* #endregion */

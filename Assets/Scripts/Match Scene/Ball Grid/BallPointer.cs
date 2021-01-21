@@ -52,7 +52,7 @@ public class BallPointer : SingletonMonoBehaviour<BallPointer>
         position.z = BallGridPoint.transform.position.z;
         this.transform.position = position;
 
-        Debug.Log(BallGridPoint.gameObject.name);
+        //Debug.Log(BallGridPoint.gameObject.name);
     }
 
     /* #endregion */

@@ -5,6 +5,11 @@ public class MatchPlayerInput : SingletonMonoBehaviour<MatchPlayerInput>
 {
     /* #region ==== FIELDS & PROPERTIES ======================================================= */
 
+    /* #region ---- Mouse Position ------------------------------------------------------------ */
+    public Vector3 MousePosition {get; private set;}
+
+    /* #endregion */
+
     /* #region ---- Dependencies -------------------------------------------------------------- */
     private MatchManager MatchManager;
 
@@ -42,9 +47,75 @@ public class MatchPlayerInput : SingletonMonoBehaviour<MatchPlayerInput>
     private void Update()
     {
         checkForMouseInput();
+        checkForMousePosition();
     }
 
     /* #endregion */
+    /* ======================================================================================== */
+
+    /* #region ==== M O U S E  I N P U T ====================================================== */
+    private void checkForMouseInput()
+    {
+        /* #region ---- Left click ------------------------------------------------------------*/
+        if(Input.GetMouseButtonDown(0))
+        {
+            MatchPlayer activePlayer = MatchManager.MatchPlayerManager.CurrentActivePlayer;
+            PlayerMode playerMode = activePlayer.PlayerMode;
+            
+            switch(playerMode) 
+            {
+                case PlayerMode.Idle:
+                    OnMouseLeftClickIdle(activePlayer);
+                    break; 
+                case PlayerMode.Move:
+                    OnMouseLeftClickMove(activePlayer);
+                    break; 
+                case PlayerMode.Pass:
+                    OnMouseLeftClickPass(activePlayer);
+                    break;
+            }
+        }
+        /* #endregion */
+
+        /* #region ---- Right click -----------------------------------------------------------*/
+        if(Input.GetMouseButtonDown(1))
+        {
+            MatchPlayer activePlayer = MatchManager.MatchPlayerManager.CurrentActivePlayer;
+            PlayerMode playerMode = activePlayer.PlayerMode;
+            
+            switch(playerMode) 
+            {
+                case PlayerMode.Idle:
+                    OnMouseRightClickIdle(activePlayer);
+                    break; 
+                case PlayerMode.Move:
+                    OnMouseRightClickMove(activePlayer);
+                    break; 
+                case PlayerMode.Pass:
+                    OnMouseRightClickPass(activePlayer);
+                    break;
+            }
+        }
+        /* #endregion */
+    }
+
+    private void checkForMousePosition()
+    {
+        //MousePosition = Input.mousePosition;
+        //MousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+            Plane plane=new Plane(Vector3.up,new Vector3(0, 0, 0));
+            Ray ray=Camera.main.ScreenPointToRay(Input.mousePosition);
+            float distance;
+            
+            if(plane.Raycast(ray, out distance)) 
+            {
+                MousePosition=ray.GetPoint(distance);
+            }
+    }
+
+    
+     /* #endregion */
     /* ======================================================================================== */
 
     /* #region ==== G A M E  C O N T R O L S ================================================== */
@@ -131,7 +202,7 @@ public class MatchPlayerInput : SingletonMonoBehaviour<MatchPlayerInput>
 
     public void OnMouseLeftClickPass(MatchPlayer player) 
     {
-        Debug.Log("Pass Action Ordered");
+        Debug.Log($"Mouse Position - {MousePosition}");
     }
 
     public void OnMouseRightClickPass(MatchPlayer player) 
@@ -143,56 +214,6 @@ public class MatchPlayerInput : SingletonMonoBehaviour<MatchPlayerInput>
 
     /* #endregion */
     /* ======================================================================================== */  
-
-    /* #region ==== M O U S E  C O N T R O L ================================================== */
-    private void checkForMouseInput()
-    {
-        /* #region ---- Left click ------------------------------------------------------------*/
-        if(Input.GetMouseButtonDown(0))
-        {
-            MatchPlayer activePlayer = MatchManager.MatchPlayerManager.CurrentActivePlayer;
-            PlayerMode playerMode = activePlayer.PlayerMode;
-            
-            switch(playerMode) 
-            {
-                case PlayerMode.Idle:
-                    OnMouseLeftClickIdle(activePlayer);
-                    break; 
-                case PlayerMode.Move:
-                    OnMouseLeftClickMove(activePlayer);
-                    break; 
-                case PlayerMode.Pass:
-                    OnMouseLeftClickPass(activePlayer);
-                    break;
-            }
-        }
-        /* #endregion */
-
-        /* #region ---- Right click ------------------------------------------------------------*/
-        if(Input.GetMouseButtonDown(1))
-        {
-            MatchPlayer activePlayer = MatchManager.MatchPlayerManager.CurrentActivePlayer;
-            PlayerMode playerMode = activePlayer.PlayerMode;
-            
-            switch(playerMode) 
-            {
-                case PlayerMode.Idle:
-                    OnMouseRightClickIdle(activePlayer);
-                    break; 
-                case PlayerMode.Move:
-                    OnMouseRightClickMove(activePlayer);
-                    break; 
-                case PlayerMode.Pass:
-                    OnMouseRightClickPass(activePlayer);
-                    break;
-            }
-        }
-        /* #endregion */
-
-    }
-    
-     /* #endregion */
-    /* ======================================================================================== */
 
     /* #region ==== C A M E R A  C O N T R O L ================================================ */
     

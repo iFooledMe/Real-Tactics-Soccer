@@ -39,5 +39,3 @@ public class BallPointerPlate : MonoBehaviour
         MatchManager.BallPointer.SetPosition();
     }
 }
-
-

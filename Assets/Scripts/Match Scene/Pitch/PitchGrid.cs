@@ -16,7 +16,18 @@ public class PitchGrid : SingletonMonoBehaviour<PitchGrid>
     public float ZOffset {get; private set;}
 
     public event PitchCreatedNote PitchCreated;
+
+    /* #endregion */
+
+    /* #region ---- Out Line ------------------------------------------------------------------ */
+    [SerializeField]
+    private float outLineOffset = 1f; //Offset from outline tile position to define pitch border
     
+    public Vector3 outLineNegX {get; private set;} //Bottom Left Corner
+    public Vector3 outLinePosX {get; private set;} //Bottom Right Corner
+    public Vector3 outLineNegZ {get; private set;} //Top Left Corner
+    public Vector3 outLinePosZ {get; private set;} //Top Right Corner
+
     /* #endregion */
     
     /* #region ---- Prefabs ------------------------------------------------------------------- */
@@ -215,6 +226,8 @@ public class PitchGrid : SingletonMonoBehaviour<PitchGrid>
                 pitchTile.SetCoodinates(x, z);
                 pitchTile.setUnOccupied();
                 PitchTiles[x,z] = pitchTileObj;
+
+                getOutLineTiles(pitchTile, x, z);
             }
         }
     }
@@ -905,6 +918,41 @@ public class PitchGrid : SingletonMonoBehaviour<PitchGrid>
         }
         /* #endregion */
     }               
+    /* #endregion */
+
+    /* #region ---- Set Outline tiles --------------------------------------------------------- */
+    private void getOutLineTiles(PitchTile tile, int x, int z)
+    {
+        int pitchWidth = MatchManager.PitchManager.PitchWidth;
+        int pitchLength = MatchManager.PitchManager.PitchLength;
+
+        Vector3 tilePosition = tile.transform.position;
+
+        if (x == 1 && z == pitchLength/2)
+        {
+            tilePosition.x -= outLineOffset;
+            outLineNegX = tilePosition;
+        }
+        
+        if (x == pitchWidth && z == pitchLength/2)
+        {
+            tilePosition.x += outLineOffset;
+            outLinePosX = tilePosition;
+        } 
+        
+        if (z == 1 && x == pitchWidth/2)
+        {
+            tilePosition.z -= outLineOffset;
+            outLineNegZ = tilePosition;
+        }
+        
+        if (z == pitchLength && x == pitchWidth/2)
+        {
+            tilePosition.z += outLineOffset;
+            outLinePosZ = tilePosition;
+        } 
+    }
+
     /* #endregion */
 
     /* #endregion */

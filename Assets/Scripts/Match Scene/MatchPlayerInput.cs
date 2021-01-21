@@ -7,6 +7,7 @@ public class MatchPlayerInput : SingletonMonoBehaviour<MatchPlayerInput>
 
     /* #region ---- Mouse Position ------------------------------------------------------------ */
     public Vector3 MousePosition {get; private set;}
+    public bool MouseOnPitch {get; private set;}
 
     /* #endregion */
 
@@ -48,12 +49,15 @@ public class MatchPlayerInput : SingletonMonoBehaviour<MatchPlayerInput>
     {
         checkForMouseInput();
         checkForMousePosition();
+        checkForMousePosOnPitch();
     }
 
     /* #endregion */
     /* ======================================================================================== */
 
     /* #region ==== M O U S E  I N P U T ====================================================== */
+    
+    /* #region ---- Check for Mouse Input ----------------------------------------------------- */
     private void checkForMouseInput()
     {
         /* #region ---- Left click ------------------------------------------------------------*/
@@ -99,23 +103,39 @@ public class MatchPlayerInput : SingletonMonoBehaviour<MatchPlayerInput>
         /* #endregion */
     }
 
+    /* #endregion */
+
+    /* #region ---- Check for Mouse Position -------------------------------------------------- */
     private void checkForMousePosition()
     {
-        //MousePosition = Input.mousePosition;
-        //MousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-
-            Plane plane=new Plane(Vector3.up,new Vector3(0, 0, 0));
-            Ray ray=Camera.main.ScreenPointToRay(Input.mousePosition);
-            float distance;
-            
-            if(plane.Raycast(ray, out distance)) 
-            {
-                MousePosition=ray.GetPoint(distance);
-            }
+        Plane plane=new Plane(Vector3.up,new Vector3(0, 0, 0));
+        Ray ray=Camera.main.ScreenPointToRay(Input.mousePosition);
+        float distance;
+        
+        if(plane.Raycast(ray, out distance)) 
+        {
+            MousePosition=ray.GetPoint(distance);
+        }
     }
 
-    
-     /* #endregion */
+    private void checkForMousePosOnPitch()
+    {
+        if (MousePosition.x < MatchManager.PitchGrid.outLineNegX.x | 
+            MousePosition.x > MatchManager.PitchGrid.outLinePosX.x | 
+            MousePosition.z < MatchManager.PitchGrid.outLineNegZ.z |
+            MousePosition.z > MatchManager.PitchGrid.outLinePosZ.z )
+        {
+            MouseOnPitch = false;
+        }
+        else
+        {
+            MouseOnPitch = true;
+        }
+    }
+
+    /* #endregion */
+
+    /* #endregion */
     /* ======================================================================================== */
 
     /* #region ==== G A M E  C O N T R O L S ================================================== */
@@ -202,7 +222,7 @@ public class MatchPlayerInput : SingletonMonoBehaviour<MatchPlayerInput>
 
     public void OnMouseLeftClickPass(MatchPlayer player) 
     {
-        Debug.Log($"Mouse Position - {MousePosition}");
+        
     }
 
     public void OnMouseRightClickPass(MatchPlayer player) 

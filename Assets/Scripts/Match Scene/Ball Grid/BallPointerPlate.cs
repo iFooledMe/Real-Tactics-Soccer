@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class MouseFollow : MonoBehaviour
+public class BallPointerPlate : MonoBehaviour
 {
     private MatchManager MatchManager;
 
@@ -30,6 +30,12 @@ public class MouseFollow : MonoBehaviour
                 transform.position=ray.GetPoint(distance);
             }
         }
+    }
+
+    private void OnTriggerEnter(Collider collidingPoint)
+    {
+        BallGridPoint ballPoint = collidingPoint.GetComponent<BallGridPoint>();
+        MatchManager.BallGrid.SetCurrentPoint(ballPoint);
     }
 }
 

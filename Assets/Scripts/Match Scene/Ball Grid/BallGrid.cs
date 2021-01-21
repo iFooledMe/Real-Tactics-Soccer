@@ -14,13 +14,15 @@ public class BallGrid : SingletonMonoBehaviour<BallGrid>
     /* #region ---- BallGrid ----------------------------------------------------------------- */
     private List<BallGridPoint> ballGridPoints = new List<BallGridPoint>();
     public List<BallGridPoint> BallGridPoints {get => ballGridPoints; }
-    public GameObject BallPointerObj {get; private set;}
+    public GameObject PointerPlateObj {get; private set;}
+    public GameObject PointerObj {get; private set;}
+    public BallGridPoint CurrentPoint {get; private set;}
 
     /* #endregion */
     
     /* #region ---- Prefabs ------------------------------------------------------------------- */
-    [SerializeField] private GameObject BallPrefab;
     [SerializeField] private GameObject BallGridPointPrefab;
+    [SerializeField] private GameObject BallPointerPlatePrefab;
     [SerializeField] private GameObject BallPointerPrefab;
 
     /* #endregion ------------------------------------------------------------------------------*/
@@ -59,13 +61,14 @@ public class BallGrid : SingletonMonoBehaviour<BallGrid>
     private void Start()
     {
         MatchManager.PitchGrid.PitchCreated += createBallGrid;
-        createBallPointer();
     }
 
     /* #endregion */
     /* ======================================================================================== */
 
     /* #region ==== C R E A T E  B A L L  G R I D  ============================================ */
+    
+    /* #region ---- CREATE BALL GRID ---------------------------------------------------------- */
     private void createBallGrid()
     {
         int pitchWidth = MatchManager.PitchManager.PitchWidth;
@@ -82,6 +85,8 @@ public class BallGrid : SingletonMonoBehaviour<BallGrid>
         createBallPointer();
         DeactivateBallGrid();
     }
+
+    /* #endregion */
 
     /* #region ---- Create Ball Grid points --------------------------------------------------- */
     private void createBallGridPoints(PitchTile pitchTile)
@@ -185,18 +190,35 @@ public class BallGrid : SingletonMonoBehaviour<BallGrid>
     /* #region ---- Create Ball Pointer (Follows Mouse on the Pitch in Pass Mode) ------------- */
     private void createBallPointer()
     {
-        Debug.Log("BallPointer created");
-        BallPointerObj = MatchManager.InstantiateGameObject(BallPointerPrefab);
-        BallPointerObj.transform.SetParent(this.transform);
-        BallPointerObj.transform.position = new Vector3 (0,0,0);
+        createPointerPlate();
+        createPointer();
         BallPointerSetActive(false);
     }
+
+    private void createPointerPlate()
+    {
+        PointerPlateObj = MatchManager.InstantiateGameObject(BallPointerPlatePrefab);
+        PointerPlateObj.transform.SetParent(this.transform);
+        PointerPlateObj.transform.position = new Vector3 (0,0,0);
+        PointerPlateObj.GetComponent<MeshRenderer>().enabled = false;
+    }
+
+    private void createPointer()
+    {
+        PointerObj = MatchManager.InstantiateGameObject(BallPointerPrefab);
+        PointerObj.transform.SetParent(this.transform);
+        PointerObj.transform.position = new Vector3 (0,2,0);
+    }
+
+
+
+
     /* #endregion */
 
     /* #endregion */
     /* ======================================================================================== */
 
-    /* #region ==== GENERAL HELPERS =========================================================== */
+    /* #region ==== A C T I V A T E  /  D E A C T I V A T E  B A L L G R I D ================== */
 
     /* #region ---- Activate / Deactivate Ball Grid ------------------------------------------- */
     public void ActivateBallGrid()
@@ -225,12 +247,22 @@ public class BallGrid : SingletonMonoBehaviour<BallGrid>
         switch(setActive) 
         {
             case true:
-                BallPointerObj.SetActive(true);
+                PointerPlateObj.SetActive(true);
+                PointerObj.SetActive(true);
                 break; 
             case false:
-                BallPointerObj.SetActive(false);
+                PointerPlateObj.SetActive(false);
+                PointerObj.SetActive(false);
                 break; 
         }
+    }
+
+    /* #endregion */
+
+    /* #region ---- Activate / Deactivate Ball Pointer ---------------------------------------- */
+    public void SetCurrentPoint(BallGridPoint ballPoint)
+    {
+        this.CurrentPoint = ballPoint;
     }
 
     /* #endregion */

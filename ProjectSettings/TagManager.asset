@@ -6,6 +6,7 @@ TagManager:
   tags:
   - PathLine
   - PitchTile
+  - BallPointer
   layers:
   - Default
   - TransparentFX

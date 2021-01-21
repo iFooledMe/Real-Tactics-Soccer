@@ -974,10 +974,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   OnScreenBallMoveSpeed: 10
-  BallPrefab: {fileID: 1975457108487340, guid: ec3e8f3ed27e2244caaedaf589590a03, type: 3}
   BallGridPointPrefab: {fileID: 6037089745559010582, guid: e4a921a55e5d17142890b724c42a886a,
     type: 3}
-  BallPointerPrefab: {fileID: 4467113755094738802, guid: 8e515d9f3c5fa19469e151ac43c164ad,
+  BallPointerPlatePrefab: {fileID: 6691559543193147873, guid: 8e515d9f3c5fa19469e151ac43c164ad,
+    type: 3}
+  BallPointerPrefab: {fileID: 6496360090255927747, guid: 218fa1bbe54c372428b49060f320ce79,
     type: 3}
 --- !u!4 &550156530
 Transform:

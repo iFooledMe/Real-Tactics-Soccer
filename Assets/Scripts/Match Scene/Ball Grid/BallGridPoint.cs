@@ -72,11 +72,13 @@ public class BallGridPoint : MonoBehaviour
     {
         if (!collidingPoints.Contains(collidingPoint))
         {
-            collidingPoints.Add(collidingPoint);
-            
-            BallGridPoint ballPoint = collidingPoint.GetComponent<BallGridPoint>();
-            PitchTile tile = ballPoint.PitchTile;
-            AddToReachableTiles(tile);
+            if(collidingPoint.tag != "BallPointer")
+            {
+                collidingPoints.Add(collidingPoint);
+                BallGridPoint ballPoint = collidingPoint.GetComponent<BallGridPoint>();
+                PitchTile tile = ballPoint.PitchTile;
+                AddToReachableTiles(tile);
+            }
         }
     }
 

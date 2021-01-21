@@ -38,6 +38,15 @@ public class MatchPlayerInput : SingletonMonoBehaviour<MatchPlayerInput>
     /* #endregion */
     /* ======================================================================================== */
 
+    /* #region ==== UPDATE ==================================================================== */
+    private void Update()
+    {
+        OnMouseRightClick();
+    }
+
+    /* #endregion */
+    /* ======================================================================================== */
+
     /* #region ==== G A M E  C O N T R O L S ================================================== */
     
     /* #region ---- Player MouseEnter / MouseExit --------------------------------------------- */
@@ -85,6 +94,16 @@ public class MatchPlayerInput : SingletonMonoBehaviour<MatchPlayerInput>
         MatchManager.MatchPlayerManager.CurrentActivePlayer.SetPlayerMode(PlayerMode.Idle);
     }
 
+    public void OnMouseRightClick() //Check in this Update function
+    {
+        MatchPlayer activePlayer = MatchManager.MatchPlayerManager.CurrentActivePlayer;
+
+        if (activePlayer.PlayerMode != PlayerMode.Idle)
+        {
+            if(Input.GetMouseButtonDown(1)) activePlayer.SetPlayerMode(PlayerMode.Idle);
+        } 
+    }
+
     // --- Move Mode ---
     public void OnBtnMoveMode()
     {
@@ -98,6 +117,7 @@ public class MatchPlayerInput : SingletonMonoBehaviour<MatchPlayerInput>
     }
 
     /* #endregion */
+
 
     /* #endregion */
     /* ======================================================================================== */  

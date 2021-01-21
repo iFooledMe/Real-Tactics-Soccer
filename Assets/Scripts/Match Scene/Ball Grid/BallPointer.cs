@@ -56,7 +56,7 @@ public class BallPointer : MonoBehaviour
     private void setPosition()
     {
         BallGridPoint = MatchManager.BallGrid.CurrentPoint;
-        Debug.Log(BallGridPoint.transform.position);
+        //Debug.Log(BallGridPoint.transform.position);
 
         position.x = BallGridPoint.transform.position.x;
 

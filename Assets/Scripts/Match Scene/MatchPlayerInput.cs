@@ -41,7 +41,7 @@ public class MatchPlayerInput : SingletonMonoBehaviour<MatchPlayerInput>
     /* #region ==== UPDATE ==================================================================== */
     private void Update()
     {
-        OnMouseRightClick();
+        checkForMouseInput();
     }
 
     /* #endregion */
@@ -86,41 +86,113 @@ public class MatchPlayerInput : SingletonMonoBehaviour<MatchPlayerInput>
 
     /* #endregion */
 
-    /* #region ---- Mode Buttons -------------------------------------------------------------- */
-    
-    // --- Idle Mode ---
+    /* #region ---- IDLE Mode Controls -------------------------------------------------------- */
     public void OnBtnIdleMode()
     {
         MatchManager.MatchPlayerManager.CurrentActivePlayer.SetPlayerMode(PlayerMode.Idle);
     }
 
-    public void OnMouseRightClick() //Check in this Update function
+    public void OnMouseLeftClickIdle(MatchPlayer player) 
     {
-        MatchPlayer activePlayer = MatchManager.MatchPlayerManager.CurrentActivePlayer;
-
-        if (activePlayer.PlayerMode != PlayerMode.Idle)
-        {
-            if(Input.GetMouseButtonDown(1)) activePlayer.SetPlayerMode(PlayerMode.Idle);
-        } 
+        return;
     }
 
-    // --- Move Mode ---
+    public void OnMouseRightClickIdle(MatchPlayer player) 
+    {
+        return;
+    }
+
+    /* #endregion */
+
+    /* #region ---- MOVE Mode Controls -------------------------------------------------------- */
     public void OnBtnMoveMode()
     {
         MatchManager.MatchPlayerManager.CurrentActivePlayer.SetPlayerMode(PlayerMode.Move);
     }
 
-    // --- Pass Mode ---
+    public void OnMouseLeftClickMove(MatchPlayer player) 
+    {
+        return;
+        //Move controll is triggered on tile click
+    }
+
+    public void OnMouseRightClickMove(MatchPlayer player) 
+    {
+        player.SetPlayerMode(PlayerMode.Idle);
+    }
+
+    /* #endregion */
+
+    /* #region ---- PASS Mode Controls -------------------------------------------------------- */
     public void OnBtnPassMode()
     {
         MatchManager.MatchPlayerManager.CurrentActivePlayer.SetPlayerMode(PlayerMode.Pass);
     }
 
-    /* #endregion */
+    public void OnMouseLeftClickPass(MatchPlayer player) 
+    {
+        Debug.Log("Pass Action Ordered");
+    }
 
+    public void OnMouseRightClickPass(MatchPlayer player) 
+    {
+        player.SetPlayerMode(PlayerMode.Idle);
+    }
+
+    /* #endregion */
 
     /* #endregion */
     /* ======================================================================================== */  
+
+    /* #region ==== M O U S E  C O N T R O L ================================================== */
+    private void checkForMouseInput()
+    {
+        /* #region ---- Left click ------------------------------------------------------------*/
+        if(Input.GetMouseButtonDown(0))
+        {
+            MatchPlayer activePlayer = MatchManager.MatchPlayerManager.CurrentActivePlayer;
+            PlayerMode playerMode = activePlayer.PlayerMode;
+            
+            switch(playerMode) 
+            {
+                case PlayerMode.Idle:
+                    OnMouseLeftClickIdle(activePlayer);
+                    break; 
+                case PlayerMode.Move:
+                    OnMouseLeftClickMove(activePlayer);
+                    break; 
+                case PlayerMode.Pass:
+                    OnMouseLeftClickPass(activePlayer);
+                    break;
+            }
+        }
+        /* #endregion */
+
+        /* #region ---- Right click ------------------------------------------------------------*/
+        if(Input.GetMouseButtonDown(1))
+        {
+            MatchPlayer activePlayer = MatchManager.MatchPlayerManager.CurrentActivePlayer;
+            PlayerMode playerMode = activePlayer.PlayerMode;
+            
+            switch(playerMode) 
+            {
+                case PlayerMode.Idle:
+                    OnMouseRightClickIdle(activePlayer);
+                    break; 
+                case PlayerMode.Move:
+                    OnMouseRightClickMove(activePlayer);
+                    break; 
+                case PlayerMode.Pass:
+                    OnMouseRightClickPass(activePlayer);
+                    break;
+            }
+        }
+        /* #endregion */
+
+    }
+    
+     /* #endregion */
+    /* ======================================================================================== */
 
     /* #region ==== C A M E R A  C O N T R O L ================================================ */
     

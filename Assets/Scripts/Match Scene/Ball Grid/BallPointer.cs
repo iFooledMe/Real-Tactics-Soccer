@@ -44,15 +44,6 @@ public class BallPointer : SingletonMonoBehaviour<BallPointer>
     /* #endregion */
     /* ======================================================================================== */
 
-    /* #region ==== UPDATE ==================================================================== */
-    void Update() 
-    {
-        //setPosition();
-    }
-
-    /* #endregion */
-    /* ======================================================================================== */
-
     /* #region ==== S E T  P O S I T I O N ==================================================== */    
     public void SetPosition()
     {
@@ -61,7 +52,7 @@ public class BallPointer : SingletonMonoBehaviour<BallPointer>
         position.z = BallGridPoint.transform.position.z;
         this.transform.position = position;
 
-        Debug.Log(BallGridPoint.transform.position);
+        Debug.Log(BallGridPoint.gameObject.name);
     }
 
     /* #endregion */

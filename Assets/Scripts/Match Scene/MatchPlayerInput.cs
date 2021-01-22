@@ -101,6 +101,49 @@ public class MatchPlayerInput : SingletonMonoBehaviour<MatchPlayerInput>
             }
         }
         /* #endregion */
+    
+        /* #region ---- Mouse Pointer on/off pitch ----------------------------------------*/
+        
+        // --- On Pitch ---
+        if (MouseOnPitch)
+        {
+            MatchPlayer activePlayer = MatchManager.MatchPlayerManager.CurrentActivePlayer;
+            PlayerMode playerMode = activePlayer.PlayerMode;
+
+            switch(playerMode) 
+            {
+                case PlayerMode.Idle:
+                    break; 
+                case PlayerMode.Move:
+                    //Hide mouse pointer?
+                    break; 
+                case PlayerMode.Pass:
+                    Cursor.visible = false;
+                    break;
+            }
+        }
+
+        // --- Off Picth ---
+         if (!MouseOnPitch)
+        {
+            MatchPlayer activePlayer = MatchManager.MatchPlayerManager.CurrentActivePlayer;
+            PlayerMode playerMode = activePlayer.PlayerMode;
+
+            switch(playerMode) 
+            {
+                case PlayerMode.Idle:
+                    break; 
+                case PlayerMode.Move:
+                    //Hide mouse pointer?
+                    break; 
+                case PlayerMode.Pass:
+                    Cursor.visible = true;
+                    break;
+            }
+        }
+
+        /* #endregion */
+
     }
 
     /* #endregion */
@@ -222,7 +265,7 @@ public class MatchPlayerInput : SingletonMonoBehaviour<MatchPlayerInput>
 
     public void OnMouseLeftClickPass(MatchPlayer player) 
     {
-        
+    
     }
 
     public void OnMouseRightClickPass(MatchPlayer player) 

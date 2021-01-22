@@ -40,7 +40,7 @@ public class MatchPlayer : MonoBehaviour
     /* #endregion */
     
     /* #region ---- Components ---------------------------------------------------------------- */
-    private Renderer _renderer;
+    private Renderer bodyRenderer;
 
     /* #endregion */
 
@@ -62,7 +62,7 @@ public class MatchPlayer : MonoBehaviour
 
     private void getComponents()
     {
-        getRenderer();
+        getBodyRenderer();
     }
 
     /* #region ---- Get MatchManager ---------------------------------------------------------- */
@@ -73,9 +73,10 @@ public class MatchPlayer : MonoBehaviour
     /* #endregion */
 
     /* #region ---- Get Renderer Component ---------------------------------------------------- */
-    public void getRenderer()
+    public void getBodyRenderer()
     {
-        _renderer = this.GetComponent<Renderer>();
+        GameObject playerBody = this.transform.Find("PlayerBody").gameObject;
+        bodyRenderer = playerBody.GetComponent<Renderer>();
     }
     /* #endregion */
 
@@ -106,34 +107,6 @@ public class MatchPlayer : MonoBehaviour
         PlayerActions.ActionSelector(PlayerActions.CurrentAction);
     }
 
-    /* #endregion */
-    /* ======================================================================================== */
-
-    /* #region ==== INTERACTIONS ============================================================== */
-    
-    /* #region ---- MouseOver / MouseExit ----------------------------------------------------- */
-    
-    private void OnMouseEnter() 
-    {
-       MatchManager.MatchPlayerInput.OnPlayerMouseEnter(this);
-    }
-
-    private void OnMouseExit()
-    {
-        MatchManager.MatchPlayerInput.OnPlayerMouseExit(this);
-    }
-
-    /* #endregion */
-
-    /* #region ---- Left click ---------------------------------------------------------------- */
-    
-    private void OnMouseUp() 
-    {
-        MatchManager.MatchPlayerInput.OnPlayerLeftClick(this);
-    }
-
-    /* #endregion */
-    
     /* #endregion */
     /* ======================================================================================== */
     
@@ -228,7 +201,7 @@ public class MatchPlayer : MonoBehaviour
     public void SetPlayerActive()
     {
         IsActive = true;
-        _renderer.material.color = activeColor;
+        bodyRenderer.material.color = activeColor;
         MatchManager.MatchPlayerManager.SetOtherPlayersInactive(this);
         MatchManager.MatchPlayerManager.CurrentActivePlayer = this;
         MatchManager.DestroyObjectsByTag("PathLine");
@@ -238,7 +211,7 @@ public class MatchPlayer : MonoBehaviour
     {
         IsActive = false;
         PlayerMode = PlayerMode.Idle;
-        _renderer.material.color = defaultColor;
+        bodyRenderer.material.color = defaultColor;
     }
 
     /* #endregion */
@@ -255,19 +228,19 @@ public class MatchPlayer : MonoBehaviour
     /* #region ---- Player Highlight ---------------------------------------------------------- */
     public void PlayerHighlightOn()
     {
-        _renderer.material.color = highLightColor;
+        bodyRenderer.material.color = highLightColor;
     }
 
     public void PlayerHighlightOff()
     {
         if (IsActive)
         {
-            _renderer.material.color = activeColor;
+            bodyRenderer.material.color = activeColor;
         }
 
         else
         {
-            _renderer.material.color = defaultColor;
+            bodyRenderer.material.color = defaultColor;
         } 
     }
 

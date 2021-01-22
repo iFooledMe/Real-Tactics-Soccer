@@ -1039,7 +1039,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OnScreenPlayerMoveSpeed: 3
   CurrentActivePlayer: {fileID: 0}
-  playerPrefab: {fileID: 3561534123213007234, guid: 27db7a356b5b99d43865148abc33af53,
+  playerPrefab: {fileID: 944160221202063967, guid: 4c18cccbf761a8946a4f27b06f47efdf,
     type: 3}
 --- !u!1 &883718356
 GameObject:
@@ -1136,6 +1136,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 838403b249022dc47b3d1d1207f3d736, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  outLineOffset: 1
   PathLinePrefab: {fileID: 3448171269951096528, guid: 0bce4ca3e9729a44d94a732866381abf,
     type: 3}
   noLines: {fileID: 3407702529621737777, guid: b6fd37101b15a5e4c896d8d955511fbd, type: 3}

@@ -37,6 +37,8 @@ public class MatchPlayer : MonoBehaviour
 
     public PlayerMode PlayerMode = PlayerMode.Idle;
 
+    public Transform faceTarget;
+
     /* #endregion */
     
     /* #region ---- Components ---------------------------------------------------------------- */
@@ -243,6 +245,16 @@ public class MatchPlayer : MonoBehaviour
             bodyRenderer.material.color = defaultColor;
         } 
     }
+
+    /* #endregion */
+
+    /* #region ---- Player Rotation to face a specified target -------------------------------- */
+    public void FaceTarget(Transform target)
+    {
+        this.faceTarget = target;
+        this.transform.LookAt(faceTarget);
+    }
+
 
     /* #endregion */
 

@@ -136,7 +136,7 @@ public class PlayerActions
     
     /* #region ---- 3. MOVE [Executed in MatchPlayer.Update() ] ------------------------------- */
     private void move()
-    {   
+    {           
         nextWaypoint = new Vector3(waypoints[
         currentWaypoint].transform.position.x, 
         Player.transform.position.y, 
@@ -144,6 +144,8 @@ public class PlayerActions
 
         float distance = Vector3.Distance(nextWaypoint, Player.transform.position);
         
+        Player.FaceTarget(waypoints[currentWaypoint].transform);
+
         Player.transform.position = Vector3.MoveTowards(
             Player.transform.position, 
             nextWaypoint, 

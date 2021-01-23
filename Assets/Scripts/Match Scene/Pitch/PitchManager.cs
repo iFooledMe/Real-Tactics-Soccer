@@ -17,8 +17,8 @@ public class PitchManager : SingletonScriptableObject<PitchManager>
     /* #endregion */
 
     /* #region ---- Move Costs (Costs to enter tiles with different state --------------------- */
-    public const int EnterCostDefault = 1;
-    public const int EnterCostOtherPlayer = 2;
+    //public const int EnterCostDefault = 1;
+    //public const int EnterCostOtherPlayer = 2;
 
     /* #endregion */
     

@@ -116,14 +116,14 @@ public class PitchTile : MonoBehaviour
     {
         IsOccupied = true;
         OccupiedByPlayer = player;
-        CostToEnter = PitchManager.EnterCostOtherPlayer;
+        CostToEnter = MatchManager.MatchPlayerManager.ActionsApCostSettings.CostEnterTileOtherPlayer;
     }
 
     public void setUnOccupied()
     {
         this.IsOccupied = false;
         this.OccupiedByPlayer = null;
-        CostToEnter = PitchManager.EnterCostDefault;
+        CostToEnter = MatchManager.MatchPlayerManager.ActionsApCostSettings.CostEnterTileEmpty;
     }
 
     /* #endregion */

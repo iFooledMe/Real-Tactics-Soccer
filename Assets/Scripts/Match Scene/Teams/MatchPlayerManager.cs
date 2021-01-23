@@ -8,6 +8,7 @@ public class MatchPlayerManager : SingletonMonoBehaviour<MatchPlayerManager>
     
     /* #region ---- Settings ------------------------------------------------------------------ */
     public float OnScreenPlayerMoveSpeed = 3f;
+    public ActionsApCostSettings ActionsApCostSettings;
     
     /* #endregion */
 

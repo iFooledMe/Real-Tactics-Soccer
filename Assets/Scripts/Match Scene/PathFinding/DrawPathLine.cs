@@ -37,16 +37,33 @@ public class DrawPathLine
         {
             PitchManager PitchManager = MatchManager.PitchManager;
             PitchGrid PitchGrid = MatchManager.PitchGrid;
-            MatchPlayer player = MatchManager.MatchPlayerManager.GetActivePlayer();
+            MatchPlayer Player = MatchManager.MatchPlayerManager.GetActivePlayer();
 
             if (!MatchManager.MatchPlayerManager.PlayInAction)
             {
+                /* #region ---- Reset Path ----------------------------------------- */
                 ClearPlayerMovePathLines();
                 setAllTilesNoneViableTarget(PitchManager);
                 accumulatedMoveCost = 0;
-                List<PitchTile> pathToTarget = PitchGrid.PathFinding.GetPathToTarget(targetIn, player);
-                listLinePoints = new List<Vector3>();
+                
+                /* #endregion ------------------------------------------------------ */
 
+                /* #region ---- Set new Path to target ----------------------------- */
+                List<PitchTile> pathToTarget = PitchGrid.PathFinding.GetPathToTarget(targetIn, Player);
+                listLinePoints = new List<Vector3>();
+                
+                /* #endregion ------------------------------------------------------ */
+                
+                /* #region ---- Player rotate & Calc AP cost for rotation ---------- */
+                if (pathToTarget != null) 
+                {
+                    Player.FaceTarget(pathToTarget[1].transform);
+                }
+
+                /* #endregion ------------------------------------------------------ */
+
+
+                /* #region ---- Instantiate PathLine / Populate listLinePoints ----- */
                 if (pathToTarget != null) 
                 {
                     GameObject PathLineObject = MatchManager.InstantiateGameObject(PitchGrid.PathLinePrefab);
@@ -56,8 +73,7 @@ public class DrawPathLine
                     foreach (PitchTile pathTile in pathToTarget) 
                     {
                         counter++;
-
-                        if (accumulatedMoveCost < player.ActionPoints)
+                        if (accumulatedMoveCost < Player.ActionPoints)
                         {
                             Vector3 linePoint = new Vector3 (
                                 pathTile.transform.position.x, 
@@ -74,6 +90,8 @@ public class DrawPathLine
                     lineRenderer.positionCount = listLinePoints.Count;
                     lineRenderer.SetPositions(listLinePoints.ToArray());
                 }
+
+                /* #endregion ------------------------------------------------------ */
             }
         }
     }

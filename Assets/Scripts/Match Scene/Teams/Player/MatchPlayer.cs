@@ -185,6 +185,20 @@ public class MatchPlayer : MonoBehaviour
     /* #endregion */
     /* ======================================================================================== */
 
+    /* #region ==== P L A Y E R  R O T A T I O N  A N G L E =================================== */
+
+    /* #region ---- Player Rotation to face a specified target -------------------------------- */
+    public void FaceTarget(Transform target)
+    {
+        this.faceTarget = target;
+        this.transform.LookAt(faceTarget);
+    }
+
+    /* #endregion ----------------------------------------------------------------------------- */
+
+    /* #endregion */
+    /* ======================================================================================== */
+
     /* #region ==== O T H E R  M E T H O D S ================================================== */
     
     /* #region ---- Set player info on Instantiation ------------------------------------------ */
@@ -245,16 +259,6 @@ public class MatchPlayer : MonoBehaviour
             bodyRenderer.material.color = defaultColor;
         } 
     }
-
-    /* #endregion */
-
-    /* #region ---- Player Rotation to face a specified target -------------------------------- */
-    public void FaceTarget(Transform target)
-    {
-        this.faceTarget = target;
-        this.transform.LookAt(faceTarget);
-    }
-
 
     /* #endregion */
 

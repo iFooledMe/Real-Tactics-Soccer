@@ -66,8 +66,8 @@ public class GridOverlay : SingletonMonoBehaviour<GridOverlay>
     /* #region ---- Create Grid Array --------------------------------------------------------- */
     private void CreateGridArray()
     {
-        int pitchWidth = MatchManager.PitchManager.PitchWidth;
-        int pitchLength = MatchManager.PitchManager.PitchLength;
+        int pitchWidth = MatchManager.PitchGrid.PitchSettings.PitchWidth;
+        int pitchLength = MatchManager.PitchGrid.PitchSettings.PitchLength;
         
         _gridOverlay = new GameObject[pitchWidth + 1, pitchLength + 1];    
     }
@@ -90,9 +90,9 @@ public class GridOverlay : SingletonMonoBehaviour<GridOverlay>
             _gridOn = false;
         }
         
-        for (int x = 1; x <= PitchManager.PitchWidth; x++) 
+        for (int x = 1; x <= MatchManager.PitchGrid.PitchSettings.PitchWidth; x++) 
         {
-            for (int z = 1; z <= PitchManager.PitchLength; z++) 
+            for (int z = 1; z <= MatchManager.PitchGrid.PitchSettings.PitchLength; z++) 
             {
                 if (_gridOn)
                 {

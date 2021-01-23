@@ -71,8 +71,8 @@ public class BallGrid : SingletonMonoBehaviour<BallGrid>
     /* #region ---- CREATE BALL GRID ---------------------------------------------------------- */
     private void createBallGrid()
     {
-        int pitchWidth = MatchManager.PitchManager.PitchWidth;
-        int pitchLength = MatchManager.PitchManager.PitchLength;
+        int pitchWidth = MatchManager.PitchGrid.PitchSettings.PitchWidth;
+        int pitchLength = MatchManager.PitchGrid.PitchSettings.PitchLength;
 
         for (int x = 1; x <= pitchWidth; x++) 
         {

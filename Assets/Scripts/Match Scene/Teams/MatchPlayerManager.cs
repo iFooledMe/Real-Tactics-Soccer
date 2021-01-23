@@ -7,8 +7,8 @@ public class MatchPlayerManager : SingletonMonoBehaviour<MatchPlayerManager>
     /* #region ==== FIELDS & PROPERTIES ======================================================= */
     
     /* #region ---- Settings ------------------------------------------------------------------ */
-    public float OnScreenPlayerMoveSpeed = 3f;
     public ActionsApCostSettings ActionsApCostSettings;
+    public PlayerModelSettings PlayerModelSettings;
     
     /* #endregion */
 

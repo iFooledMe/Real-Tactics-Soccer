@@ -28,8 +28,8 @@ public class CreateGraph
     {
         
         PitchManager PitchManager = MatchManager.PitchManager;
-        int pitchWidth = PitchManager.PitchWidth;
-        int pitchLength = PitchManager.PitchLength;
+        int pitchWidth = MatchManager.PitchGrid.PitchSettings.PitchWidth;
+        int pitchLength = MatchManager.PitchGrid.PitchSettings.PitchLength;
 
         for (int x = 1; x <= pitchWidth; x++) {
             for (int z = 1; z <= pitchLength; z++) 

@@ -10,6 +10,11 @@ public class PitchGrid : SingletonMonoBehaviour<PitchGrid>
     
     /* #region ==== FIELDS & PROPERTIES ======================================================= */
     
+    /* #region ---- Settings ------------------------------------------------------------------ */
+    public PitchSettings PitchSettings;
+
+    /* #endregion */
+    
     /* #region ---- Pitch --------------------------------------------------------------------- */
     public GameObject [,] PitchTiles {get; private set;}
     public float XOffset {get; private set;}
@@ -205,8 +210,8 @@ public class PitchGrid : SingletonMonoBehaviour<PitchGrid>
     /* #region ---- CreatePitch --------------------------------------------------------------- */
     private void createPitch() 
     {     
-        int pitchWidth = MatchManager.PitchManager.PitchWidth;
-        int pitchLength = MatchManager.PitchManager.PitchLength;
+        int pitchWidth = MatchManager.PitchGrid.PitchSettings.PitchWidth;
+        int pitchLength = MatchManager.PitchGrid.PitchSettings.PitchLength;
         setPosOffset(pitchWidth, pitchLength);
         PitchTiles = new GameObject [pitchWidth + 1, pitchLength + 1];
 
@@ -236,8 +241,8 @@ public class PitchGrid : SingletonMonoBehaviour<PitchGrid>
     /* #region ---- Return a tile prefab for position ----------------------------------------- */
     GameObject returnPitchTilePrefab (int x, int z) 
     {
-        int pitchWidth = MatchManager.PitchManager.PitchWidth;
-        int pitchLength = MatchManager.PitchManager.PitchLength;
+        int pitchWidth = MatchManager.PitchGrid.PitchSettings.PitchWidth;
+        int pitchLength = MatchManager.PitchGrid.PitchSettings.PitchLength;
         
         /* #region --- Row - PenaltyBox 1 South-------------------- */
         if (z == 1) {
@@ -923,8 +928,8 @@ public class PitchGrid : SingletonMonoBehaviour<PitchGrid>
     /* #region ---- Set Outline tiles --------------------------------------------------------- */
     private void getOutLineTiles(PitchTile tile, int x, int z)
     {
-        int pitchWidth = MatchManager.PitchManager.PitchWidth;
-        int pitchLength = MatchManager.PitchManager.PitchLength;
+        int pitchWidth = MatchManager.PitchGrid.PitchSettings.PitchWidth;
+        int pitchLength = MatchManager.PitchGrid.PitchSettings.PitchLength;
 
         Vector3 tilePosition = tile.transform.position;
 

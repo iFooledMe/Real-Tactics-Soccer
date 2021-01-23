@@ -107,8 +107,8 @@ public class DrawPathLine
     /* #region ---- Reset all tiles to none viable movement targets --------------------------- */
     void setAllTilesNoneViableTarget(PitchManager PitchManager)
     {
-        for (int x = 1; x <= PitchManager.PitchWidth; x++) {
-            for (int z = 1; z <= PitchManager.PitchLength; z++) 
+        for (int x = 1; x <= MatchManager.PitchGrid.PitchSettings.PitchWidth; x++) {
+            for (int z = 1; z <= MatchManager.PitchGrid.PitchSettings.PitchLength; z++) 
             {    
                PitchManager.GetPitchTile(x, z).IsViableTarget = false; 
             }

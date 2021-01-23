@@ -150,8 +150,8 @@ public class MainCameraControler : SingletonMonoBehaviour<MainCameraControler>
     /* #region ---- Get pitch size (Width & Length) ------------------------------------------- */
     void getPitchSize() 
     {
-        pitchWidth = MatchManager.PitchManager.PitchWidth;
-        pitchLength = MatchManager.PitchManager.PitchLength;
+        pitchWidth = MatchManager.PitchGrid.PitchSettings.PitchWidth;
+        pitchLength = MatchManager.PitchGrid.PitchSettings.PitchLength;
     }
     /* #endregion */  
     /* ---------------------------------------------------------------------------------------- */

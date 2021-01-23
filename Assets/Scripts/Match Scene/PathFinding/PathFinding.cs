@@ -50,8 +50,8 @@ public class PathFinding
         previousPitchTile[source] = null;
 
         //Set all other tiles and add all (incl. source) to list of unvisited tiles
-        for (int x = 1; x <= PitchManager.PitchWidth; x++) {
-            for (int z = 1; z <= PitchManager.PitchLength; z++) 
+        for (int x = 1; x <= MatchManager.PitchGrid.PitchSettings.PitchWidth; x++) {
+            for (int z = 1; z <= MatchManager.PitchGrid.PitchSettings.PitchLength; z++) 
             {
                 PitchTile pitchTile = PitchManager.GetPitchTile(x, z);
 

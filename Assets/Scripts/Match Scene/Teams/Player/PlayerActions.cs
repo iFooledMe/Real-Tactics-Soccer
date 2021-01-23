@@ -150,7 +150,7 @@ public class PlayerActions
         Player.transform.position = Vector3.MoveTowards(
             Player.transform.position, 
             nextWaypoint, 
-            MatchManager.MatchPlayerManager.OnScreenPlayerMoveSpeed * Time.deltaTime);
+            MatchManager.MatchPlayerManager.PlayerModelSettings.ModelMoveSpeed * Time.deltaTime);
         
         if (distance <= 0.005)
         {

@@ -1038,6 +1038,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   OnScreenPlayerMoveSpeed: 3
+  ActionsApCostSettings: {fileID: 11400000, guid: ef6ff786092d9a64cb065e2eafd13e00,
+    type: 2}
+  PlayerModelSettings: {fileID: 11400000, guid: 3e5b8e8d5adeca64b8e0dee278a93f01,
+    type: 2}
   CurrentActivePlayer: {fileID: 0}
   playerPrefab: {fileID: 944160221202063967, guid: 4c18cccbf761a8946a4f27b06f47efdf,
     type: 3}
@@ -1136,6 +1140,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 838403b249022dc47b3d1d1207f3d736, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PitchSettings: {fileID: 11400000, guid: 122e9ce6b37500743a7a43f23afff985, type: 2}
   outLineOffset: 1
   PathLinePrefab: {fileID: 3448171269951096528, guid: 0bce4ca3e9729a44d94a732866381abf,
     type: 3}

@@ -6,22 +6,7 @@ public class PitchManager : SingletonScriptableObject<PitchManager>
 {
     
     /* #region ==== FIELDS & PROPERTIES ======================================================= */
-
-    /* #region ---- Pitch Settings ------------------------------------------------------------ */
-    //TODO: Fix issue with pitch being created skewed when PitchWidth is set to uneven number
-    private int _pitchWidth = 20; 
-    private int _pitchLength = 40;
-    public int PitchWidth { get => _pitchWidth; private set => _pitchLength = value; }
-    public int PitchLength { get => _pitchLength; private set => _pitchLength = value; }
-
-    /* #endregion */
-
-    /* #region ---- Move Costs (Costs to enter tiles with different state --------------------- */
-    //public const int EnterCostDefault = 1;
-    //public const int EnterCostOtherPlayer = 2;
-
-    /* #endregion */
-    
+   
     /* #region ---- Dependencies -------------------------------------------------------------- */
     private MatchManager MatchManager;
 

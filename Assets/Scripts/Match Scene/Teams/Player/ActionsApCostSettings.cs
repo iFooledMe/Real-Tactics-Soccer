@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-[CreateAssetMenu(fileName = "ActionsApCostSettings", menuName = "ScriptableObjects/MatchScene/ActionsApCostSettings", order = 1)]
+[CreateAssetMenu(fileName = "Actions AP-Cost Settings", menuName = "ScriptableObjects/MatchScene/ActionsApCostSettings")]
 public class ActionsApCostSettings : SingletonScriptableObject<ActionsApCostSettings>
 {
     [Header("Move to tiles")]

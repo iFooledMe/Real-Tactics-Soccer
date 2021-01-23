@@ -37,6 +37,8 @@ public class MatchPlayer : MonoBehaviour
 
     public PlayerMode PlayerMode = PlayerMode.Idle;
 
+    public int RotationAngle {get; private set;}
+
     /* #endregion */
     
     /* #region ---- Components ---------------------------------------------------------------- */
@@ -92,10 +94,15 @@ public class MatchPlayer : MonoBehaviour
     /* ======================================================================================== */
 
     /* #region ==== AWAKE / START ============================================================= */
-    void Awake() 
+    private void Awake() 
     {
         getDependencies();
         getComponents();
+    }
+
+    private void Start()
+    {
+        UpdateRotationAngle ((int)this.gameObject.transform.eulerAngles.y);
     }
 
     /* #endregion */
@@ -189,6 +196,19 @@ public class MatchPlayer : MonoBehaviour
     public void FaceTarget(Transform target)
     {
         this.transform.LookAt(target);
+    }
+
+    /* #endregion ----------------------------------------------------------------------------- */
+
+
+    /* #region ---- Player Rotation to face a specified target -------------------------------- */
+    public void UpdateRotationAngle (int angleY)
+    {
+        int angleX = (int)this.gameObject.transform.eulerAngles.x;
+        int angleZ = (int)this.gameObject.transform.eulerAngles.z;
+
+        this.gameObject.transform.eulerAngles = new Vector3(angleX, angleY, angleZ);
+        this.RotationAngle = angleY;
     }
 
     /* #endregion ----------------------------------------------------------------------------- */

@@ -8,7 +8,7 @@ public class Stats
 
     public Stats()
     {
-        MaxActionPoints = 5;//getRandom(4,8);
+        MaxActionPoints = getRandom(4,8);
     }
 
     private int getRandom(int min, int max)

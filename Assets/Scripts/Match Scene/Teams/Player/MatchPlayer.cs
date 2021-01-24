@@ -2,24 +2,28 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum PlayerMode
-{
-    Idle,
-    Move,
-    Pass
-}
+    /* #region ==== ENUMS ===================================================================== */
+    public enum PlayerMode
+    {
+        Idle,
+        Move,
+        Pass
+    }
 
-public enum PlayerStat
-{
-    ActionPoints
-}
+    public enum PlayerStat
+    {
+        ActionPoints
+    }
 
-//TODO: Move this enum to a general Enums file
-public enum ValueSign
-{
-    Positive,
-    Negative
-}
+    //TODO: Move this enum to a general Enums file
+    public enum ValueSign
+    {
+        Positive,
+        Negative
+    }
+
+    /* #endregion */
+    /* ======================================================================================== */
 
 public class MatchPlayer : MonoBehaviour
 {
@@ -387,6 +391,7 @@ public class MatchPlayer : MonoBehaviour
         MatchManager.MatchPlayerManager.SetOtherPlayersInactive(this);
         MatchManager.MatchPlayerManager.CurrentActivePlayer = this;
         MatchManager.DestroyObjectsByTag("PathLine");
+        MatchManager.Hud.UpdatePlayerStats(this);
     }
 
     public void SetPlayerInactive()

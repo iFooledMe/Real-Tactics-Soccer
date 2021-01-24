@@ -24,6 +24,7 @@ public class MatchManager : SingletonScriptableObject<MatchManager>
     public MatchPlayerManager MatchPlayerManager {get; private set;}
 
     public MatchPlayerInput MatchPlayerInput {get; private set;}
+    public Hud Hud {get; private set;}
 
     public BallGrid BallGrid {get; private set;}
     public BallPointer BallPointer {get; private set;}
@@ -70,10 +71,15 @@ public class MatchManager : SingletonScriptableObject<MatchManager>
         this.MatchPlayerManager = MatchPlayerManager.Instance;
     }
 
-    // ---- Game Controller ----
+    // ---- Game Controller / UI ----
     public void SetMatchPlayerInput()
     {
         this.MatchPlayerInput = MatchPlayerInput.Instance;
+    }
+
+    public void SetHud()
+    {
+        this.Hud = Hud.Instance;
     }
 
     // ---- Ball Grid ----

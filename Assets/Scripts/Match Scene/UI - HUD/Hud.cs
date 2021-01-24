@@ -84,14 +84,22 @@ public class Hud : SingletonMonoBehaviour<Hud>
     public void UpdateAccAPCost(int accCost)
     {
         MatchPlayer activePlayer = MatchManager.MatchPlayerManager.CurrentActivePlayer;
+        DrawPathLine drawPathLine = MatchManager.PitchGrid.PathFinding.DrawPathLine;
 
-        if (accCost != 0 && activePlayer.CurrentActionPoints > 0)
+        if (drawPathLine.AccCostReset)
         {
-            apCost.text = $"-{accCost.ToString()}";
+            apCost.text = "";
         }
         else
         {
-            apCost.text = "";
+            if (accCost <= activePlayer.CurrentActionPoints && accCost != 0)
+            {
+                apCost.text = $"-{accCost.ToString()}";
+            }
+            else
+            {
+                apCost.text = "Not enough AP!";
+            }
         }
     }
 

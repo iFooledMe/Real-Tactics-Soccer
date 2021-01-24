@@ -8,6 +8,7 @@ public class DrawPathLine
     
     /* #region ---- Draw Path Line ------------------------------------------------------------ */
     public int AccumulatedMoveCost {get; private set;}
+    public bool AccCostReset {get; private set;}
     private List<Vector3> listLinePoints;
 
     /* #endregion */
@@ -74,7 +75,8 @@ public class DrawPathLine
                     foreach (PitchTile pathTile in pathToTarget) 
                     {
                         counter++;
-                        if (AccumulatedMoveCost < Player.CurrentActionPoints)
+                        //TODO: QuickFix: Find out why CurrentActionPoints has to be reduced by one for the player to not exceed CurrentActionPoints
+                        if (Player.CurrentActionPoints - 1 >= AccumulatedMoveCost)
                         {
                             Vector3 linePoint = new Vector3 (
                                 pathTile.transform.position.x, 
@@ -124,11 +126,13 @@ public class DrawPathLine
     public void ResetAccMoveCost()
     {
         AccumulatedMoveCost = 0;
+        AccCostReset = true;
         MatchManager.Hud.UpdateAccAPCost(AccumulatedMoveCost);
     } 
     
     private void updateAPCostInHUD(int accCost)
     {
+        AccCostReset = false;
         MatchManager.Hud.UpdateAccAPCost(accCost);
     }
     /* #endregion */

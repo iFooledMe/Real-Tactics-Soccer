@@ -9,7 +9,12 @@ public class Hud : SingletonMonoBehaviour<Hud>
 
     /* #region ==== FIELDS & PROPERTIES ======================================================= */
     
-    /* #region ---- Players Stats ---------------------------------------------------------------- */
+    /* #region ---- Players General Info ------------------------------------------------------ */
+    TMP_Text playerName;
+
+    /* #endregion */
+    
+    /* #region ---- Players Stats ------------------------------------------------------------- */
     TMP_Text apValue;
 
     /* #endregion */
@@ -40,8 +45,11 @@ public class Hud : SingletonMonoBehaviour<Hud>
     /* #region ---- Get Components ------------------------------------------------------------ */
     public void getComponents()
     {
+        // Player General Info
+        playerName =  this.transform.Find("HUD - Player Name/Name Value").GetComponent<TMP_Text>();
+        
         // Player Stats
-        apValue =  this.transform.Find("HUD - Action Points/HUD - AP Value").GetComponent<TMP_Text>();
+        apValue =  this.transform.Find("HUD - Action Points/AP Value").GetComponent<TMP_Text>();
     }
     /* #endregion */
 
@@ -64,8 +72,12 @@ public class Hud : SingletonMonoBehaviour<Hud>
     
     /* #region ==== P L A Y E R  S T A T S ==================================================== */
     
-    public void UpdatePlayerStats(MatchPlayer Player)
+    public void UpdatePlayerInfo(MatchPlayer Player)
     {
+        // Player General Info
+        playerName.text = Player.Player.Name;
+
+        // Player Stats
         apValue.text = Player.CurrentActionPoints.ToString();
     }
 

@@ -391,7 +391,7 @@ public class MatchPlayer : MonoBehaviour
         MatchManager.MatchPlayerManager.SetOtherPlayersInactive(this);
         MatchManager.MatchPlayerManager.CurrentActivePlayer = this;
         MatchManager.DestroyObjectsByTag("PathLine");
-        MatchManager.Hud.UpdatePlayerStats(this);
+        MatchManager.Hud.UpdatePlayerInfo(this);
     }
 
     public void SetPlayerInactive()

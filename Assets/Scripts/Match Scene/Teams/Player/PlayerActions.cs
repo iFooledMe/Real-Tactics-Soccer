@@ -161,13 +161,14 @@ public class PlayerActions
         {
             setTilesStates();
             setPlayerStates();
+            updateHUD();
             stopAndReset();
         }
     }
 
     /* #endregion */
 
-    /* #region ---- helper - Stop and Reset --------------------------------------------------- */
+    /* #region ---- Stop and Reset ------------------------------------------------------------ */
     private void stopAndReset()
     {
         MatchManager.PitchGrid.PathFinding.DrawPathLine.ClearPlayerMovePathLines();
@@ -178,7 +179,7 @@ public class PlayerActions
     
     /* #endregion */
     
-    /* #region ---- helper - Set Player States ------------------------------------------------ */
+    /* #region ---- Set Player States --------------------------------------------------------- */
     private void setPlayerStates()
     {
         Player.transform.position = targetPosition();
@@ -201,11 +202,19 @@ public class PlayerActions
     
     /* #endregion */
     
-    /* #region ---- helper - Set Tiles States ------------------------------------------------- */
+    /* #region ---- Set Tiles States ---------------------------------------------------------- */
     private void setTilesStates()
     {
         MoveTargetTile.setOccupied(Player);
         MoveSourceTile.setUnOccupied();
+    }
+
+    /* #endregion */
+
+    /* #region ---- Update HUD ----------------------------------------------------------------- */
+    private void updateHUD()
+    {
+        MatchManager.Hud.UpdatePlayerInfo(Player);
     }
 
     /* #endregion */

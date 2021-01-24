@@ -14,6 +14,13 @@ public enum PlayerStat
     ActionPoints
 }
 
+//TODO: Move this enum to a general Enums file
+public enum ValueSign
+{
+    Positive,
+    Negative
+}
+
 public class MatchPlayer : MonoBehaviour
 {
     /* #region ==== FIELDS & PROPERTIES ======================================================= */
@@ -199,6 +206,34 @@ public class MatchPlayer : MonoBehaviour
 
     /* #endregion */
     
+    /* #endregion */
+    /* ======================================================================================== */
+
+    /* #region ==== U P D A T E  P L A Y E R  S T A T S ======================================= */
+    public void UpdateStat(PlayerStat stat, int newValue, ValueSign valueSign)
+    {
+        switch(stat) 
+        {
+            case PlayerStat.ActionPoints:
+                updateActionPoints(newValue, valueSign);
+                break;
+        }
+    }
+
+    /* #region ---- Update Action Points ----------------------------------------------------- */
+    private void updateActionPoints(int updateValue, ValueSign valueSign)
+    {
+        if (valueSign == ValueSign.Negative)
+        {
+            updateValue = -updateValue;
+        }
+        
+        if(updateValue <= MaxActionPoints) CurrentActionPoints += updateValue;
+        if(updateValue > MaxActionPoints) CurrentActionPoints = MaxActionPoints;
+    }
+
+    /* #endregion */ 
+
     /* #endregion */
     /* ======================================================================================== */
 
@@ -392,26 +427,6 @@ public class MatchPlayer : MonoBehaviour
     }
 
     /* #endregion */
-
-    /* #region ---- Update Player Stat -------------------------------------------------------- */
-    public void UpdateStat(PlayerStat stat, int newValue)
-    {
-        switch(stat) 
-        {
-            case PlayerStat.ActionPoints:
-                updateActionPoints(newValue);
-                break;
-        }
-    }
-
-    private void updateActionPoints(int newValue)
-    {
-        if(newValue <= MaxActionPoints) CurrentActionPoints = newValue;
-        if(newValue > MaxActionPoints) CurrentActionPoints = MaxActionPoints;
-    }
-
-
-    /* #endregion */ 
 
     /* #endregion */
     /* ======================================================================================== */

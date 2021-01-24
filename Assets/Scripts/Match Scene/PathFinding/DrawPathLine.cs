@@ -7,7 +7,7 @@ public class DrawPathLine
     /* #region ==== FIELDS & PROPERTIES ======================================================= */
     
     /* #region ---- Draw Path Line ------------------------------------------------------------ */
-    private int accumulatedMoveCost;
+    public int AccumulatedMoveCost {get; private set;}
     private List<Vector3> listLinePoints;
 
     /* #endregion */
@@ -45,7 +45,7 @@ public class DrawPathLine
                 /* #region ---- Reset Path ----------------------------------------- */
                 ClearPlayerMovePathLines();
                 setAllTilesNoneViableTarget(PitchManager);
-                accumulatedMoveCost = 0;
+                AccumulatedMoveCost = 0;
                 
                 /* #endregion ------------------------------------------------------ */
 
@@ -61,7 +61,7 @@ public class DrawPathLine
                     /* #region ---- Player rotate & Calculate AP cost for rotation - */
 
                     Player.FaceTarget(pathToTarget[1].transform);
-                    int rotationApCost = Player.CalcRotationApCost ((int)Player.transform.eulerAngles.y);
+                    AccumulatedMoveCost = Player.CalcRotationApCost ((int)Player.transform.eulerAngles.y);
 
                     /* #endregion --------------------------------------------------- */
                     
@@ -73,7 +73,7 @@ public class DrawPathLine
                     foreach (PitchTile pathTile in pathToTarget) 
                     {
                         counter++;
-                        if (accumulatedMoveCost < Player.CurrentActionPoints - rotationApCost)
+                        if (AccumulatedMoveCost < Player.CurrentActionPoints)
                         {
                             Vector3 linePoint = new Vector3 (
                                 pathTile.transform.position.x, 
@@ -82,7 +82,7 @@ public class DrawPathLine
                         
                             listLinePoints.Add(linePoint);
                             
-                            if(counter != 1){ accumulatedMoveCost += pathTile.CostToEnter; }
+                            if(counter != 1){ AccumulatedMoveCost += pathTile.CostToEnter; }
                             pathTile.IsViableTarget = true;
                         }
                     }

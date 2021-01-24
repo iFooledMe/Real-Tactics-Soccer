@@ -1,6 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public enum PlayerAction
 {
@@ -184,6 +184,7 @@ public class PlayerActions
         Player.transform.position = targetPosition();
         Player.SetPlayerCoordinatesByTile(MoveTargetTile);
         Player.UpdateRotationAngle((int)Player.transform.eulerAngles.y);
+        Player.UpdateStat(PlayerStat.ActionPoints, MatchManager.PitchGrid.PathFinding.DrawPathLine.AccumulatedMoveCost, ValueSign.Negative);
         MatchManager.MatchPlayerManager.setPlayerInActionState(false);
     }
 

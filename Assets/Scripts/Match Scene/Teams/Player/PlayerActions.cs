@@ -129,7 +129,6 @@ public class PlayerActions
 
         MatchManager.MatchPlayerManager.setPlayerInActionState(true);
         waypoints.RemoveAt(0);
-        Debug.Log($"Angle before move: {Player.RotationAngle}");
         CurrentAction = PlayerAction.Move;
     }
 
@@ -185,7 +184,6 @@ public class PlayerActions
         Player.transform.position = targetPosition();
         Player.SetPlayerCoordinatesByTile(MoveTargetTile);
         Player.UpdateRotationAngle((int)Player.transform.eulerAngles.y);
-        Debug.Log($"Angle after Move: {Player.RotationAngle}");
         MatchManager.MatchPlayerManager.setPlayerInActionState(false);
     }
 

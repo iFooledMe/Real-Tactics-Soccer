@@ -9,6 +9,11 @@ public enum PlayerMode
     Pass
 }
 
+public enum PlayerStat
+{
+    ActionPoints
+}
+
 public class MatchPlayer : MonoBehaviour
 {
     /* #region ==== FIELDS & PROPERTIES ======================================================= */
@@ -24,7 +29,8 @@ public class MatchPlayer : MonoBehaviour
     /* #endregion */
 
     /* #region ---- Player Stats -------------------------------------------------------------- */
-    public int ActionPoints {get; private set;}
+    public int MaxActionPoints {get; private set;}
+    public int CurrentActionPoints {get; private set;}
 
     /* #endregion */
 
@@ -37,7 +43,13 @@ public class MatchPlayer : MonoBehaviour
 
     public PlayerMode PlayerMode = PlayerMode.Idle;
 
-    public int RotationAngle {get; private set;}
+    private int currentAngle;
+    private int fullRotation0;
+    private int fullRotation1;
+    private int fullRotation2;
+    private int halfRotation1;
+    private int halfRotation2;
+
 
     /* #endregion */
     
@@ -200,15 +212,116 @@ public class MatchPlayer : MonoBehaviour
 
     /* #endregion ----------------------------------------------------------------------------- */
 
-
-    /* #region ---- Player Rotation to face a specified target -------------------------------- */
+    /* #region ---- Update RotationAngle ------------------------------------------------------ */
     public void UpdateRotationAngle (int angleY)
     {
         int angleX = (int)this.gameObject.transform.eulerAngles.x;
         int angleZ = (int)this.gameObject.transform.eulerAngles.z;
-
         this.gameObject.transform.eulerAngles = new Vector3(angleX, angleY, angleZ);
-        this.RotationAngle = angleY;
+        this.currentAngle = angleY;
+        setRotationLimits();
+    }
+
+    //TODO: SetRotationLimits(9 work but could propably be done a bit smarter with less code)
+    // --- Set RotationLimits ---
+    private void setRotationLimits()
+    {
+        if (currentAngle == 0)
+        {
+                fullRotation0 = 180;
+                fullRotation1 = 135;
+                fullRotation2 = 225;
+
+                halfRotation1 = 90;
+                halfRotation2 = 270;
+        }
+        else if (currentAngle == 45)
+        {
+                fullRotation0 = 180;
+                fullRotation1 = 225;
+                fullRotation2 = 270;
+
+                halfRotation1 = 135;
+                halfRotation2 = 315;
+        }
+        else if (currentAngle == 90)
+        {
+                fullRotation0 = 225;
+                fullRotation1 = 270;
+                fullRotation2 = 315;
+
+                halfRotation1 = 0;
+                halfRotation2 = 180;
+        }
+        else if (currentAngle == 135)
+        {
+                fullRotation2 = 0;
+                fullRotation0 = 270;
+                fullRotation1 = 315;
+                
+                halfRotation1 = 45;
+                halfRotation2 = 225;
+        }
+        else if (currentAngle == 180)
+        {
+                fullRotation2 = 0;
+                fullRotation0 = 45;
+                fullRotation1 = 315;
+                
+                halfRotation1 = 90;
+                halfRotation2 = 270;
+        }
+        else if (currentAngle == 225)
+        {
+                fullRotation2 = 0;
+                fullRotation0 = 45;
+                fullRotation1 = 90;
+                
+                halfRotation1 = 135;
+                halfRotation2 = 315;
+        }
+        else if (currentAngle == 270)
+        {
+                fullRotation2 = 45;
+                fullRotation0 = 90;
+                fullRotation1 = 135;
+                
+                halfRotation1 = 0;
+                halfRotation2 = 180;
+        }
+        else if (currentAngle == 315)
+        {
+                fullRotation2 = 90;
+                fullRotation0 = 135;
+                fullRotation1 = 180;
+                
+                halfRotation1 = 45;
+                halfRotation2 = 225;
+        }
+    }
+
+    /* #endregion ----------------------------------------------------------------------------- */
+
+    /* #region ---- Calculate AP Cost for rotation -------------------------------------------- */
+    public int CalcRotationApCost (int angleY)
+    {
+        if (angleY == fullRotation0 || angleY == fullRotation1 || angleY == fullRotation2)
+        {
+            int apCost = MatchManager.MatchPlayerManager.ActionsApCostSettings.CostRotateFull;
+            Debug.Log($"Full Rotation - Cost {apCost}");
+            return apCost;
+        }
+        else if (angleY == halfRotation1 || angleY == halfRotation2)
+        {
+            int apCost = MatchManager.MatchPlayerManager.ActionsApCostSettings.CostRotateHalf;
+            Debug.Log($"Half Rotation - Cost {apCost}");
+            return apCost;
+        }
+        else
+        {
+            Debug.Log("No/Minor Rotation - Cost 0");
+            return 0;
+        }
     }
 
     /* #endregion ----------------------------------------------------------------------------- */
@@ -225,7 +338,8 @@ public class MatchPlayer : MonoBehaviour
         CoordZ = coordZ;
         Player = player;
         Name = Player.Name;
-        ActionPoints = Player.Stats.ActionPoints;
+        MaxActionPoints = Player.Stats.MaxActionPoints;
+        CurrentActionPoints = MaxActionPoints;
     }
 
     /* #endregion */
@@ -278,6 +392,26 @@ public class MatchPlayer : MonoBehaviour
     }
 
     /* #endregion */
+
+    /* #region ---- Update Player Stat -------------------------------------------------------- */
+    public void UpdateStat(PlayerStat stat, int newValue)
+    {
+        switch(stat) 
+        {
+            case PlayerStat.ActionPoints:
+                updateActionPoints(newValue);
+                break;
+        }
+    }
+
+    private void updateActionPoints(int newValue)
+    {
+        if(newValue <= MaxActionPoints) CurrentActionPoints = newValue;
+        if(newValue > MaxActionPoints) CurrentActionPoints = MaxActionPoints;
+    }
+
+
+    /* #endregion */ 
 
     /* #endregion */
     /* ======================================================================================== */

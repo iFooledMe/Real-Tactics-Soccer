@@ -35,12 +35,13 @@ public class DrawPathLine
     {
         if (MatchManager.MatchPlayerManager.CurrentActivePlayer.PlayerMode == PlayerMode.Move)
         {
-            PitchManager PitchManager = MatchManager.PitchManager;
-            PitchGrid PitchGrid = MatchManager.PitchGrid;
-            MatchPlayer Player = MatchManager.MatchPlayerManager.GetActivePlayer();
-
             if (!MatchManager.MatchPlayerManager.PlayInAction)
-            {
+            { 
+                PitchManager PitchManager = MatchManager.PitchManager;
+                PitchGrid PitchGrid = MatchManager.PitchGrid;
+                MatchPlayer Player = MatchManager.MatchPlayerManager.GetActivePlayer();
+
+
                 /* #region ---- Reset Path ----------------------------------------- */
                 ClearPlayerMovePathLines();
                 setAllTilesNoneViableTarget(PitchManager);
@@ -54,18 +55,17 @@ public class DrawPathLine
                 
                 /* #endregion ------------------------------------------------------ */
                 
-                /* #region ---- Player rotate & Calc AP cost for rotation ---------- */
+                /* #region ---- Draw Path Line & Rotate Player --------------------- */
                 if (pathToTarget != null) 
-                {
+                {    
+                    /* #region ---- Player rotate & Calculate AP cost for rotation - */
+
                     Player.FaceTarget(pathToTarget[1].transform);
-                }
+                    int rotationApCost = Player.CalcRotationApCost ((int)Player.transform.eulerAngles.y);
 
-                /* #endregion ------------------------------------------------------ */
-
-
-                /* #region ---- Instantiate PathLine / Populate listLinePoints ----- */
-                if (pathToTarget != null) 
-                {
+                    /* #endregion --------------------------------------------------- */
+                    
+                    /* #region ---- Draw Path Line --------------------------------- */
                     GameObject PathLineObject = MatchManager.InstantiateGameObject(PitchGrid.PathLinePrefab);
                     PathLineObject.name = "PlayerMove PathLine";
                     LineRenderer lineRenderer = PathLineObject.GetComponent<LineRenderer>();
@@ -73,7 +73,7 @@ public class DrawPathLine
                     foreach (PitchTile pathTile in pathToTarget) 
                     {
                         counter++;
-                        if (accumulatedMoveCost < Player.ActionPoints)
+                        if (accumulatedMoveCost < Player.CurrentActionPoints - rotationApCost)
                         {
                             Vector3 linePoint = new Vector3 (
                                 pathTile.transform.position.x, 
@@ -89,6 +89,7 @@ public class DrawPathLine
                     
                     lineRenderer.positionCount = listLinePoints.Count;
                     lineRenderer.SetPositions(listLinePoints.ToArray());
+                    /* #endregion --------------------------------------------------- */
                 }
 
                 /* #endregion ------------------------------------------------------ */

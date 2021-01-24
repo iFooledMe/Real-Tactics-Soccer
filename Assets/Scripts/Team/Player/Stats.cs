@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class Stats
 {
-    public int ActionPoints {get; set;}
+    public int MaxActionPoints {get; set;}
 
     public Stats()
     {
-        ActionPoints = getRandom(4,8);
+        MaxActionPoints = 5;//getRandom(4,8);
     }
 
     private int getRandom(int min, int max)

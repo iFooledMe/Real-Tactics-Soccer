@@ -24,6 +24,11 @@ public class PitchGrid : SingletonMonoBehaviour<PitchGrid>
 
     /* #endregion */
 
+    /* #region ---- Move Target Overly -------------------------------------------------------- */
+    private GameObject MoveTargetOverlay; 
+
+    /* #endregion */
+
     /* #region ---- Out Line ------------------------------------------------------------------ */
     [SerializeField]
     private float outLineOffset = 1f; //Offset from outline tile position to define pitch border
@@ -37,6 +42,7 @@ public class PitchGrid : SingletonMonoBehaviour<PitchGrid>
     
     /* #region ---- Prefabs ------------------------------------------------------------------- */
     public GameObject PathLinePrefab; //Accessed by PathFinding class
+    public GameObject MoveTargetTileOverlay;
     
     [SerializeField] private GameObject noLines;
     [SerializeField] private GameObject cornerBottomLeft;
@@ -185,6 +191,7 @@ public class PitchGrid : SingletonMonoBehaviour<PitchGrid>
     void Start()
     {
         createPitch();
+        setMoveTargetTileOverlay();
         OnPitchCreated();
         createPathFinding();
     }
@@ -960,11 +967,43 @@ public class PitchGrid : SingletonMonoBehaviour<PitchGrid>
 
     /* #endregion */
 
+    /* #region ---- Set Move Target Overlay --------------------------------------------------- */
+    private void setMoveTargetTileOverlay()
+    {
+        MoveTargetOverlay = (GameObject)Instantiate(MoveTargetTileOverlay);
+        MoveTargetOverlay.SetActive(false);
+    }
+
+    /* #endregion */
+
     /* #endregion */
     /* ======================================================================================== */
 
     /* #region ==== GENERAL HELPERS =========================================================== */
+    
+    /* #region ---- Activate/Deactivate Move Target Overlay ----------------------------------- */
+    //TODO: Should Activation of Move target overlay be in PitchGrid?
+    public void ActivateMoveTargetOverlay(Vector3 targetPos)
+    {
+        MoveTargetOverlay.SetActive(true);
+        float posX = targetPos.x;
+        float posY = MoveTargetOverlay.transform.position.y;
+        float posZ = targetPos.z;
+        
+        Vector3 newPosition = new Vector3(posX, posY, posZ);
 
+        MoveTargetOverlay.transform.position = newPosition;
+    }
+
+    public void DeactivateMoveTargetOverlay()
+    {
+        MoveTargetOverlay.SetActive(false);
+    }
+
+
+
+
+    /* #endregion */
 
     /* #endregion */
     /* ======================================================================================== */

@@ -48,6 +48,7 @@ public class DrawPathLine
                 ClearPlayerMovePathLines();
                 setAllTilesNoneViableTarget(PitchManager);
                 ResetAccMoveCost();
+                MatchManager.PitchGrid.DeactivateMoveTargetOverlay();
                 
                 /* #endregion ------------------------------------------------------ */
 
@@ -61,13 +62,12 @@ public class DrawPathLine
                 if (pathToTarget != null) 
                 {    
                     /* #region ---- Player rotate & Calculate AP cost for rotation - */
-
                     Player.FaceTarget(pathToTarget[1].transform);
                     AccumulatedMoveCost = Player.CalcRotationApCost ((int)Player.transform.eulerAngles.y);
 
                     /* #endregion --------------------------------------------------- */
                     
-                    /* #region ---- Draw Path Line --------------------------------- */
+                    /* #region ---- Add to waypoints to List & update HUD ---------- */
                     GameObject PathLineObject = MatchManager.InstantiateGameObject(PitchGrid.PathLinePrefab);
                     PathLineObject.name = "PlayerMove PathLine";
                     LineRenderer lineRenderer = PathLineObject.GetComponent<LineRenderer>();
@@ -91,8 +91,11 @@ public class DrawPathLine
 
                         updateAPCostInHUD(AccumulatedMoveCost);
                     }
-                    
+                    /* #endregion --------------------------------------------------- */
+
+                    /* #region ---- Draw line and target tile overlay --------------- */
                     lineRenderer.positionCount = listLinePoints.Count;
+                    activateTargetOverlay(listLinePoints);
                     lineRenderer.SetPositions(listLinePoints.ToArray());
                     /* #endregion --------------------------------------------------- */
                 }
@@ -130,11 +133,22 @@ public class DrawPathLine
         MatchManager.Hud.UpdateAccAPCost(AccumulatedMoveCost);
     } 
     
-    private void updateAPCostInHUD(int accCost)
+    public void updateAPCostInHUD(int accCost)
     {
         AccCostReset = false;
         MatchManager.Hud.UpdateAccAPCost(accCost);
     }
+    /* #endregion */
+
+    /* #region ---- Activate target overlay ---------------------------------------------------- */
+    private void activateTargetOverlay(List<Vector3> listLinePoints)
+    {
+        if (listLinePoints.Count > 0)
+        {
+            MatchManager.PitchGrid.ActivateMoveTargetOverlay(listLinePoints[listLinePoints.Count - 1]);
+        }
+    }
+
     /* #endregion */
 
     /* #endregion */

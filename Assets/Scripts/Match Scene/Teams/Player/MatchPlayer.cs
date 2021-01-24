@@ -347,18 +347,15 @@ public class MatchPlayer : MonoBehaviour
         if (angleY == fullRotation0 || angleY == fullRotation1 || angleY == fullRotation2)
         {
             int apCost = MatchManager.MatchPlayerManager.ActionsApCostSettings.CostRotateFull;
-            Debug.Log($"Full Rotation - Cost {apCost}");
             return apCost;
         }
         else if (angleY == halfRotation1 || angleY == halfRotation2)
         {
             int apCost = MatchManager.MatchPlayerManager.ActionsApCostSettings.CostRotateHalf;
-            Debug.Log($"Half Rotation - Cost {apCost}");
             return apCost;
         }
         else
         {
-            Debug.Log("No/Minor Rotation - Cost 0");
             return 0;
         }
     }

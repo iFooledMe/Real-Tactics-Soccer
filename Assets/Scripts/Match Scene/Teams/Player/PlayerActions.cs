@@ -207,6 +207,7 @@ public class PlayerActions
     {
         MoveTargetTile.setOccupied(Player);
         MoveSourceTile.setUnOccupied();
+        MatchManager.PitchGrid.DeactivateMoveTargetOverlay();
     }
 
     /* #endregion */

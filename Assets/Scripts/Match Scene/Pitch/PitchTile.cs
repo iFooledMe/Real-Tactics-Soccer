@@ -13,6 +13,8 @@ public class PitchTile : MonoBehaviour
     [SerializeField]
     public int CoordZ { get; private set; }
 
+    public Vector3 VectorPosition {get; private set;}
+
     /* #endregion */
 
     /* #region ---- Occupation state ---------------------------------------------------------- */
@@ -90,11 +92,16 @@ public class PitchTile : MonoBehaviour
 
     /* #region ==== GENERAL HELPER FUNCTIONS ================================================== */
     
-    /* #region ---- Helper - Set this tiles coordinates in the grid --------------------------- */
+    /* #region ---- Set tile coordinates and Vector position fields --------------------------- */
     public void SetCoodinates(int coordX, int coordZ) 
     {
         this.CoordX = coordX;
         this.CoordZ = coordZ;
+
+        this.VectorPosition = new Vector3 (
+            transform.position.x, 
+            transform.position.y, 
+            transform.position.z );
     }
     /* #endregion */
 

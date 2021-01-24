@@ -73,9 +73,6 @@ public class Hud : SingletonMonoBehaviour<Hud>
     
     public void UpdatePlayerInfo(MatchPlayer Player)
     {
-        
-        
-        
         // Player General Info
         playerName.text = Player.Player.Name;
 
@@ -86,9 +83,11 @@ public class Hud : SingletonMonoBehaviour<Hud>
 
     public void UpdateAccAPCost(int accCost)
     {
-        if (accCost != 0)
+        MatchPlayer activePlayer = MatchManager.MatchPlayerManager.CurrentActivePlayer;
+
+        if (accCost != 0 && activePlayer.CurrentActionPoints > 0)
         {
-            apCost.text = accCost.ToString();
+            apCost.text = $"-{accCost.ToString()}";
         }
         else
         {

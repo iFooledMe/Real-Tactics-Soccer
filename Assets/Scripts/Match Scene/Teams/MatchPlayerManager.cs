@@ -2,6 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+    public enum PlayerInit
+    {
+        Yes
+    }
+
 public class MatchPlayerManager : SingletonMonoBehaviour<MatchPlayerManager>
 {
     /* #region ==== FIELDS & PROPERTIES ======================================================= */
@@ -126,7 +131,7 @@ public class MatchPlayerManager : SingletonMonoBehaviour<MatchPlayerManager>
 
         if (player.startActive)
         {
-            matchPlayer.SetPlayerActive();
+            matchPlayer.SetPlayerActive(PlayerInit.Yes);
         }
         else
         {

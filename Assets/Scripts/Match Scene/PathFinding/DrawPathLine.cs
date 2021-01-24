@@ -24,6 +24,7 @@ public class DrawPathLine
     public DrawPathLine()
     {
         this.MatchManager = MatchManager.Instance;
+        AccumulatedMoveCost = 0;
     }
     /* #endregion */
     /* ======================================================================================== */
@@ -45,7 +46,7 @@ public class DrawPathLine
                 /* #region ---- Reset Path ----------------------------------------- */
                 ClearPlayerMovePathLines();
                 setAllTilesNoneViableTarget(PitchManager);
-                AccumulatedMoveCost = 0;
+                ResetAccMoveCost();
                 
                 /* #endregion ------------------------------------------------------ */
 
@@ -85,6 +86,8 @@ public class DrawPathLine
                             if(counter != 1){ AccumulatedMoveCost += pathTile.CostToEnter; }
                             pathTile.IsViableTarget = true;
                         }
+
+                        updateAPCostInHUD(AccumulatedMoveCost);
                     }
                     
                     lineRenderer.positionCount = listLinePoints.Count;
@@ -106,7 +109,7 @@ public class DrawPathLine
     /* #endregion */
 
     /* #region ---- Reset all tiles to none viable movement targets --------------------------- */
-    void setAllTilesNoneViableTarget(PitchManager PitchManager)
+    private void setAllTilesNoneViableTarget(PitchManager PitchManager)
     {
         for (int x = 1; x <= MatchManager.PitchGrid.PitchSettings.PitchWidth; x++) {
             for (int z = 1; z <= MatchManager.PitchGrid.PitchSettings.PitchLength; z++) 
@@ -114,6 +117,19 @@ public class DrawPathLine
                PitchManager.GetPitchTile(x, z).IsViableTarget = false; 
             }
         }
+    }
+    /* #endregion */
+
+    /* #region ---- Reset/Update Accumulated Move Cost ---------------------------------------- */
+    public void ResetAccMoveCost()
+    {
+        AccumulatedMoveCost = 0;
+        MatchManager.Hud.UpdateAccAPCost(AccumulatedMoveCost);
+    } 
+    
+    private void updateAPCostInHUD(int accCost)
+    {
+        MatchManager.Hud.UpdateAccAPCost(accCost);
     }
     /* #endregion */
 

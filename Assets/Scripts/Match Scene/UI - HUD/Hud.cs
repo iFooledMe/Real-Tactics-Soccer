@@ -16,6 +16,7 @@ public class Hud : SingletonMonoBehaviour<Hud>
     
     /* #region ---- Players Stats ------------------------------------------------------------- */
     TMP_Text apValue;
+    TMP_Text apCost;
 
     /* #endregion */
 
@@ -50,6 +51,9 @@ public class Hud : SingletonMonoBehaviour<Hud>
         
         // Player Stats
         apValue =  this.transform.Find("HUD - Action Points/AP Value").GetComponent<TMP_Text>();
+
+        // Temporary States
+        apCost = this.transform.Find("HUD - Action Points/AP Cost").GetComponent<TMP_Text>();
     }
     /* #endregion */
 
@@ -62,23 +66,34 @@ public class Hud : SingletonMonoBehaviour<Hud>
         getDependencies();
     }
 
-    private void Start()
-    {
-
-    }
-
     /* #endregion */
     /* ======================================================================================== */
     
-    /* #region ==== P L A Y E R  S T A T S ==================================================== */
+    /* #region ==== U P D A T E  P L A Y E R  I N F O ========================================= */
     
     public void UpdatePlayerInfo(MatchPlayer Player)
     {
+        
+        
+        
         // Player General Info
         playerName.text = Player.Player.Name;
 
         // Player Stats
         apValue.text = Player.CurrentActionPoints.ToString();
+
+    }
+
+    public void UpdateAccAPCost(int accCost)
+    {
+        if (accCost != 0)
+        {
+            apCost.text = accCost.ToString();
+        }
+        else
+        {
+            apCost.text = "";
+        }
     }
 
     /* #endregion */

@@ -384,16 +384,32 @@ public class MatchPlayer : MonoBehaviour
     /* #endregion */
 
     /* #region ---- Set player Active / Inactive ---------------------------------------------- */
+    
+    // Set Active
     public void SetPlayerActive()
+    {
+        activate();
+        MatchManager.PitchGrid.PathFinding.DrawPathLine.ResetAccMoveCost();
+    }
+
+    public void SetPlayerActive(PlayerInit init)
+    {
+        activate();
+    }
+
+    private void activate()
     {
         IsActive = true;
         bodyRenderer.material.color = activeColor;
         MatchManager.MatchPlayerManager.SetOtherPlayersInactive(this);
         MatchManager.MatchPlayerManager.CurrentActivePlayer = this;
         MatchManager.DestroyObjectsByTag("PathLine");
-        MatchManager.Hud.UpdatePlayerInfo(this);
+        MatchManager.Hud.UpdatePlayerInfo(this); 
     }
 
+
+
+    // Set Inactive
     public void SetPlayerInactive()
     {
         IsActive = false;

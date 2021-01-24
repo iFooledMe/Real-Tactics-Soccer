@@ -215,6 +215,7 @@ public class PlayerActions
     private void updateHUD()
     {
         MatchManager.Hud.UpdatePlayerInfo(Player);
+        MatchManager.PitchGrid.PathFinding.DrawPathLine.ResetAccMoveCost();
     }
 
     /* #endregion */

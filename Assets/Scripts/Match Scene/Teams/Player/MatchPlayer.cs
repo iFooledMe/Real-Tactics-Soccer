@@ -152,6 +152,8 @@ public class MatchPlayer : MonoBehaviour
     {
         if (!MatchManager.MatchPlayerManager.PlayInAction)
         {
+            clearAllModeStates();
+
             switch(playerMode) 
             {
             case PlayerMode.Idle:
@@ -178,7 +180,7 @@ public class MatchPlayer : MonoBehaviour
     /* #region ---- IDLE Mode ----------------------------------------------------------------- */
     private void setIdleMode()
     {
-        clearAllModeStates();
+        //clearAllModeStates();
         PlayerMode = PlayerMode.Idle;
 
     }
@@ -188,7 +190,7 @@ public class MatchPlayer : MonoBehaviour
     /* #region ---- MOVE Mode ----------------------------------------------------------------- */
     private void setMoveMode()
     {
-        clearAllModeStates();
+        //clearAllModeStates();
         PlayerMode = PlayerMode.Move;
     }
 
@@ -197,7 +199,7 @@ public class MatchPlayer : MonoBehaviour
     /* #region ---- ROTATE Mode --------------------------------------------------------------- */
     private void setRotateMode()
     {
-        clearAllModeStates();
+        //clearAllModeStates();
         PlayerMode = PlayerMode.Rotate;
         MatchManager.PitchGrid.RotateGrid.DrawRotationGrid(this);
 
@@ -208,7 +210,7 @@ public class MatchPlayer : MonoBehaviour
     /* #region ---- PASS Mode ----------------------------------------------------------------- */
     private void setPassMode()
     {
-        clearAllModeStates();
+        //clearAllModeStates();
         PlayerMode = PlayerMode.Pass;
         MatchManager.BallGrid.ActivateBallGrid();
 

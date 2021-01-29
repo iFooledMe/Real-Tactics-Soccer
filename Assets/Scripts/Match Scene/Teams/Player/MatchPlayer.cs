@@ -145,9 +145,11 @@ public class MatchPlayer : MonoBehaviour
     /* #endregion */
     /* ======================================================================================== */
     
+    
+    
     /* #region ==== P L A Y E R  M O D E S  =================================================== */
     
-    /* #region ---- Player Mode Switcher ------------------------------------------------------ */
+    /* #region ---- Player Mode SWITCHER ------------------------------------------------------ */
     public void SetPlayerMode(PlayerMode playerMode)
     {
         if (!MatchManager.MatchPlayerManager.PlayInAction)
@@ -175,7 +177,7 @@ public class MatchPlayer : MonoBehaviour
 
     /* #endregion */
 
-    /* #region ---- Idle Mode ------------------------------------------------------------------ */
+    /* #region ---- IDLE Mode ----------------------------------------------------------------- */
     private void setIdleMode()
     {
         PlayerMode = PlayerMode.Idle;
@@ -186,7 +188,7 @@ public class MatchPlayer : MonoBehaviour
 
     /* #endregion */
 
-    /* #region ---- Move Mode ------------------------------------------------------------------ */
+    /* #region ---- MOVE Mode ----------------------------------------------------------------- */
     private void setMoveMode()
     {
         PlayerMode = PlayerMode.Move;
@@ -195,7 +197,7 @@ public class MatchPlayer : MonoBehaviour
 
     /* #endregion */
 
-    /* #region ---- Rotate Mode ------------------------------------------------------------------ */
+    /* #region ---- ROTATE Mode --------------------------------------------------------------- */
     private void setRotateMode()
     {
         Debug.Log("Rotate Mode activated");
@@ -206,7 +208,7 @@ public class MatchPlayer : MonoBehaviour
 
     /* #endregion */
 
-    /* #region ---- Pass Mode ------------------------------------------------------------------ */
+    /* #region ---- PASS Mode ----------------------------------------------------------------- */
     private void setPassMode()
     {
         PlayerMode = PlayerMode.Pass;
@@ -216,7 +218,7 @@ public class MatchPlayer : MonoBehaviour
 
     /* #endregion */
 
-    /* #region ---- Common helpers ------------------------------------------------------------- */
+    /* #region ---- Common helpers ------------------------------------------------------------ */
     private void clearMovePaths()
     {
         MatchManager.DestroyObjectsByTag("PathLine");

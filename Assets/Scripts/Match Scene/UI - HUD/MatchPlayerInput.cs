@@ -213,7 +213,22 @@ public class MatchPlayerInput : SingletonMonoBehaviour<MatchPlayerInput>
     /* #region ---- PitchTile MouseEnter / MouseExit ------------------------------------------ */
     public void OnPitchTileMouseEnter(PitchTile tile)
     {
-        MatchManager.PitchGrid.PathFinding.DrawPathLine.Draw(tile);
+        MatchPlayer activePlayer = MatchManager.MatchPlayerManager.CurrentActivePlayer;
+        PlayerMode playerMode = activePlayer.PlayerMode;
+        
+        switch(playerMode) 
+        {
+            case PlayerMode.Idle:
+                break; 
+            case PlayerMode.Move:
+                MatchManager.PitchGrid.PathFinding.DrawPathLine.Draw(tile);
+                break; 
+            case PlayerMode.Rotate:
+                Debug.Log("Player in Rotate Mode");
+                break; 
+            case PlayerMode.Pass:
+                break;
+        }
     }
 
     /* #endregion */

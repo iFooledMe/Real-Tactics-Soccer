@@ -222,6 +222,7 @@ public class MatchPlayer : MonoBehaviour
         clearMovePaths();
         deactivateBallGrid();
         clearRotationGrid();
+        clearMoveTargetOverlay();
     }
     
     private void clearMovePaths()
@@ -237,6 +238,11 @@ public class MatchPlayer : MonoBehaviour
     private void clearRotationGrid()
     {
         MatchManager.PitchGrid.RotateGrid.ClearRotationGrid();
+    }
+
+    private void clearMoveTargetOverlay()
+    {
+        MatchManager.PitchGrid.DeactivateMoveTargetOverlay();
     }
 
     /* #endregion */

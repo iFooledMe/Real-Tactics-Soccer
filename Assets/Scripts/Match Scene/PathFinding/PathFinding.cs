@@ -9,14 +9,14 @@ public class PathFinding
     /* #region ---- Draw Path Line ------------------------------------------------------------ */
     private int accumulatedMoveCost;
     private List<Vector3> listLinePoints;
-
+    
+    /* #endregion */
 
     /* #region ---- Dependencies -------------------------------------------------------------- */
     MatchManager MatchManager;
     public DrawPathLine DrawPathLine {get; private set;}
 
     /* #endregion */
-    /* ---------------------------------------------------------------------------------------- */
 
     /* #endregion */
     /* ======================================================================================== */

@@ -60,7 +60,7 @@ public class PlayerActions
                 move();
                 break;
             case PlayerAction.Rotate:
-                rotation();
+                rotate();
                 break;
             default:
                 idle();
@@ -82,10 +82,33 @@ public class PlayerActions
     /* ======================================================================================== */
 
     /* #region ==== R O T A T I O N  a c t i o n ============================================== */
-    private void rotation()
+    
+    /* #region ---- 1. CHECK FOR TOTATION ----------------------------------------------------- */
+    public void CheckForRotation()
+    {
+        if (MatchManager.MatchPlayerManager.CurrentActivePlayer.PlayerMode == PlayerMode.Rotate)
+        {
+            Debug.Log("Check for rotation");
+        }
+    }
+    
+    /* #endregion */
+
+    /* #region ---- 2. SETUP & START ROTATION ------------------------------------------------- */
+    private void rotatePlayerSetup()
+    {
+
+    }
+
+    /* #endregion */
+    
+    /* #region ---- 3. ROTATE [Executed in MatchPlayer.Update() ] ----------------------------- */
+    private void rotate()
     {
         return;
     }
+
+    /* #endregion ----------------------------------------------------------------------------- */
 
     /* #endregion */
     /* ======================================================================================== */
@@ -189,6 +212,7 @@ public class PlayerActions
         waypoints = null;
         currentWaypoint = 0;
         CurrentAction = PlayerAction.Idle;
+        MatchManager.PitchGrid.PathFinding.DrawPathLine.ResetAccMoveCost();
     }
     
     /* #endregion */
@@ -230,7 +254,6 @@ public class PlayerActions
     private void updateHUD()
     {
         MatchManager.Hud.UpdatePlayerInfo(Player);
-        MatchManager.PitchGrid.PathFinding.DrawPathLine.ResetAccMoveCost();
     }
 
     /* #endregion */

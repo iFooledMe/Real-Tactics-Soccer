@@ -49,7 +49,7 @@ public class MatchPlayer : MonoBehaviour
     /* #endregion */
 
     /* #region ---- Player States ------------------------------------------------------------- */
-    public PitchTile currentTile {get; private set;}
+    public PitchTile CurrentTile {get; private set;}
     
     public bool IsActive {get; private set;}
 
@@ -145,8 +145,6 @@ public class MatchPlayer : MonoBehaviour
     /* #endregion */
     /* ======================================================================================== */
     
-    
-    
     /* #region ==== P L A Y E R  M O D E S  =================================================== */
     
     /* #region ---- Player Mode SWITCHER ------------------------------------------------------ */
@@ -200,8 +198,8 @@ public class MatchPlayer : MonoBehaviour
     /* #region ---- ROTATE Mode --------------------------------------------------------------- */
     private void setRotateMode()
     {
-        Debug.Log("Rotate Mode activated");
         PlayerMode = PlayerMode.Rotate;
+        MatchManager.PitchGrid.RotateGrid.DrawRotationGrid();
         deactivateBallGrid();
         clearMovePaths();
     }
@@ -389,10 +387,11 @@ public class MatchPlayer : MonoBehaviour
     /* #region ==== O T H E R  M E T H O D S ================================================== */
     
     /* #region ---- Set player info on Instantiation ------------------------------------------ */
-    public void SetPlayerInfo(Player player, int coordX, int coordZ)
+    public void SetPlayerInfoOnInstantiation(Player player, PitchTile pitchTile, int coordX, int coordZ)
     {
         CoordX = coordX;
         CoordZ = coordZ;
+        CurrentTile = pitchTile;
         Player = player;
         Name = Player.Name;
         MaxActionPoints = Player.Stats.MaxActionPoints;
@@ -425,8 +424,6 @@ public class MatchPlayer : MonoBehaviour
         MatchManager.Hud.UpdatePlayerInfo(this); 
     }
 
-
-
     // Set Inactive
     public void SetPlayerInactive()
     {
@@ -442,7 +439,7 @@ public class MatchPlayer : MonoBehaviour
     {
         this.CoordX = tile.CoordX;
         this.CoordZ = tile.CoordZ;
-        this.currentTile = tile;
+        this.CurrentTile = tile;
     }
 
     /* #endregion */

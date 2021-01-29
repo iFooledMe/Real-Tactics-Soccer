@@ -20,8 +20,6 @@ public class PitchGrid : SingletonMonoBehaviour<PitchGrid>
     public float XOffset {get; private set;}
     public float ZOffset {get; private set;}
 
-    public event PitchCreatedNote PitchCreated;
-
     /* #endregion */
 
     /* #region ---- Move Target Overly -------------------------------------------------------- */
@@ -40,6 +38,11 @@ public class PitchGrid : SingletonMonoBehaviour<PitchGrid>
 
     /* #endregion */
     
+    /* #region ---- Events -------------------------------------------------------------------- */
+    public event PitchCreatedNote PitchCreated;
+
+    /* #endregion */
+
     /* #region ---- Prefabs ------------------------------------------------------------------- */
     public GameObject PathLinePrefab; //Accessed by PathFinding class
     public GameObject MoveTargetTileOverlay;
@@ -150,6 +153,7 @@ public class PitchGrid : SingletonMonoBehaviour<PitchGrid>
     private MatchManager MatchManager;
     private CreateGraph CreateGraph;
     public PathFinding PathFinding {get; private set;}
+    public RotateGrid RotateGrid {get; private set;}
 
     /* #endregion */
 
@@ -179,10 +183,17 @@ public class PitchGrid : SingletonMonoBehaviour<PitchGrid>
     }
     /* #endregion */
 
+    /* #region ---- Set Player Rotation Grid -------------------------------------------------- */
+    void createPlayerRotationGrid() 
+    {
+        RotateGrid = new RotateGrid(MatchManager);
+    }
+    /* #endregion */
+
     /* #endregion */
     /* ======================================================================================== */
 
-    /* #region ==== AWAKE / START ============================================================= */
+    /* #region ==== AWAKE / START / EVENTS ==================================================== */
     void Awake() 
     {
         getDependencies();
@@ -194,6 +205,7 @@ public class PitchGrid : SingletonMonoBehaviour<PitchGrid>
         setMoveTargetTileOverlay();
         OnPitchCreated();
         createPathFinding();
+        createPlayerRotationGrid();
     }
 
     protected virtual void OnPitchCreated()

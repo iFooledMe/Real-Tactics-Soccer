@@ -209,9 +209,8 @@ public class MatchPlayerInput : SingletonMonoBehaviour<MatchPlayerInput>
     public void OnPitchTileMouseEnter(PitchTile tile)
     {
         MatchPlayer activePlayer = MatchManager.MatchPlayerManager.CurrentActivePlayer;
-        PlayerMode playerMode = activePlayer.PlayerMode;
         
-        switch(playerMode) 
+        switch(activePlayer.PlayerMode) 
         {
             case PlayerMode.Idle:
                 break; 
@@ -219,7 +218,7 @@ public class MatchPlayerInput : SingletonMonoBehaviour<MatchPlayerInput>
                 MatchManager.PitchGrid.PathFinding.DrawPathLine.Draw(tile);
                 break; 
             case PlayerMode.Rotate:
-                Debug.Log("Player in Rotate Mode");
+                //Show rotation info
                 break; 
             case PlayerMode.Pass:
                 break;

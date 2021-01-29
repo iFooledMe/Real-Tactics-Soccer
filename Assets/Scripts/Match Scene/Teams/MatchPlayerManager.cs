@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-    public enum PlayerInit
-    {
-        Yes
-    }
+public enum PlayerInit
+{
+    Yes
+}
 
 public class MatchPlayerManager : SingletonMonoBehaviour<MatchPlayerManager>
 {
@@ -23,7 +23,7 @@ public class MatchPlayerManager : SingletonMonoBehaviour<MatchPlayerManager>
     public bool PlayInAction { get; private set; }
 
     /* #endregion */
-    
+       
     /* #region ---- Prefabs ------------------------------------------------------------------- */
     [SerializeField] private GameObject playerPrefab;
 
@@ -54,7 +54,7 @@ public class MatchPlayerManager : SingletonMonoBehaviour<MatchPlayerManager>
     /* #endregion */
     /* ======================================================================================== */
 
-    /* #region ==== AWAKE / START ============================================================= */
+    /* #region ==== AWAKE / START / EVENTS ==================================================== */
     private void Awake() 
     {
         getDependencies();
@@ -104,7 +104,7 @@ public class MatchPlayerManager : SingletonMonoBehaviour<MatchPlayerManager>
                 PitchTile pitchTile = MatchManager.PitchManager.GetPitchTile(coordX, coordZ);
                 GameObject playerObj = (GameObject)Instantiate(playerPrefab);
                 MatchPlayer matchPlayer = playerObj.GetComponent<MatchPlayer>();
-                setPlayerInfo(playerObj, matchPlayer, player, team, count, coordX, coordZ);
+                setPlayerInfo(playerObj, matchPlayer, player, team, pitchTile, count, coordX, coordZ);
                 setPlayerActiveState(playerObj, player);
                 setVectorPosition(pitchTile, playerObj);
                 setTileOccupied(pitchTile, matchPlayer);
@@ -114,12 +114,12 @@ public class MatchPlayerManager : SingletonMonoBehaviour<MatchPlayerManager>
     }
     
     /* #region ---- Set player info ----------------------------------------------------------- */
-    private void setPlayerInfo(GameObject playerObj, MatchPlayer matchPlayer, Player player, Team team, int count, int coordX, int coordZ)
+    private void setPlayerInfo(GameObject playerObj, MatchPlayer matchPlayer, Player player, Team team, PitchTile pitchTile, int count, int coordX, int coordZ)
     {
         playerObj.name = $"{team.Name} - Player {count} - {player.Name}";
         playerObj.transform.SetParent(this.transform);
         
-        matchPlayer.SetPlayerInfo(player, coordX, coordZ);
+        matchPlayer.SetPlayerInfoOnInstantiation(player, pitchTile, coordX, coordZ);
     }
 
     /* #endregion */

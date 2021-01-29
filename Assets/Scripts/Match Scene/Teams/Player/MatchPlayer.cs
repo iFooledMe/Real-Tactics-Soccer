@@ -180,9 +180,7 @@ public class MatchPlayer : MonoBehaviour
     /* #region ---- IDLE Mode ----------------------------------------------------------------- */
     private void setIdleMode()
     {
-        //clearAllModeStates();
         PlayerMode = PlayerMode.Idle;
-
     }
 
     /* #endregion */
@@ -190,7 +188,6 @@ public class MatchPlayer : MonoBehaviour
     /* #region ---- MOVE Mode ----------------------------------------------------------------- */
     private void setMoveMode()
     {
-        //clearAllModeStates();
         PlayerMode = PlayerMode.Move;
     }
 
@@ -199,10 +196,8 @@ public class MatchPlayer : MonoBehaviour
     /* #region ---- ROTATE Mode --------------------------------------------------------------- */
     private void setRotateMode()
     {
-        //clearAllModeStates();
         PlayerMode = PlayerMode.Rotate;
         MatchManager.PitchGrid.RotateGrid.DrawRotationGrid(this);
-
     }
 
     /* #endregion */
@@ -210,10 +205,8 @@ public class MatchPlayer : MonoBehaviour
     /* #region ---- PASS Mode ----------------------------------------------------------------- */
     private void setPassMode()
     {
-        //clearAllModeStates();
         PlayerMode = PlayerMode.Pass;
         MatchManager.BallGrid.ActivateBallGrid();
-
     }
 
     /* #endregion */
@@ -227,21 +220,28 @@ public class MatchPlayer : MonoBehaviour
         clearMoveTargetOverlay();
     }
     
+    //Move Paths -----------------
     private void clearMovePaths()
     {
         MatchManager.DestroyObjectsByTag("PathLine");
     }
 
+    //BallGrid ------------------
     private void deactivateBallGrid()
     {
         MatchManager.BallGrid.DeactivateBallGrid();
     }
 
+    //Rotation Grid ------------
     private void clearRotationGrid()
     {
-        MatchManager.PitchGrid.RotateGrid.ClearRotationGrid();
+        if (MatchManager.PitchGrid.RotateGrid != null)
+        {
+            MatchManager.PitchGrid.RotateGrid.ClearRotationGrid();
+        }
     }
 
+    //MoveTargetOverlay --------
     private void clearMoveTargetOverlay()
     {
         MatchManager.PitchGrid.DeactivateMoveTargetOverlay();
@@ -436,11 +436,13 @@ public class MatchPlayer : MonoBehaviour
 
     private void activate()
     {
+        clearAllModeStates();
+        MatchManager.DestroyObjectsByTag("PathLine");
         IsActive = true;
         bodyRenderer.material.color = activeColor;
         MatchManager.MatchPlayerManager.SetOtherPlayersInactive(this);
         MatchManager.MatchPlayerManager.CurrentActivePlayer = this;
-        MatchManager.DestroyObjectsByTag("PathLine");
+        
         MatchManager.Hud.UpdatePlayerInfo(this); 
     }
 

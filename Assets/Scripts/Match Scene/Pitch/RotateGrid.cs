@@ -27,12 +27,15 @@ public class RotateGrid
     /* #region ---- Draw Rotation Grid -------------------------------------------------------- */
     public void DrawRotationGrid(MatchPlayer Player)
     {
-        ClearRotationGrid();
-        List<PitchTile> neighbourTiles = Player.CurrentTile.NeighbourTiles;
-
-        foreach (var tile in neighbourTiles)
+        if (Player.PlayerMode == PlayerMode.Rotate)
         {
-            tile.ActivateRotateGridOverlay(true);
+            ClearRotationGrid();
+            List<PitchTile> neighbourTiles = Player.CurrentTile.NeighbourTiles;
+
+            foreach (var tile in neighbourTiles)
+            {
+                tile.ActivateRotateGridOverlay(true);
+            }
         }
     }
 

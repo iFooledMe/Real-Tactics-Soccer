@@ -35,8 +35,9 @@ public class PitchTile : MonoBehaviour
 
     /* #endregion */
 
-    /* #region ---- Movement/Pathfinding Fields ----------------------------------------------- */
+    /* #region ---- Rotation Grid / Target ---------------------------------------------------- */
     public GameObject RotateGridOverlay {get; private set;}
+    public GameObject RotateGridTarget {get; private set;}
 
     /* #endregion */
 
@@ -140,21 +141,32 @@ public class PitchTile : MonoBehaviour
 
     /* #endregion */
 
-    /* #region ---- Set Rotate Grid Overlay --------------------------------------------------- */
+    /* #region ---- Set Rotate Grid Overlay / Rotate Grid Target ------------------------------ */
     public void InitRotateGridOverlayObjects()
     {
         RotateGridOverlay = (GameObject)Instantiate(MatchManager.PitchGrid.RotateGridOverlay);
-        
-        Vector3 position = new Vector3(
+        RotateGridTarget = (GameObject)Instantiate(MatchManager.PitchGrid.RotateTargetOverlay);
+
+        Vector3 positionGridOverlay = new Vector3(
             this.transform.position.x,
             RotateGridOverlay.transform.position.y,
             this.transform.position.z);
 
-        RotateGridOverlay.transform.position = position;
-        
+        Vector3 positionTargetOverlay = new Vector3(
+            this.transform.position.x,
+            RotateGridTarget.transform.position.y,
+            this.transform.position.z);
+    
+        RotateGridOverlay.transform.position = positionGridOverlay;
+        RotateGridTarget.transform.position = positionTargetOverlay;
+
         RotateGridOverlay.SetActive(false);
+        RotateGridTarget.SetActive(false);
     }
 
+    /* #endregion */
+
+    /* #region ---- Activate / Deactivate Rotate Grid ----------------------------------------- */
     public void ActivateRotateGridOverlay(bool activate)
     {
         if (activate)
@@ -166,8 +178,26 @@ public class PitchTile : MonoBehaviour
             RotateGridOverlay.SetActive(false);
         }
     }
-
+    
     /* #endregion */
+
+
+    /* #region ---- Activate / Deactivate Rotate Target Overlay -------------------------------- */
+    public void ActivateRotateTargetOverlay(bool activate)
+    {
+        if (activate)
+        {
+            RotateGridTarget.SetActive(true);
+        }
+        else if (!activate)
+        {
+            RotateGridTarget.SetActive(false);
+        }
+    }
+    
+    /* #endregion */
+
+
 
 
     /* #endregion */

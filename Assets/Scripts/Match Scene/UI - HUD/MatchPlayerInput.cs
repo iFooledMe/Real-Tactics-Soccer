@@ -212,7 +212,8 @@ public class MatchPlayerInput : SingletonMonoBehaviour<MatchPlayerInput>
                 MatchManager.PitchGrid.PathFinding.DrawPathLine.Draw(tile);
                 break; 
             case PlayerMode.Rotate:
-                //Show rotation info
+                Debug.Log("Mouse Enter in Rotate mode");
+                MatchManager.PitchGrid.RotateGrid.DrawRotationTarget(activePlayer, tile);
                 break; 
             case PlayerMode.Pass:
                 break;
@@ -224,7 +225,21 @@ public class MatchPlayerInput : SingletonMonoBehaviour<MatchPlayerInput>
     /* #region ---- PitchTile Mouse Left click ------------------------------------------------ */
     public void OnPitchTileLeftClick(PitchTile targetTile)
     {
-        MatchManager.MatchPlayerManager.CurrentActivePlayer.PlayerActions.CheckForMovement(targetTile);
+        MatchPlayer activePlayer = MatchManager.MatchPlayerManager.CurrentActivePlayer;
+        
+        switch(activePlayer.PlayerMode) 
+        {
+            case PlayerMode.Idle:
+                break; 
+            case PlayerMode.Move:
+                MatchManager.MatchPlayerManager.CurrentActivePlayer.PlayerActions.CheckForMovement(targetTile);
+                break; 
+            case PlayerMode.Rotate:
+                //Execute rotation
+                break; 
+            case PlayerMode.Pass:
+                break;
+        } 
     }
 
     /* #endregion */

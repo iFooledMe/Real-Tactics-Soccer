@@ -55,7 +55,45 @@ public class RotateGrid
     /* #endregion */
     /* ======================================================================================== */
 
+    /* #region ==== D R A W / C L E A R  R O T A T I O N  T A R G E T  O V E R L A Y ========== */
+    
+    /* #region ---- Draw Rotation Target ------------------------------------------------------ */
+    public void DrawRotationTarget(MatchPlayer Player, PitchTile targetTile)
+    {
+        if (Player.PlayerMode == PlayerMode.Rotate)
+        {
+            ClearRotationTarget(Player);
+            
+            List<PitchTile> neighbourTiles = Player.CurrentTile.NeighbourTiles;
+            
+            foreach (var tile in neighbourTiles)
+            {
+                if (tile == targetTile)
+                {
+                    tile.ActivateRotateTargetOverlay(true);
+                    break;
+                }
+            }
+        }
+    }
 
+    /* #endregion ----------------------------------------------------------------------------- */
+
+    /* #region ---- Clear Rotation Grid ------------------------------------------------------- */
+    public void ClearRotationTarget(MatchPlayer Player)
+    {
+        List<PitchTile> neighbourTiles = Player.CurrentTile.NeighbourTiles;
+        
+        foreach (var tile in neighbourTiles)
+        {
+            tile.ActivateRotateTargetOverlay(false);
+        }
+    }
+
+    /* #endregion ----------------------------------------------------------------------------- */
+
+    /* #endregion */
+    /* ======================================================================================== */
 
 
 }

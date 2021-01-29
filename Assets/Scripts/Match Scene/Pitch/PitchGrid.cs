@@ -48,6 +48,7 @@ public class PitchGrid : SingletonMonoBehaviour<PitchGrid>
     public GameObject PathLinePrefab; //Accessed by PathFinding class
     public GameObject MoveTargetTileOverlay;
     public GameObject RotateGridOverlay;
+    public GameObject RotateTargetOverlay;
     
     [SerializeField] private GameObject noLines;
     [SerializeField] private GameObject cornerBottomLeft;

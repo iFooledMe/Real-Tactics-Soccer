@@ -178,10 +178,9 @@ public class MatchPlayer : MonoBehaviour
     /* #region ---- IDLE Mode ----------------------------------------------------------------- */
     private void setIdleMode()
     {
+        clearAllModeStates();
         PlayerMode = PlayerMode.Idle;
-        clearMovePaths();
-        deactivateBallGrid();
-        
+
     }
 
     /* #endregion */
@@ -189,8 +188,8 @@ public class MatchPlayer : MonoBehaviour
     /* #region ---- MOVE Mode ----------------------------------------------------------------- */
     private void setMoveMode()
     {
+        clearAllModeStates();
         PlayerMode = PlayerMode.Move;
-        deactivateBallGrid();
     }
 
     /* #endregion */
@@ -198,10 +197,10 @@ public class MatchPlayer : MonoBehaviour
     /* #region ---- ROTATE Mode --------------------------------------------------------------- */
     private void setRotateMode()
     {
+        clearAllModeStates();
         PlayerMode = PlayerMode.Rotate;
-        MatchManager.PitchGrid.RotateGrid.DrawRotationGrid();
-        deactivateBallGrid();
-        clearMovePaths();
+        MatchManager.PitchGrid.RotateGrid.DrawRotationGrid(this);
+
     }
 
     /* #endregion */
@@ -209,14 +208,22 @@ public class MatchPlayer : MonoBehaviour
     /* #region ---- PASS Mode ----------------------------------------------------------------- */
     private void setPassMode()
     {
+        clearAllModeStates();
         PlayerMode = PlayerMode.Pass;
         MatchManager.BallGrid.ActivateBallGrid();
-        clearMovePaths();
+
     }
 
     /* #endregion */
 
-    /* #region ---- Common helpers ------------------------------------------------------------ */
+    /* #region ---- Clear all Mode States ----------------------------------------------------- */
+    private void clearAllModeStates()
+    {
+        clearMovePaths();
+        deactivateBallGrid();
+        clearRotationGrid();
+    }
+    
     private void clearMovePaths()
     {
         MatchManager.DestroyObjectsByTag("PathLine");
@@ -225,6 +232,11 @@ public class MatchPlayer : MonoBehaviour
     private void deactivateBallGrid()
     {
         MatchManager.BallGrid.DeactivateBallGrid();
+    }
+
+    private void clearRotationGrid()
+    {
+        MatchManager.PitchGrid.RotateGrid.ClearRotationGrid();
     }
 
     /* #endregion */

@@ -51,8 +51,6 @@ public class BallPointer : SingletonMonoBehaviour<BallPointer>
         position.x = BallGridPoint.transform.position.x;
         position.z = BallGridPoint.transform.position.z;
         this.transform.position = position;
-
-        //Debug.Log(BallGridPoint.gameObject.name);
     }
 
     /* #endregion */

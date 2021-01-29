@@ -17,6 +17,7 @@ public class PitchGrid : SingletonMonoBehaviour<PitchGrid>
     
     /* #region ---- Pitch --------------------------------------------------------------------- */
     public GameObject [,] PitchTiles {get; private set;}
+    public List<PitchTile> PitchTilesList {get; private set;}
     public float XOffset {get; private set;}
     public float ZOffset {get; private set;}
 
@@ -46,6 +47,7 @@ public class PitchGrid : SingletonMonoBehaviour<PitchGrid>
     /* #region ---- Prefabs ------------------------------------------------------------------- */
     public GameObject PathLinePrefab; //Accessed by PathFinding class
     public GameObject MoveTargetTileOverlay;
+    public GameObject RotateGridOverlay;
     
     [SerializeField] private GameObject noLines;
     [SerializeField] private GameObject cornerBottomLeft;
@@ -233,6 +235,7 @@ public class PitchGrid : SingletonMonoBehaviour<PitchGrid>
         int pitchLength = MatchManager.PitchGrid.PitchSettings.PitchLength;
         setPosOffset(pitchWidth, pitchLength);
         PitchTiles = new GameObject [pitchWidth + 1, pitchLength + 1];
+        PitchTilesList = new List<PitchTile>();
 
         for (int x = 1; x <= pitchWidth; x++) 
         {
@@ -249,7 +252,9 @@ public class PitchGrid : SingletonMonoBehaviour<PitchGrid>
                 PitchTile pitchTile = pitchTileObj.GetComponent<PitchTile>();   
                 pitchTile.SetCoodinates(x, z);
                 pitchTile.setUnOccupied();
+                pitchTile.InitRotateGridOverlayObjects();
                 PitchTiles[x,z] = pitchTileObj;
+                PitchTilesList.Add(pitchTile);
 
                 getOutLineTiles(pitchTile, x, z);
             }

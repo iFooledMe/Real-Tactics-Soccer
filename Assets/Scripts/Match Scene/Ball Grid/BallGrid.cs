@@ -210,9 +210,6 @@ public class BallGrid : SingletonMonoBehaviour<BallGrid>
         PointerObj.transform.position = new Vector3 (0,2,0);
     }
 
-
-
-
     /* #endregion */
 
     /* #endregion */

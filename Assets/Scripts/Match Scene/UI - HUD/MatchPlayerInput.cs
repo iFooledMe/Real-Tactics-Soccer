@@ -119,10 +119,17 @@ public class MatchPlayerInput : SingletonMonoBehaviour<MatchPlayerInput>
             switch(playerMode) 
             {
                 case PlayerMode.Idle:
+                    Cursor.visible = true;
                     break; 
+                
                 case PlayerMode.Move:
-                    //Hide mouse pointer?
+                    Cursor.visible = true;
                     break; 
+
+                case PlayerMode.Rotate:
+                    Cursor.visible = true;
+                    break; 
+                
                 case PlayerMode.Pass:
                     Cursor.visible = false;
                     break;
@@ -130,22 +137,9 @@ public class MatchPlayerInput : SingletonMonoBehaviour<MatchPlayerInput>
         }
 
         // --- Off Picth ---
-         if (!MouseOnPitch)
+        if (!MouseOnPitch)
         {
-            MatchPlayer activePlayer = MatchManager.MatchPlayerManager.CurrentActivePlayer;
-            PlayerMode playerMode = activePlayer.PlayerMode;
-
-            switch(playerMode) 
-            {
-                case PlayerMode.Idle:
-                    break; 
-                case PlayerMode.Move:
-                    //Hide mouse pointer?
-                    break; 
-                case PlayerMode.Pass:
-                    Cursor.visible = true;
-                    break;
-            }
+            Cursor.visible = true;
         }
 
         /* #endregion */
@@ -290,7 +284,7 @@ public class MatchPlayerInput : SingletonMonoBehaviour<MatchPlayerInput>
 
     public void OnMouseRightClickRotate(MatchPlayer player) 
     {
-        Debug.Log("Left click in Rotate Mode");
+        Debug.Log("Right click in Rotate Mode");
         player.SetPlayerMode(PlayerMode.Idle);
     }
 

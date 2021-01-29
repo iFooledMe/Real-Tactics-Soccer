@@ -35,6 +35,11 @@ public class PitchTile : MonoBehaviour
 
     /* #endregion */
 
+    /* #region ---- Movement/Pathfinding Fields ----------------------------------------------- */
+    public GameObject RotateGridOverlay {get; private set;}
+
+    /* #endregion */
+
     /* #region ---- Dependencies -------------------------------------------------------------- */
     private MatchManager MatchManager;
 
@@ -134,6 +139,36 @@ public class PitchTile : MonoBehaviour
     }
 
     /* #endregion */
+
+    /* #region ---- Set Rotate Grid Overlay --------------------------------------------------- */
+    public void InitRotateGridOverlayObjects()
+    {
+        RotateGridOverlay = (GameObject)Instantiate(MatchManager.PitchGrid.RotateGridOverlay);
+        
+        Vector3 position = new Vector3(
+            this.transform.position.x,
+            RotateGridOverlay.transform.position.y,
+            this.transform.position.z);
+
+        RotateGridOverlay.transform.position = position;
+        
+        RotateGridOverlay.SetActive(false);
+    }
+
+    public void ActivateRotateGridOverlay(bool activate)
+    {
+        if (activate)
+        {
+            RotateGridOverlay.SetActive(true);
+        }
+        else if (!activate)
+        {
+            RotateGridOverlay.SetActive(false);
+        }
+    }
+
+    /* #endregion */
+
 
     /* #endregion */
     /* ======================================================================================== */

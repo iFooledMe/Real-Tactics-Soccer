@@ -74,6 +74,9 @@ public class MatchPlayerInput : SingletonMonoBehaviour<MatchPlayerInput>
                 case PlayerMode.Move:
                     OnMouseLeftClickMove(activePlayer);
                     break; 
+                case PlayerMode.Rotate:
+                    OnMouseLeftClickRotate(activePlayer);
+                    break; 
                 case PlayerMode.Pass:
                     OnMouseLeftClickPass(activePlayer);
                     break;
@@ -94,6 +97,9 @@ public class MatchPlayerInput : SingletonMonoBehaviour<MatchPlayerInput>
                     break; 
                 case PlayerMode.Move:
                     OnMouseRightClickMove(activePlayer);
+                    break; 
+                case PlayerMode.Rotate:
+                    OnMouseRightClickRotate(activePlayer);
                     break; 
                 case PlayerMode.Pass:
                     OnMouseRightClickPass(activePlayer);
@@ -252,6 +258,25 @@ public class MatchPlayerInput : SingletonMonoBehaviour<MatchPlayerInput>
 
     public void OnMouseRightClickMove(MatchPlayer player) 
     {
+        player.SetPlayerMode(PlayerMode.Idle);
+    }
+
+    /* #endregion */
+
+    /* #region ---- ROTATE Mode Controls -------------------------------------------------------- */
+    public void OnBtnRotateMode()
+    {
+        MatchManager.MatchPlayerManager.CurrentActivePlayer.SetPlayerMode(PlayerMode.Rotate);
+    }
+
+    public void OnMouseLeftClickRotate(MatchPlayer player) 
+    {
+        Debug.Log("Left click in Rotate Mode");
+    }
+
+    public void OnMouseRightClickRotate(MatchPlayer player) 
+    {
+        Debug.Log("Left click in Rotate Mode");
         player.SetPlayerMode(PlayerMode.Idle);
     }
 

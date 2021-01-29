@@ -7,6 +7,7 @@ using UnityEngine;
     {
         Idle,
         Move,
+        Rotate,
         Pass
     }
 
@@ -37,6 +38,8 @@ public class MatchPlayer : MonoBehaviour
     public int CoordX {get; private set;}
     public int CoordZ {get; private set;}
 
+    
+
     /* #endregion */
 
     /* #region ---- Player Stats -------------------------------------------------------------- */
@@ -46,6 +49,8 @@ public class MatchPlayer : MonoBehaviour
     /* #endregion */
 
     /* #region ---- Player States ------------------------------------------------------------- */
+    public PitchTile currentTile {get; private set;}
+    
     public bool IsActive {get; private set;}
 
     private Color defaultColor = Color.green;
@@ -155,6 +160,9 @@ public class MatchPlayer : MonoBehaviour
             case PlayerMode.Move:
                 setMoveMode();
                 break;
+            case PlayerMode.Rotate:
+                setRotateMode();
+                break;
             case PlayerMode.Pass:
                 setPassMode();
                 break;
@@ -187,6 +195,17 @@ public class MatchPlayer : MonoBehaviour
 
     /* #endregion */
 
+    /* #region ---- Rotate Mode ------------------------------------------------------------------ */
+    private void setRotateMode()
+    {
+        Debug.Log("Rotate Mode activated");
+        PlayerMode = PlayerMode.Rotate;
+        deactivateBallGrid();
+        clearMovePaths();
+    }
+
+    /* #endregion */
+
     /* #region ---- Pass Mode ------------------------------------------------------------------ */
     private void setPassMode()
     {
@@ -197,7 +216,7 @@ public class MatchPlayer : MonoBehaviour
 
     /* #endregion */
 
-    /* #region ---- Commen helpers ------------------------------------------------------------- */
+    /* #region ---- Common helpers ------------------------------------------------------------- */
     private void clearMovePaths()
     {
         MatchManager.DestroyObjectsByTag("PathLine");
@@ -416,11 +435,12 @@ public class MatchPlayer : MonoBehaviour
 
     /* #endregion */
 
-    /* #region ---- Set player Coordinates by PitchTile --------------------------------------- */
-    public void SetPlayerCoordinatesByTile(PitchTile tile)
+    /* #region ---- Set player Coordinates and CurrentTile ------------------------------------ */
+    public void SetCurrentTile(PitchTile tile)
     {
         this.CoordX = tile.CoordX;
         this.CoordZ = tile.CoordZ;
+        this.currentTile = tile;
     }
 
     /* #endregion */

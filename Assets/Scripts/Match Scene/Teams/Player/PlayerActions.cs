@@ -6,6 +6,7 @@ public enum PlayerAction
 {
     Idle,
     Move,
+    Rotate,
     Pass,
     Shoot
 }
@@ -58,6 +59,9 @@ public class PlayerActions
             case PlayerAction.Move:
                 move();
                 break;
+            case PlayerAction.Rotate:
+                rotation();
+                break;
             default:
                 idle();
                 break;
@@ -67,8 +71,18 @@ public class PlayerActions
     /* #endregion */
     /* ======================================================================================== */
 
+    //TODO: Move each action type to its own class to be child of this class
     /* #region ==== I D L E  a c t i o n ====================================================== */
     private void idle()
+    {
+        return;
+    }
+
+    /* #endregion */
+    /* ======================================================================================== */
+
+    /* #region ==== R O T A T I O N  a c t i o n ============================================== */
+    private void rotation()
     {
         return;
     }
@@ -183,7 +197,7 @@ public class PlayerActions
     private void setPlayerStates()
     {
         Player.transform.position = targetPosition();
-        Player.SetPlayerCoordinatesByTile(MoveTargetTile);
+        Player.SetCurrentTile(MoveTargetTile);
         Player.UpdateRotationAngle((int)Player.transform.eulerAngles.y);
         Player.UpdateStat(PlayerStat.ActionPoints, MatchManager.PitchGrid.PathFinding.DrawPathLine.AccumulatedMoveCost, ValueSign.Negative);
         MatchManager.MatchPlayerManager.setPlayerInActionState(false);

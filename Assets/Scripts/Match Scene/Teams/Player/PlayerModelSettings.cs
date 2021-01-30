@@ -5,5 +5,4 @@ public class PlayerModelSettings : SingletonScriptableObject<ActionsApCostSettin
 {
 	[Header("PLAYER MODEL SETTINGS")]
 	[Range(2,4)] public float ModelMoveSpeed = 3f;
-
 }

@@ -149,7 +149,6 @@ public class MatchPlayer : MonoBehaviour
     void Update() 
     {
         PlayerActions.ActionSelector(PlayerActions.CurrentAction);
-        checkForZeroActionPoints();
     }
 
     /* #endregion */
@@ -228,6 +227,7 @@ public class MatchPlayer : MonoBehaviour
         deactivateBallGrid();
         clearRotationGrid();
         clearMoveTargetOverlay();
+        resetHudElements();
     }
     
     //Move Paths -----------------
@@ -255,6 +255,13 @@ public class MatchPlayer : MonoBehaviour
     private void clearMoveTargetOverlay()
     {
         MatchManager.PitchGrid.DeactivateMoveTargetOverlay();
+    }
+
+
+    //Reset HUD-elements
+    private void resetHudElements()
+    {
+        MatchManager.Hud.ResetGameMessage();
     }
 
     /* #endregion */
@@ -292,11 +299,16 @@ public class MatchPlayer : MonoBehaviour
 
     /* #region ==== P L A Y E R  R O T A T I O N  A N G L E =================================== */
 
-    /* #region ---- Set rotation indicator (empty object LookAt a specified target) ----------- */
+    /* #region ---- Get/Set rotation indicator (empty object LookAt a specified target) ------- */
     public int GetRotationIndicator(Transform target)
     {
         this.directionIndicator.transform.LookAt(target);
         return (int)directionIndicator.transform.eulerAngles.y;
+    }
+
+    public void ResetRotationIndicator()
+    {
+        this.directionIndicator.transform.eulerAngles = this.transform.eulerAngles;
     }
 
     /* #endregion ----------------------------------------------------------------------------- */
@@ -505,15 +517,6 @@ public class MatchPlayer : MonoBehaviour
     }
 
     /* #endregion */
-
-    /* #region ---- Check for 0 AactionPoints ------------------------------------------------- */
-    private void checkForZeroActionPoints()
-    {
-        if (CurrentActionPoints <= 0)
-        {
-            SetPlayerMode(PlayerMode.Idle);
-        }
-    }
 
     /* #endregion */
 

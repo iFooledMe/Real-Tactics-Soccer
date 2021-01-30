@@ -29,6 +29,11 @@ public class PlayerActions
 
     /* #endregion */
 
+    /* #region ---- Rotation ------------------------------------------------------------------ */
+    private int rotationCounter = 0; //How many rotation actions can be made on each turn
+
+    /* #endregion */
+
     /* #region ---- Dependencies -------------------------------------------------------------- */
     private MatchManager MatchManager;
     private MatchPlayer Player;
@@ -107,14 +112,23 @@ public class PlayerActions
             {
                 int apCost = getApCost(targetTile);
 
-                if (Player.CurrentActionPoints <= 0)
+
+                if (Player.CurrentActionPoints >= apCost)
                 {
-                    Player.SetPlayerMode(PlayerMode.Idle);
-                }
-                else if (Player.CurrentActionPoints >= apCost)
-                {
-                    //Start rotation method here...
-                    updateStatHud(apCost);
+                    if (rotationCounter == MatchManager.MatchPlayerManager.ActionsApCostSettings.MaxRotationsPerTurn)
+                    {
+                        MatchManager.Hud.UpdateGameMessage("Only 1 rotation per turn permited!");
+                    }
+                    else
+                    {
+                        rotationCounter++;
+                        Player.FaceTarget(targetTile.transform);
+                        Player.UpdateRotationAngle ((int)Player.transform.eulerAngles.y);
+                        updateStatHud(apCost);
+                        Debug.Log($"Current AP: {Player.CurrentActionPoints} - AP Cost: {apCost}");
+                        //CurrentAction = PlayerAction.Rotate; USE THIS FOR ANIMATION.
+                    }
+
                 }
                 else
                 {
@@ -128,20 +142,11 @@ public class PlayerActions
     }
     
     /* #endregion */
-
-    /* #region ---- 2. SETUP & START ROTATION ------------------------------------------------- */
-    private void rotatePlayerSetup(PitchTile targetTile)
-    {
-        
-        
-    }
-
-    /* #endregion */
-    
-    /* #region ---- 3. ROTATE [Executed in MatchPlayer.Update() ] ----------------------------- */
+  
+    /* #region ---- 2. ROTATE [Executed in MatchPlayer.Update() ] ----------------------------- */
     private void rotate()
     {
-        return;
+        //Put Rotation animation here.
     }
 
     /* #endregion ----------------------------------------------------------------------------- */

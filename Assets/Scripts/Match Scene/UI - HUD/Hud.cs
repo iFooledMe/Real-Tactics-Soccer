@@ -20,6 +20,11 @@ public class Hud : SingletonMonoBehaviour<Hud>
 
     /* #endregion */
 
+    /* #region ---- General Game Message ------------------------------------------------------ */
+    TMP_Text gameMessage;
+
+    /* #endregion */
+
     /* #region ---- Dependencies -------------------------------------------------------------- */
     private MatchManager MatchManager;
 
@@ -54,6 +59,9 @@ public class Hud : SingletonMonoBehaviour<Hud>
 
         // Temporary States
         apCost = this.transform.Find("HUD - Action Points/AP Cost").GetComponent<TMP_Text>();
+
+        //General Game Message
+        gameMessage = this.transform.Find("HUD - General Info").GetComponent<TMP_Text>();
     }
     /* #endregion */
 
@@ -122,6 +130,23 @@ public class Hud : SingletonMonoBehaviour<Hud>
         }
     }
 
+    /* #endregion */
+
+    /* #endregion */
+    /* ======================================================================================== */
+
+    /* #region ==== U P D A T E  G E N E R A L  I N F O ======================================= */
+    
+    /* #region ---- Game Message -------------------------------------------------------------- */
+    public void UpdateGameMessage(string message)
+    {
+        gameMessage.text = message;
+    }
+
+    public void ResetGameMessage()
+    {
+        gameMessage.text = "";
+    }
     /* #endregion */
 
     /* #endregion */

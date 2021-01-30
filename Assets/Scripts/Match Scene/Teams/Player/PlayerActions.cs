@@ -30,7 +30,7 @@ public class PlayerActions
     /* #endregion */
 
     /* #region ---- Rotation ------------------------------------------------------------------ */
-    private int rotationCounter = 0; //How many rotation actions can be made on each turn
+    public int RotationCounter {get; private set;} //How many rotation actions can be made on each turn
 
     /* #endregion */
 
@@ -48,6 +48,7 @@ public class PlayerActions
     {
         this.MatchManager = MatchManager.Instance;
         this.Player = player;
+        this.RotationCounter = 0;
     }
     
     /* #endregion */
@@ -115,18 +116,18 @@ public class PlayerActions
 
                 if (Player.CurrentActionPoints >= apCost)
                 {
-                    if (rotationCounter == MatchManager.MatchPlayerManager.ActionsApCostSettings.MaxRotationsPerTurn)
+                    if (RotationCounter == MatchManager.MatchPlayerManager.ActionsApCostSettings.MaxRotationsPerTurn)
                     {
-                        MatchManager.Hud.UpdateGameMessage("Only 1 rotation per turn permited!");
+                        MatchManager.Hud.UpdateGameMessage(MatchManager.Hud.Messages.NoMoreRotations);
                         MatchManager.Hud.UpdateApCostToString("");
                     }
                     else
                     {
-                        rotationCounter++;
+                        RotationCounter++;
                         Player.FaceTarget(targetTile.transform);
                         Player.UpdateRotationAngle ((int)Player.transform.eulerAngles.y);
                         updateStatHud(apCost);
-                        Debug.Log($"Current AP: {Player.CurrentActionPoints} - AP Cost: {apCost}");
+                        clearTryRedrawRotateGrid();
                         //CurrentAction = PlayerAction.Rotate; USE THIS FOR ANIMATION.
                     }
 
@@ -166,11 +167,21 @@ public class PlayerActions
     {
         Player.UpdateStat(PlayerStat.ActionPoints, apCost, ValueSign.Negative);
         MatchManager.Hud.UpdatePlayerInfo(Player);
+        
     }
 
     private void updateHud()
     {
         MatchManager.Hud.UpdatePlayerInfo(Player);
+    }
+
+    /* #endregion */
+
+    /* #region ---- Clear and Try Redraw Rotate Grid ------------------------------------------- */
+    private void clearTryRedrawRotateGrid()
+    {
+        MatchManager.PitchGrid.RotateGrid.ClearAll();
+        MatchManager.PitchGrid.RotateGrid.DrawRotationGrid(Player);
     }
 
     /* #endregion */

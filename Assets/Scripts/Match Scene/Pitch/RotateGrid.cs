@@ -26,15 +26,19 @@ public class RotateGrid
     
     public void DrawRotationGrid(MatchPlayer Player)
     {
-        if (Player.PlayerMode == PlayerMode.Rotate)
+        if (Player.PlayerMode == PlayerMode.Rotate && 
+            Player.PlayerActions.RotationCounter < MatchManager.MatchPlayerManager.ActionsApCostSettings.MaxRotationsPerTurn)
         {
-            //ClearRotationGrid();
             ClearAll();
             
             foreach (var tile in Player.CurrentTile.NeighbourTiles)
             {
                 tile.ActivateRotateGridOverlay(true);
             }
+        }
+        else
+        {
+            MatchManager.Hud.UpdateGameMessage(MatchManager.Hud.Messages.NoMoreRotations);
         }
     }
 

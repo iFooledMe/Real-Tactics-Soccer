@@ -149,6 +149,7 @@ public class MatchPlayer : MonoBehaviour
     void Update() 
     {
         PlayerActions.ActionSelector(PlayerActions.CurrentAction);
+        checkForZeroActionPoints();
     }
 
     /* #endregion */
@@ -271,6 +272,8 @@ public class MatchPlayer : MonoBehaviour
     /* ======================================================================================== */
 
     /* #region ==== U P D A T E  P L A Y E R  S T A T S ======================================= */
+    
+    /* #region ---- General Update Player Stat Method ----------------------------------------- */
     public void UpdateStat(PlayerStat stat, int newValue, ValueSign valueSign)
     {
         switch(stat) 
@@ -281,7 +284,9 @@ public class MatchPlayer : MonoBehaviour
         }
     }
 
-    /* #region ---- Update Action Points ----------------------------------------------------- */
+    /* #endregion */ 
+
+    /* #region ---- Action Points ------------------------------------------------------------- */
     private void updateActionPoints(int updateValue, ValueSign valueSign)
     {
         if (valueSign == ValueSign.Negative)
@@ -291,6 +296,16 @@ public class MatchPlayer : MonoBehaviour
         
         if(updateValue <= MaxActionPoints) CurrentActionPoints += updateValue;
         if(updateValue > MaxActionPoints) CurrentActionPoints = MaxActionPoints;
+    }
+
+    private void checkForZeroActionPoints()
+    {
+        if (CurrentActionPoints <= 0 && 
+            MatchManager.MatchPlayerManager.CurrentActivePlayer == this)
+        {
+            SetPlayerMode(PlayerMode.Idle);
+            MatchManager.Hud.UpdateGameMessage(MatchManager.Hud.Messages.NoActionPoints);
+        }
     }
 
     /* #endregion */ 
@@ -469,12 +484,10 @@ public class MatchPlayer : MonoBehaviour
     private void activate()
     {
         clearAllModeStates();
-        MatchManager.DestroyObjectsByTag("PathLine");
         IsActive = true;
         bodyRenderer.material.color = activeColor;
         MatchManager.MatchPlayerManager.SetOtherPlayersInactive(this);
         MatchManager.MatchPlayerManager.CurrentActivePlayer = this;
-        
         MatchManager.Hud.UpdatePlayerInfo(this); 
     }
 
@@ -516,8 +529,6 @@ public class MatchPlayer : MonoBehaviour
             bodyRenderer.material.color = defaultColor;
         } 
     }
-
-    /* #endregion */
 
     /* #endregion */
 

@@ -25,6 +25,11 @@ public class Hud : SingletonMonoBehaviour<Hud>
 
     /* #endregion */
 
+    /* #region ---- Message Text Settings ----------------------------------------------------- */
+    public Messages Messages;
+
+    /* #endregion */
+
     /* #region ---- Dependencies -------------------------------------------------------------- */
     private MatchManager MatchManager;
 

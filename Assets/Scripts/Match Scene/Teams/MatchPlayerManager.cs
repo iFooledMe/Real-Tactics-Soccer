@@ -18,7 +18,7 @@ public class MatchPlayerManager : SingletonMonoBehaviour<MatchPlayerManager>
     /* #endregion */
 
     /* #region ---- Players ------------------------------------------------------------------- */
-    private List<MatchPlayer> matchPlayersList = new List<MatchPlayer>();
+    public List<MatchPlayer> MatchPlayersList {get; private set;}
     public MatchPlayer CurrentActivePlayer = null;
     public bool PlayInAction { get; private set; }
 
@@ -72,6 +72,7 @@ public class MatchPlayerManager : SingletonMonoBehaviour<MatchPlayerManager>
     private void addPlayersToPitch()
     {
         List<Player> playersList = MatchManager.MatchTeamManager.PlayerTeam.Players;
+        MatchPlayersList = new List<MatchPlayer>();
         Team team = MatchManager.MatchTeamManager.PlayerTeam;
         
         if (playersList.Count < 1 || playersList == null)
@@ -108,7 +109,7 @@ public class MatchPlayerManager : SingletonMonoBehaviour<MatchPlayerManager>
                 setPlayerActiveState(playerObj, player);
                 setVectorPosition(pitchTile, playerObj);
                 setTileOccupied(pitchTile, matchPlayer);
-                matchPlayersList.Add(matchPlayer);
+                MatchPlayersList.Add(matchPlayer);
             }    
         }
     }
@@ -188,7 +189,7 @@ public class MatchPlayerManager : SingletonMonoBehaviour<MatchPlayerManager>
     /* #region ---- Set other players inactive (get a player and set all others inactive ------ */
     public void SetOtherPlayersInactive(MatchPlayer activePlayer)
     {
-        foreach(MatchPlayer player in matchPlayersList)
+        foreach(MatchPlayer player in MatchPlayersList)
         {
             if (player != activePlayer)
             {
@@ -204,7 +205,7 @@ public class MatchPlayerManager : SingletonMonoBehaviour<MatchPlayerManager>
     {
         MatchPlayer activePlayer = null;
 
-        foreach(var player in matchPlayersList)
+        foreach(var player in MatchPlayersList)
         {
             if (player.IsActive)
             {

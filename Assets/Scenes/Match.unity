@@ -1441,7 +1441,9 @@ MonoBehaviour:
     type: 3}
   MoveTargetTileOverlay: {fileID: 5800251808126319966, guid: 51b1de66caceff24f8e6b36c23ba4b56,
     type: 3}
-  RotateGridOverlay: {fileID: 5800251808126319966, guid: 51b1de66caceff24f8e6b36c23ba4b56,
+  RotateGridOverlay: {fileID: 304216423953753518, guid: 66cc8150392a3594482363f00209f3f2,
+    type: 3}
+  RotateTargetOverlay: {fileID: 7239324410251280714, guid: 823bdba6240c3ad499704e3213393b6f,
     type: 3}
   noLines: {fileID: 3407702529621737777, guid: b6fd37101b15a5e4c896d8d955511fbd, type: 3}
   cornerBottomLeft: {fileID: 3027108819604958193, guid: e4e5eae08d196eb44adbeafaeb0616bf,

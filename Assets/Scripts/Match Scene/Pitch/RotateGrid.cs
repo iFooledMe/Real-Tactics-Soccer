@@ -30,6 +30,7 @@ public class RotateGrid
         if (Player.PlayerMode == PlayerMode.Rotate)
         {
             ClearRotationGrid();
+            
             List<PitchTile> neighbourTiles = Player.CurrentTile.NeighbourTiles;
 
             foreach (var tile in neighbourTiles)
@@ -57,7 +58,7 @@ public class RotateGrid
 
     /* #region ==== D R A W / C L E A R  R O T A T I O N  T A R G E T  O V E R L A Y ========== */
     
-    /* #region ---- Draw Rotation Target ------------------------------------------------------ */
+    /* #region ---- Draw Rotation Target Overlay ---------------------------------------------- */
     public void DrawRotationTarget(MatchPlayer Player, PitchTile targetTile)
     {
         if (Player.PlayerMode == PlayerMode.Rotate)
@@ -79,7 +80,7 @@ public class RotateGrid
 
     /* #endregion ----------------------------------------------------------------------------- */
 
-    /* #region ---- Clear Rotation Grid ------------------------------------------------------- */
+    /* #region ---- Clear Rotation Target Overlay --------------------------------------------- */
     public void ClearRotationTarget(MatchPlayer Player)
     {
         List<PitchTile> neighbourTiles = Player.CurrentTile.NeighbourTiles;
@@ -91,6 +92,22 @@ public class RotateGrid
     }
 
     /* #endregion ----------------------------------------------------------------------------- */
+
+    /* #endregion */
+    /* ======================================================================================== */
+
+    /* #region ==== C L E A R  A L L ========================================================== */
+    public void ClearAll()
+    {
+        foreach (var player in MatchManager.MatchPlayerManager.MatchPlayersList)
+        {
+            foreach(var tile in player.CurrentTile.NeighbourTiles)
+            {
+                tile.ActivateRotateGridOverlay(false);
+                tile.ActivateRotateTargetOverlay(false);
+            }
+        }
+    }
 
     /* #endregion */
     /* ======================================================================================== */

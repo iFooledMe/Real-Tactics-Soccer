@@ -237,7 +237,7 @@ public class MatchPlayer : MonoBehaviour
     {
         if (MatchManager.PitchGrid.RotateGrid != null)
         {
-            MatchManager.PitchGrid.RotateGrid.ClearRotationGrid();
+            MatchManager.PitchGrid.RotateGrid.ClearAll();
         }
     }
 

@@ -60,8 +60,6 @@ public class RotateGrid
                     int direction = Player.GetRotationIndicator(targetTile.transform);
                     int apCost = Player.CalcRotationApCost(direction);
                     MatchManager.Hud.UpdateAccAPCost(apCost);
-                    Debug.Log($"AP-Cost: {apCost}");
-
                     break;
                 }
             }

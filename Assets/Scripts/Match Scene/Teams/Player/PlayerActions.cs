@@ -105,9 +105,21 @@ public class PlayerActions
             /* #region ---- If validTarget ---- */
             if (isValidTarget)
             {
-                int direction = Player.GetRotationIndicator(targetTile.transform);
-                int apCost = Player.CalcRotationApCost(direction);
-                Debug.Log($"AP-Cost: {apCost}");
+                int apCost = getApCost(targetTile);
+
+                if (Player.CurrentActionPoints <= 0)
+                {
+                    Player.SetPlayerMode(PlayerMode.Idle);
+                }
+                else if (Player.CurrentActionPoints >= apCost)
+                {
+                    //Start rotation method here...
+                    updateStatHud(apCost);
+                }
+                else
+                {
+                    updateHud();
+                }
             }
 
             /* #endregion */
@@ -118,9 +130,10 @@ public class PlayerActions
     /* #endregion */
 
     /* #region ---- 2. SETUP & START ROTATION ------------------------------------------------- */
-    private void rotatePlayerSetup()
+    private void rotatePlayerSetup(PitchTile targetTile)
     {
-
+        
+        
     }
 
     /* #endregion */
@@ -133,10 +146,28 @@ public class PlayerActions
 
     /* #endregion ----------------------------------------------------------------------------- */
 
-    
+    /* #region ---- Get AP-Cost --------------------------------------------------------------- */
+    private int getApCost(PitchTile targetTile)
+    {
+        int direction = Player.GetRotationIndicator(targetTile.transform);
+        return Player.CalcRotationApCost(direction);
+    }
 
+    /* #endregion */
 
-    
+    /* #region ---- Update Player Stat and HUD-info ------------------------------------------- */
+    private void updateStatHud(int apCost)
+    {
+        Player.UpdateStat(PlayerStat.ActionPoints, apCost, ValueSign.Negative);
+        MatchManager.Hud.UpdatePlayerInfo(Player);
+    }
+
+    private void updateHud()
+    {
+        MatchManager.Hud.UpdatePlayerInfo(Player);
+    }
+
+    /* #endregion */
 
     /* #endregion */
     /* ======================================================================================== */

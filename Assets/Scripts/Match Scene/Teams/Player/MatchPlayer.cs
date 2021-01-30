@@ -149,6 +149,7 @@ public class MatchPlayer : MonoBehaviour
     void Update() 
     {
         PlayerActions.ActionSelector(PlayerActions.CurrentAction);
+        checkForZeroActionPoints();
     }
 
     /* #endregion */
@@ -501,6 +502,17 @@ public class MatchPlayer : MonoBehaviour
         {
             bodyRenderer.material.color = defaultColor;
         } 
+    }
+
+    /* #endregion */
+
+    /* #region ---- Check for 0 AactionPoints ------------------------------------------------- */
+    private void checkForZeroActionPoints()
+    {
+        if (CurrentActionPoints <= 0)
+        {
+            SetPlayerMode(PlayerMode.Idle);
+        }
     }
 
     /* #endregion */

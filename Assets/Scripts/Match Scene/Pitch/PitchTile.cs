@@ -181,7 +181,6 @@ public class PitchTile : MonoBehaviour
     
     /* #endregion */
 
-
     /* #region ---- Activate / Deactivate Rotate Target Overlay -------------------------------- */
     public void ActivateRotateTargetOverlay(bool activate)
     {
@@ -196,9 +195,6 @@ public class PitchTile : MonoBehaviour
     }
     
     /* #endregion */
-
-
-
 
     /* #endregion */
     /* ======================================================================================== */

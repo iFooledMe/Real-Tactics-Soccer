@@ -92,13 +92,28 @@ public class Hud : SingletonMonoBehaviour<Hud>
         }
         else
         {
-            if (accCost <= activePlayer.CurrentActionPoints && accCost != 0)
+            if(activePlayer.PlayerMode == PlayerMode.Move)
             {
-                apCost.text = $"-{accCost.ToString()}";
+                //TODO: Why accCost != 0 when calculating AP-Cost in Move Mode???
+                if (accCost <= activePlayer.CurrentActionPoints && accCost != 0)
+                {
+                    apCost.text = $"-{accCost.ToString()}";
+                }
+                else
+                {
+                    apCost.text = "Not enough AP!";
+                }
             }
             else
             {
-                apCost.text = "Not enough AP!";
+                if (accCost <= activePlayer.CurrentActionPoints)
+                {
+                    apCost.text = $"-{accCost.ToString()}";
+                }
+                else
+                {
+                    apCost.text = "Not enough AP!";
+                }
             }
         }
     }

@@ -75,7 +75,7 @@ public class MatchPlayerInput : SingletonMonoBehaviour<MatchPlayerInput>
                     OnMouseLeftClickMove(activePlayer);
                     break; 
                 case PlayerMode.Rotate:
-                    OnMouseLeftClickRotate(activePlayer);
+                    //Trigger by OnMouseUp on each PitchTile
                     break; 
                 case PlayerMode.Pass:
                     OnMouseLeftClickPass(activePlayer);
@@ -212,7 +212,6 @@ public class MatchPlayerInput : SingletonMonoBehaviour<MatchPlayerInput>
                 MatchManager.PitchGrid.PathFinding.DrawPathLine.Draw(tile);
                 break; 
             case PlayerMode.Rotate:
-                Debug.Log("Mouse Enter in Rotate mode");
                 MatchManager.PitchGrid.RotateGrid.DrawRotationTarget(activePlayer, tile);
                 break; 
             case PlayerMode.Pass:
@@ -235,7 +234,7 @@ public class MatchPlayerInput : SingletonMonoBehaviour<MatchPlayerInput>
                 MatchManager.MatchPlayerManager.CurrentActivePlayer.PlayerActions.CheckForMovement(targetTile);
                 break; 
             case PlayerMode.Rotate:
-                //Execute rotation
+                OnMouseLeftClickRotate(activePlayer, targetTile);
                 break; 
             case PlayerMode.Pass:
                 break;
@@ -292,14 +291,13 @@ public class MatchPlayerInput : SingletonMonoBehaviour<MatchPlayerInput>
         MatchManager.MatchPlayerManager.CurrentActivePlayer.SetPlayerMode(PlayerMode.Rotate);
     }
 
-    public void OnMouseLeftClickRotate(MatchPlayer player) 
+    public void OnMouseLeftClickRotate(MatchPlayer player, PitchTile tile) 
     {
-        Debug.Log("Left click in Rotate Mode");
+        MatchManager.MatchPlayerManager.CurrentActivePlayer.PlayerActions.CheckForRotation(tile);
     }
 
     public void OnMouseRightClickRotate(MatchPlayer player) 
     {
-        Debug.Log("Right click in Rotate Mode");
         player.SetPlayerMode(PlayerMode.Idle);
     }
 

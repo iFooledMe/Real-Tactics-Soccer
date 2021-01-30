@@ -71,6 +71,7 @@ public class MatchPlayer : MonoBehaviour
     
     /* #region ---- Components ---------------------------------------------------------------- */
     private Renderer bodyRenderer;
+    private GameObject directionIndicator;
 
     /* #endregion */
 
@@ -93,6 +94,7 @@ public class MatchPlayer : MonoBehaviour
     private void getComponents()
     {
         getBodyRenderer();
+        getDirectionIndicator();
     }
 
     /* #region ---- Get MatchManager ---------------------------------------------------------- */
@@ -107,6 +109,13 @@ public class MatchPlayer : MonoBehaviour
     {
         GameObject playerBody = this.transform.Find("PlayerBody").gameObject;
         bodyRenderer = playerBody.GetComponent<Renderer>();
+    }
+    /* #endregion */
+
+    /* #region ---- Get Renderer Component ---------------------------------------------------- */
+    public void getDirectionIndicator()
+    {
+        directionIndicator = this.transform.Find("Direction").gameObject;
     }
     /* #endregion */
 
@@ -282,6 +291,15 @@ public class MatchPlayer : MonoBehaviour
 
     /* #region ==== P L A Y E R  R O T A T I O N  A N G L E =================================== */
 
+    /* #region ---- Set rotation indicator (empty object LookAt a specified target) ----------- */
+    public int GetRotationIndicator(Transform target)
+    {
+        this.directionIndicator.transform.LookAt(target);
+        return (int)directionIndicator.transform.eulerAngles.y;
+    }
+
+    /* #endregion ----------------------------------------------------------------------------- */
+    
     /* #region ---- Player Rotation to face a specified target -------------------------------- */
     public void FaceTarget(Transform target)
     {

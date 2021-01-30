@@ -22,41 +22,26 @@ public class RotateGrid
     /* #endregion */
     /* ======================================================================================== */
 
-    /* #region ==== D R A W / C L E A R  R O T A T I O N  G R I D (Around the active player) == */
+    /* #region ==== D R A W   R O T A T I O N  G R I D (Around the active player) ============= */
     
-    /* #region ---- Draw Rotation Grid -------------------------------------------------------- */
     public void DrawRotationGrid(MatchPlayer Player)
     {
         if (Player.PlayerMode == PlayerMode.Rotate)
         {
-            ClearRotationGrid();
+            //ClearRotationGrid();
+            ClearAll();
             
-            List<PitchTile> neighbourTiles = Player.CurrentTile.NeighbourTiles;
-
-            foreach (var tile in neighbourTiles)
+            foreach (var tile in Player.CurrentTile.NeighbourTiles)
             {
                 tile.ActivateRotateGridOverlay(true);
             }
         }
     }
 
-    /* #endregion ----------------------------------------------------------------------------- */
-
-    /* #region ---- Clear Rotation Grid ------------------------------------------------------- */
-    public void ClearRotationGrid()
-    {
-        foreach (var tile in MatchManager.PitchGrid.PitchTilesList)
-        {
-            tile.ActivateRotateGridOverlay(false);
-        }
-    }
-
-    /* #endregion ----------------------------------------------------------------------------- */
-
     /* #endregion */
     /* ======================================================================================== */
 
-    /* #region ==== D R A W / C L E A R  R O T A T I O N  T A R G E T  O V E R L A Y ========== */
+    /* #region ==== D R A W  /  C L E A R  R O T A T I O N  T A R G E T  O V E R L A Y ======== */
     
     /* #region ---- Draw Rotation Target Overlay ---------------------------------------------- */
     public void DrawRotationTarget(MatchPlayer Player, PitchTile targetTile)
@@ -72,6 +57,11 @@ public class RotateGrid
                 if (tile == targetTile)
                 {
                     tile.ActivateRotateTargetOverlay(true);
+                    int direction = Player.GetRotationIndicator(targetTile.transform);
+                    int apCost = Player.CalcRotationApCost(direction);
+                    MatchManager.Hud.UpdateAccAPCost(apCost);
+                    Debug.Log($"AP-Cost: {apCost}");
+
                     break;
                 }
             }

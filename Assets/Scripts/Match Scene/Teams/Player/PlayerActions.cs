@@ -84,11 +84,34 @@ public class PlayerActions
     /* #region ==== R O T A T I O N  a c t i o n ============================================== */
     
     /* #region ---- 1. CHECK FOR TOTATION ----------------------------------------------------- */
-    public void CheckForRotation()
+    public void CheckForRotation(PitchTile targetTile)
     {
+        bool isValidTarget = false;
+        
         if (MatchManager.MatchPlayerManager.CurrentActivePlayer.PlayerMode == PlayerMode.Rotate)
         {
-            Debug.Log("Check for rotation");
+            /* #region ---- Check for valid target tile ---- */
+            foreach (var tile in Player.CurrentTile.NeighbourTiles)
+            {
+                if (tile == targetTile)
+                {
+                    isValidTarget = true;
+                    break;
+                }
+            }
+
+            /* #endregion */
+
+            /* #region ---- If validTarget ---- */
+            if (isValidTarget)
+            {
+                int direction = Player.GetRotationIndicator(targetTile.transform);
+                int apCost = Player.CalcRotationApCost(direction);
+                Debug.Log($"AP-Cost: {apCost}");
+            }
+
+            /* #endregion */
+            
         }
     }
     
@@ -109,6 +132,11 @@ public class PlayerActions
     }
 
     /* #endregion ----------------------------------------------------------------------------- */
+
+    
+
+
+    
 
     /* #endregion */
     /* ======================================================================================== */

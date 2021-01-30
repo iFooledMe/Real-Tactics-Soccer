@@ -78,7 +78,7 @@ public class MatchPlayerInput : SingletonMonoBehaviour<MatchPlayerInput>
                     //Trigger by OnMouseUp on each PitchTile
                     break; 
                 case PlayerMode.Pass:
-                    OnMouseLeftClickPass(activePlayer);
+                    //OnMouseLeftClickPass(activePlayer); FOR NOW TRIGGERED ON TILE CLICK.
                     break;
             }
         }
@@ -131,7 +131,7 @@ public class MatchPlayerInput : SingletonMonoBehaviour<MatchPlayerInput>
                     break; 
                 
                 case PlayerMode.Pass:
-                    Cursor.visible = false;
+                    Cursor.visible = true;
                     break;
             }
         }
@@ -237,6 +237,7 @@ public class MatchPlayerInput : SingletonMonoBehaviour<MatchPlayerInput>
                 OnMouseLeftClickRotate(activePlayer, targetTile);
                 break; 
             case PlayerMode.Pass:
+                OnMouseLeftClickPass(activePlayer, targetTile);
                 break;
         } 
     }
@@ -309,9 +310,13 @@ public class MatchPlayerInput : SingletonMonoBehaviour<MatchPlayerInput>
         MatchManager.MatchPlayerManager.CurrentActivePlayer.SetPlayerMode(PlayerMode.Pass);
     }
 
-    public void OnMouseLeftClickPass(MatchPlayer player) 
+    public void OnMouseLeftClickPass(MatchPlayer player, PitchTile targetTile) 
     {
-    
+        //TODO: Remove the below code - Just for test...
+        foreach (var ballPoint in targetTile.BallGridPoints)
+        {
+            Debug.Log(ballPoint.gameObject.name);
+        }
     }
 
     public void OnMouseRightClickPass(MatchPlayer player) 

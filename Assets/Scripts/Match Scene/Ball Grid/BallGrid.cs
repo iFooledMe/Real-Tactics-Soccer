@@ -100,12 +100,13 @@ public class BallGrid : SingletonMonoBehaviour<BallGrid>
             setVectorPosition(pitchTile, ballGridPoint, x);
             ballGridPointObj.transform.SetParent(this.transform);
             ballGridPoints.Add(ballGridPoint);
+            pitchTile.AddBallGridPoint(ballGridPoint);
         }
     }
 
     /* #endregion */
 
-    /* #region ---- Set player Vector position ------------------------------------------------ */
+    /* #region ---- Set player Vector position & Name ----------------------------------------- */
     private void setVectorPosition(PitchTile pitchTile, BallGridPoint ballGridPoint, int iteration)
     {
         float offsetX = 0f;

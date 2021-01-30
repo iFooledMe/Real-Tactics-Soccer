@@ -52,6 +52,8 @@ public class MatchPlayer : MonoBehaviour
     public PitchTile CurrentTile {get; private set;}
     
     public bool IsActive {get; private set;}
+    public bool BallPossession {get; private set;}
+    private bool updateBallPosition = true; 
 
     private Color defaultColor = Color.green;
     private Color highLightColor = Color.blue;
@@ -150,11 +152,13 @@ public class MatchPlayer : MonoBehaviour
     {
         PlayerActions.ActionSelector(PlayerActions.CurrentAction);
         checkForZeroActionPoints();
+        checkForBallHolder();
     }
 
     /* #endregion */
     /* ======================================================================================== */
     
+    //TODO: Move each Player Mode to it's own sub-class???
     /* #region ==== P L A Y E R  M O D E S  =================================================== */
     
     /* #region ---- Player Mode SWITCHER ------------------------------------------------------ */
@@ -451,9 +455,8 @@ public class MatchPlayer : MonoBehaviour
     /* #endregion */
     /* ======================================================================================== */
 
-    /* #region ==== O T H E R  M E T H O D S ================================================== */
-    
-    /* #region ---- Set player info on Instantiation ------------------------------------------ */
+    /* #region ==== P L A Y E R  I N S T A N T I A T I O N ==================================== */
+
     public void SetPlayerInfoOnInstantiation(Player player, PitchTile pitchTile, int coordX, int coordZ)
     {
         CoordX = coordX;
@@ -461,12 +464,73 @@ public class MatchPlayer : MonoBehaviour
         CurrentTile = pitchTile;
         Player = player;
         Name = Player.Name;
+        BallPossession = Player.startWithBall;
         MaxActionPoints = Player.Stats.MaxActionPoints;
         CurrentActionPoints = MaxActionPoints;
+        checkForBallHolder();
     }
 
     /* #endregion */
+    /* ======================================================================================== */
 
+    /* #region ==== P L A Y E R  B A L L  P O S S E S S I O N ================================= */
+    private void checkForBallHolder()
+    {
+        if (BallPossession && updateBallPosition)
+        {
+            MatchManager.MatchPlayerManager.setBallHolder(this);
+            setBallPosition();
+            //updateBallPosition = false;
+
+        }
+    }
+
+    private void setBallPosition()
+    {
+        BallGridPoint ballPoint = null;
+        
+        switch(currentAngle) 
+        {
+            case 0:
+                ballPoint = CurrentTile.BallGridPoints[7];
+                break;
+            case 45:
+                ballPoint = CurrentTile.BallGridPoints[8];
+                break;
+            case 90:
+                ballPoint = CurrentTile.BallGridPoints[5];
+                break;
+            case 135:
+                ballPoint = CurrentTile.BallGridPoints[2];
+                break;
+            case 180:
+                ballPoint = CurrentTile.BallGridPoints[1];
+                break;          
+            case 225:
+                ballPoint = CurrentTile.BallGridPoints[0];
+                break;  
+            case 270:
+                ballPoint = CurrentTile.BallGridPoints[3];
+                break;  
+            case 315:
+                ballPoint = CurrentTile.BallGridPoints[6];
+                break;  
+        }
+
+        MatchManager.Ball.SetBallPossetion(ballPoint);
+    }
+
+    private BallGridPoint getBallPoint(List<BallGridPoint> ballPoints,int index)
+    {
+        BallGridPoint ballPoint = ballPoints[0];
+        return ballPoint;
+    }
+
+    /* #endregion */
+    /* ======================================================================================== */
+
+    /* #region ==== O T H E R  M E T H O D S ================================================== */
+    
     /* #region ---- Set player Active / Inactive ---------------------------------------------- */
     
     // Set Active

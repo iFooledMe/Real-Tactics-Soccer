@@ -41,6 +41,11 @@ public class PitchTile : MonoBehaviour
 
     /* #endregion */
 
+    /* #region ---- Ball Grid ----------------------------------------------------------------- */
+    public List<BallGridPoint> BallGridPoints {get; private set;}
+
+    /* #endregion */
+
     /* #region ---- Dependencies -------------------------------------------------------------- */
     private MatchManager MatchManager;
 
@@ -194,6 +199,19 @@ public class PitchTile : MonoBehaviour
         }
     }
     
+    /* #endregion */
+
+    /* #region ---- Set BallGridPoints List ---------------------------------------------------- */
+    public void AddBallGridPoint(BallGridPoint ballPoint)
+    {
+        if (BallGridPoints is null)
+        {
+            BallGridPoints = new List<BallGridPoint>();
+        }
+
+        BallGridPoints.Add(ballPoint);
+    }
+
     /* #endregion */
 
     /* #endregion */

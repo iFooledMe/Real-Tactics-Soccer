@@ -28,6 +28,7 @@ public class MatchManager : SingletonScriptableObject<MatchManager>
 
     public BallGrid BallGrid {get; private set;}
     public BallPointer BallPointer {get; private set;}
+    public Ball Ball {get; private set;}
 
     /* #endregion */
 
@@ -91,6 +92,11 @@ public class MatchManager : SingletonScriptableObject<MatchManager>
     public void SetBallPointer()
     {
         this.BallPointer = BallPointer.Instance;
+    }
+
+    public void SetBall()
+    {
+        this.Ball = Ball.Instance;
     }
 
     /* #endregion */

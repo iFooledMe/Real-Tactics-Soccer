@@ -118,6 +118,7 @@ public class PlayerActions
                     if (rotationCounter == MatchManager.MatchPlayerManager.ActionsApCostSettings.MaxRotationsPerTurn)
                     {
                         MatchManager.Hud.UpdateGameMessage("Only 1 rotation per turn permited!");
+                        MatchManager.Hud.UpdateApCostToString("");
                     }
                     else
                     {

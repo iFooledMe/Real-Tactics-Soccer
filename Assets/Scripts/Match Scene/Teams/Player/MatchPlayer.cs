@@ -262,6 +262,7 @@ public class MatchPlayer : MonoBehaviour
     private void resetHudElements()
     {
         MatchManager.Hud.ResetGameMessage();
+        MatchManager.Hud.UpdateApCostToString("");
     }
 
     /* #endregion */

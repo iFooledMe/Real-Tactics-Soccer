@@ -132,6 +132,14 @@ public class Hud : SingletonMonoBehaviour<Hud>
 
     /* #endregion */
 
+    /* #region ---- Update apCost --------------------------------------------------------------- */
+    public void UpdateApCostToString(string message)
+    {
+        apCost.text = message;
+    }
+
+    /* #endregion */
+
     /* #endregion */
     /* ======================================================================================== */
 

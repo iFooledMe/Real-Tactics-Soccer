@@ -71,6 +71,7 @@ public class Hud : SingletonMonoBehaviour<Hud>
     
     /* #region ==== U P D A T E  P L A Y E R  I N F O ========================================= */
     
+    /* #region ---- Player info --------------------------------------------------------------- */
     public void UpdatePlayerInfo(MatchPlayer Player)
     {
         // Player General Info
@@ -81,6 +82,9 @@ public class Hud : SingletonMonoBehaviour<Hud>
 
     }
 
+    /* #endregion */
+
+    /* #region ---- Accumulated AP-Cost (Calculation before action) --------------------------- */
     public void UpdateAccAPCost(int accCost)
     {
         MatchPlayer activePlayer = MatchManager.MatchPlayerManager.CurrentActivePlayer;
@@ -117,6 +121,8 @@ public class Hud : SingletonMonoBehaviour<Hud>
             }
         }
     }
+
+    /* #endregion */
 
     /* #endregion */
     /* ======================================================================================== */

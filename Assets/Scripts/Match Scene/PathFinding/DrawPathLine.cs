@@ -61,9 +61,9 @@ public class DrawPathLine
                 /* #region ---- Draw Path Line & Rotate Player --------------------- */
                 if (pathToTarget != null) 
                 {    
-                    /* #region ---- Player rotate & Calculate AP cost for rotation - */
-                    Player.FaceTarget(pathToTarget[1].transform);
-                    AccumulatedMoveCost = Player.CalcRotationApCost ((int)Player.transform.eulerAngles.y);
+                    /* #region ---- Player Calculate AP cost for rotation - */
+                    int rotation = Player.GetRotationIndicator(pathToTarget[1].transform);
+                    AccumulatedMoveCost = Player.CalcRotationApCost (rotation);
 
                     /* #endregion --------------------------------------------------- */
                     

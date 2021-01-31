@@ -52,7 +52,7 @@ public class MatchPlayer : MonoBehaviour
     public PitchTile CurrentTile {get; private set;}
     
     public bool IsActive {get; private set;}
-    public bool BallPossession {get; private set;}
+    public bool IsBallHolder {get; private set;}
     private bool updateBallPosition = true; 
 
     private Color defaultColor = Color.green;
@@ -61,7 +61,7 @@ public class MatchPlayer : MonoBehaviour
 
     public PlayerMode PlayerMode = PlayerMode.Idle;
 
-    private int currentAngle;
+    public int currentAngle {get; private set;}
     private int fullRotation0;
     private int fullRotation1;
     private int fullRotation2;
@@ -152,7 +152,8 @@ public class MatchPlayer : MonoBehaviour
     {
         PlayerActions.ActionSelector(PlayerActions.CurrentAction);
         checkForZeroActionPoints();
-        checkForBallHolder();
+        MatchManager.Ball.CheckForBallPosUpdate();
+
     }
 
     /* #endregion */
@@ -464,66 +465,9 @@ public class MatchPlayer : MonoBehaviour
         CurrentTile = pitchTile;
         Player = player;
         Name = Player.Name;
-        BallPossession = Player.startWithBall;
+        IsBallHolder = Player.startWithBall;
         MaxActionPoints = Player.Stats.MaxActionPoints;
         CurrentActionPoints = MaxActionPoints;
-        checkForBallHolder();
-    }
-
-    /* #endregion */
-    /* ======================================================================================== */
-
-    /* #region ==== P L A Y E R  B A L L  P O S S E S S I O N ================================= */
-    private void checkForBallHolder()
-    {
-        if (BallPossession && updateBallPosition)
-        {
-            MatchManager.MatchPlayerManager.setBallHolder(this);
-            setBallPosition();
-            //updateBallPosition = false;
-
-        }
-    }
-
-    private void setBallPosition()
-    {
-        BallGridPoint ballPoint = null;
-        
-        switch(currentAngle) 
-        {
-            case 0:
-                ballPoint = CurrentTile.BallGridPoints[7];
-                break;
-            case 45:
-                ballPoint = CurrentTile.BallGridPoints[8];
-                break;
-            case 90:
-                ballPoint = CurrentTile.BallGridPoints[5];
-                break;
-            case 135:
-                ballPoint = CurrentTile.BallGridPoints[2];
-                break;
-            case 180:
-                ballPoint = CurrentTile.BallGridPoints[1];
-                break;          
-            case 225:
-                ballPoint = CurrentTile.BallGridPoints[0];
-                break;  
-            case 270:
-                ballPoint = CurrentTile.BallGridPoints[3];
-                break;  
-            case 315:
-                ballPoint = CurrentTile.BallGridPoints[6];
-                break;  
-        }
-
-        MatchManager.Ball.SetBallPossetion(ballPoint);
-    }
-
-    private BallGridPoint getBallPoint(List<BallGridPoint> ballPoints,int index)
-    {
-        BallGridPoint ballPoint = ballPoints[0];
-        return ballPoint;
     }
 
     /* #endregion */
@@ -595,6 +539,22 @@ public class MatchPlayer : MonoBehaviour
     }
 
     /* #endregion */
+
+    /* #region ---- Set/Unset Player as BallHolder -------------------------------------------- */
+    public void setAsBallHolder(bool isBallHolder)
+    {
+        if (isBallHolder)
+        {
+            this.IsBallHolder = true;
+        }
+        else if (!isBallHolder)
+        {
+            this.IsBallHolder = false;
+        }
+    }
+
+    /* #endregion */
+
 
     /* #endregion */
     /* ======================================================================================== */

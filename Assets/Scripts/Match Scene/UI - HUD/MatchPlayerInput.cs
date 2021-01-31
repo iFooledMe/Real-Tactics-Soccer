@@ -60,9 +60,15 @@ public class MatchPlayerInput : SingletonMonoBehaviour<MatchPlayerInput>
     /* #region ---- Check for Mouse Input ----------------------------------------------------- */
     private void checkForMouseInput()
     {
-        /* #region ---- Left click ------------------------------------------------------------*/
+        /* #region ---- Left click ------------------------------------------------------------ */
         if(Input.GetMouseButtonDown(0))
         {
+            /* #region ---- Check for Ball position update ---- */
+            MatchManager.Ball.CheckForBallPosUpdate();
+
+            /* #endregion */
+            
+            /* #region ---- Player Mode States ---- */
             MatchPlayer activePlayer = MatchManager.MatchPlayerManager.CurrentActivePlayer;
             PlayerMode playerMode = activePlayer.PlayerMode;
             
@@ -81,10 +87,13 @@ public class MatchPlayerInput : SingletonMonoBehaviour<MatchPlayerInput>
                     //OnMouseLeftClickPass(activePlayer); FOR NOW TRIGGERED ON TILE CLICK.
                     break;
             }
+
+            /* #endregion */
         }
+
         /* #endregion */
 
-        /* #region ---- Right click -----------------------------------------------------------*/
+        /* #region ---- Right click ------------------------------------------------------------*/
         if(Input.GetMouseButtonDown(1))
         {
             MatchPlayer activePlayer = MatchManager.MatchPlayerManager.CurrentActivePlayer;
@@ -108,7 +117,7 @@ public class MatchPlayerInput : SingletonMonoBehaviour<MatchPlayerInput>
         }
         /* #endregion */
     
-        /* #region ---- Mouse Pointer on/off pitch ----------------------------------------*/
+        /* #region ---- Mouse Pointer on/off pitch ---------------------------------------------*/
         
         // --- On Pitch ---
         if (MouseOnPitch)

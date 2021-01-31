@@ -7,6 +7,10 @@ public class Ball : SingletonMonoBehaviour<Ball>
 
     /* #region ==== FIELDS & PROPERTIES ======================================================= */
 
+    public MatchPlayer BallHolder {get; private set;}
+
+    private bool showErrorMessage = true;
+
     /* #region ---- Dependencies -------------------------------------------------------------- */
     private MatchManager MatchManager;
 
@@ -41,10 +45,98 @@ public class Ball : SingletonMonoBehaviour<Ball>
     /* #endregion */
     /* ======================================================================================== */
 
-    /* #region ==== B A L L  P O S I T I O N ================================================== */
+    /* #region ==== C H E C K  F O R  B A L L  P O S S I T I O N  U P D A T E ================= */
+    public void CheckForBallPosUpdate()
+    {
+        MatchPlayer ballHolder = null;
+        
+        // Extra Security if a player is set as BallHolder but not set on MatchPlayerManager
+        if (MatchManager.MatchPlayerManager.CurrentBallHolder is null)
+        {
+            ballHolder = GetBallHolder();
+            if (ballHolder is null)
+            {
+                return;
+            }
+            else
+            {
+                MatchManager.MatchPlayerManager.SetCurrentBallHolder(ballHolder);
+            }
+        }
+        // If MatchManager is holding a CurrentBallHolder
+        else
+        {
+            ballHolder = MatchManager.MatchPlayerManager.CurrentBallHolder;
+            setBallPositionInPossession(ballHolder);
+        }
+    }
+
+    /* #endregion */
+    /* ======================================================================================== */
+
+    /* #region ==== S E T  P L A Y E R  B A L L  P O S S E S S I O N ========================= */
     
-    /* #region ---- Set Ball Position --------------------------------------------------------- */
-    public void SetBallPossetion(BallGridPoint ballPoint) 
+    /* #region ---- SET BALL HOLDER ---------------------------------------------------------- */
+    public void SetBallHolder(MatchPlayer player)
+    {
+        BallHolder = player;
+
+        if (BallHolder is null)
+        {
+            Debug.Log("No Ball Holder", this);
+        }
+        else
+        {
+            setBallPositionInPossession(BallHolder);
+        }
+    }
+
+    /* #endregion */
+
+    /* #region ---- Set Ball position at the BallHolder (depending on BallHolders curren angle)*/
+    private void setBallPositionInPossession(MatchPlayer Player)
+    {
+        BallGridPoint ballPoint = null;
+        
+        switch(Player.currentAngle) 
+        {
+            case 0:
+                ballPoint = Player.CurrentTile.BallGridPoints[7];
+                break;
+            case 45:
+                ballPoint = Player.CurrentTile.BallGridPoints[8];
+                break;
+            case 90:
+                ballPoint = Player.CurrentTile.BallGridPoints[5];
+                break;
+            case 135:
+                ballPoint = Player.CurrentTile.BallGridPoints[2];
+                break;
+            case 180:
+                ballPoint = Player.CurrentTile.BallGridPoints[1];
+                break;          
+            case 225:
+                ballPoint = Player.CurrentTile.BallGridPoints[0];
+                break;  
+            case 270:
+                ballPoint = Player.CurrentTile.BallGridPoints[3];
+                break;  
+            case 315:
+                ballPoint = Player.CurrentTile.BallGridPoints[6];
+                break;  
+        }
+
+        MatchManager.Ball.SetBallPosition(ballPoint);
+    }
+
+    /* #endregion */
+
+    /* #endregion */
+    /* ======================================================================================== */
+    
+    
+    /* #region ==== S E T  B A L L  P O S I T I O N (to a specified BallGridPoint) ============ */
+    public void SetBallPosition(BallGridPoint ballPoint) 
     {
         if (ballPoint != null)
         {
@@ -57,12 +149,51 @@ public class Ball : SingletonMonoBehaviour<Ball>
         }
         else
         {
-            Debug.Log("The ballPoint is not set (null)", this);
+            if(showErrorMessage)
+            {
+                Debug.Log("The ballPoint is not set (null)", this);
+                showErrorMessage = false;
+            }
         }
+    }
+    
+    /* #endregion */
+    /* ======================================================================================== */
+
+    
+    /* #region ==== GENERAL HELPERS =========================================================== */
+    
+    /* #region ---- Get Currrent Ball Holder -------------------------------------------------- */
+    public MatchPlayer GetBallHolder()
+    {
+        MatchPlayer ballHolder = null;
+
+        foreach(var player in MatchManager.MatchPlayerManager.MatchPlayersList)
+        {
+            if (player.IsBallHolder)
+            {
+                ballHolder = player;
+                break;
+            }
+        }
+
+        return ballHolder;
     }
 
     /* #endregion */
-    
+
+    /* #region ---- Set No BallHolder (All players are set to IsBallHolder = false) ----------- */
+    public void SetNoBallHolder()
+    {
+        foreach(var player in MatchManager.MatchPlayerManager.MatchPlayersList)
+        {
+            player.setAsBallHolder(false);
+            MatchManager.MatchPlayerManager.CurrentBallHolder = null;
+        }   
+    }
+
+    /* #endregion */
+
     /* #endregion */
     /* ======================================================================================== */
 

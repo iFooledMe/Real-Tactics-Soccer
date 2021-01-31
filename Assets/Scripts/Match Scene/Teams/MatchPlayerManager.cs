@@ -21,7 +21,7 @@ public class MatchPlayerManager : SingletonMonoBehaviour<MatchPlayerManager>
     public List<MatchPlayer> MatchPlayersList {get; private set;}
     public MatchPlayer CurrentActivePlayer = null;
     public bool PlayInAction { get; private set; }
-    public MatchPlayer CurrentBallHolder {get; private set;}
+    public MatchPlayer CurrentBallHolder {get; set;}
 
     /* #endregion */
        
@@ -111,6 +111,7 @@ public class MatchPlayerManager : SingletonMonoBehaviour<MatchPlayerManager>
                 setVectorPosition(pitchTile, playerObj);
                 setTileOccupied(pitchTile, matchPlayer);
                 MatchPlayersList.Add(matchPlayer);
+                SetCurrentBallHolder(matchPlayer);
             }    
         }
     }
@@ -169,6 +170,22 @@ public class MatchPlayerManager : SingletonMonoBehaviour<MatchPlayerManager>
     /* #endregion */
     /* ======================================================================================== */
 
+    /* #region ==== S E T  A  P L A Y E R  A S  B A L L  H O L D E R ========================== */
+    public void SetCurrentBallHolder(MatchPlayer Player)
+    {
+        if (Player.IsBallHolder)
+        {
+            MatchManager.Ball.SetNoBallHolder();
+            this.CurrentBallHolder = Player;
+            Player.setAsBallHolder(true);
+            MatchManager.Ball.SetBallHolder(CurrentBallHolder);
+        }
+    }
+
+    /* #endregion */
+    /* ======================================================================================== */
+
+
     /* #region ==== G E N E R A L  H E L P E R S ============================================== */
     
     /* #region ---- Set Player in Action State ------------------------------------------------ */
@@ -187,22 +204,6 @@ public class MatchPlayerManager : SingletonMonoBehaviour<MatchPlayerManager>
 
     /* #endregion */
     
-    /* #region ---- Set Currrent Ball Holder -------------------------------------------------- */
-    
-    // Player in ball possession
-    public void setBallHolder(MatchPlayer Player)
-    {
-        this.CurrentBallHolder = Player;
-    }
-
-    // No Player in ball possession
-    public void setBallHolder()
-    {
-        this.CurrentBallHolder = null;
-    }
-
-    /* #endregion */
-
     /* #region ---- Set other players inactive (get a player and set all others inactive ------ */
     public void SetOtherPlayersInactive(MatchPlayer activePlayer)
     {

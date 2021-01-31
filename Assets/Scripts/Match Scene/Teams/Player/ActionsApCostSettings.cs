@@ -10,5 +10,5 @@ public class ActionsApCostSettings : SingletonScriptableObject<ActionsApCostSett
     [Header("Rotation")]
     [Range(1,5)] public int CostRotateHalf = 1;
     [Range(1,5)] public int CostRotateFull = 2;
-    [Range(0,2)] public int MaxRotationsPerTurn = 1;
+    [Range(0,10)] public int MaxRotationsPerTurn = 1;
 }

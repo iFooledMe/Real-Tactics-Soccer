@@ -3323,7 +3323,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa77789f6015f1843a26669daa2a1332, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ballRotationSpeed: 0
+  ballRotationSpeed: 10
+  ballPassSpeed: 10
 --- !u!1 &1853605358
 GameObject:
   m_ObjectHideFlags: 0

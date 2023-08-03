@@ -5,47 +5,58 @@ using UnityEngine;
 public class Ball : SingletonMonoBehaviour<Ball>
 {
 
-    /* #region ==== FIELDS & PROPERTIES ======================================================= */
+    #region ==== FIELDS & PROPERTIES ==========================================================
 
     public MatchPlayer BallHolder {get; private set;}
 
     private bool showErrorMessage = true;
 
-    /* #region ---- Dependencies -------------------------------------------------------------- */
+    private Vector3 previousPosition;
+
+    public float ballRotationSpeed = 5.0f;
+
+    #region ---- Dependencies -----------------------------------------------------------------
     private MatchManager MatchManager;
 
-    /* #endregion */
+    #endregion
     
-    /* #endregion */
-    /* ======================================================================================== */
-
-    /* #region ==== GET DEPENDENCIES ========================================================== */
+    #endregion
+    
+    #region ==== GET DEPENDENCIES =============================================================
     private void getDependencies()
     {
         getSetMatchManager();
     }
 
-    /* #region ---- Get/Set MatchManager (Get Instance and sets itself as ref on the same ----- */
+    #region ---- Get/Set MatchManager (Get Instance and sets itself as ref on the same --------
     public void getSetMatchManager()
     {
         this.MatchManager = MatchManager.Instance;
         MatchManager.SetBall();
     }
-    /* #endregion */
+    #endregion
 
-    /* #endregion */
-    /* ======================================================================================== */
-
-    /* #region ==== AWAKE / START ============================================================= */
+    #endregion
+    
+    #region ==== AWAKE / START ================================================================
     private void Awake() 
     {
         getDependencies();
     }
-    
-    /* #endregion */
-    /* ======================================================================================== */
 
-    /* #region ==== C H E C K  F O R  B A L L  P O S S I T I O N  U P D A T E ================= */
+    private void Start()
+    {
+        previousPosition = this.transform.position;
+    }
+
+    private void Update()
+    {
+        checkForBallMovement();
+    }
+
+    #endregion
+
+    #region ==== C H E C K  F O R  B A L L  P O S S I T I O N  U P D A T E ====================
     public void CheckForBallPosUpdate()
     {
         MatchPlayer ballHolder = null;
@@ -71,12 +82,11 @@ public class Ball : SingletonMonoBehaviour<Ball>
         }
     }
 
-    /* #endregion */
-    /* ======================================================================================== */
-
-    /* #region ==== S E T  P L A Y E R  B A L L  P O S S E S S I O N ========================= */
+    #endregion
     
-    /* #region ---- SET BALL HOLDER ---------------------------------------------------------- */
+    #region ==== S E T  P L A Y E R  B A L L  P O S S E S S I O N ==============================
+    
+    #region ---- SET BALL HOLDER -------------------------------------------------------------
     public void SetBallHolder(MatchPlayer player)
     {
         BallHolder = player;
@@ -91,9 +101,9 @@ public class Ball : SingletonMonoBehaviour<Ball>
         }
     }
 
-    /* #endregion */
+    #endregion
 
-    /* #region ---- Set Ball position at the BallHolder (depending on BallHolders curren angle)*/
+    #region ---- Set Ball position at the BallHolder (depending on BallHolders curren angle)*/
     private void setBallPositionInPossession(MatchPlayer Player)
     {
         BallGridPoint ballPoint = null;
@@ -131,13 +141,11 @@ public class Ball : SingletonMonoBehaviour<Ball>
         setBallPosition(Player.transform);
     }
 
-    /* #endregion */
+    #endregion
 
-    /* #endregion */
-    /* ======================================================================================== */
+    #endregion
     
-    
-    /* #region ==== S E T  B A L L  P O S I T I O N (to a specified BallGridPoint) ============ */
+    #region ==== S E T  B A L L  P O S I T I O N (to a specified BallGridPoint) ===============
     
     public void setBallPosition(Transform player)
     {
@@ -170,14 +178,56 @@ public class Ball : SingletonMonoBehaviour<Ball>
             }
         }
     }
-    
-    /* #endregion */
-    /* ======================================================================================== */
 
-    
-    /* #region ==== GENERAL HELPERS =========================================================== */
-    
-    /* #region ---- Get Currrent Ball Holder -------------------------------------------------- */
+    #endregion
+
+    #region ==== B A L L  M O V E M E N T =====================================================
+
+    #region ---- Check for ball movement ------------------------------------------------------
+    private void checkForBallMovement()
+    {
+        float movementThreshold = 0.01f; // The minimum movement threshold to consider the object as moving.
+        float distance = Vector3.Distance(this.transform.position, previousPosition);
+
+        // Ball is moving
+        if (distance > movementThreshold)
+        {
+            //Debug.Log("Object is moving!");
+            rotateBall();
+        }
+        // Ball is not moving
+        else
+        {
+            
+        }
+
+        previousPosition = transform.position;
+    }
+    #endregion
+
+    #region ---- Rotate Ball -------------------------------------------------------------------
+    private void rotateBall()
+    {
+        // Calculate the movement direction.
+        Vector3 movementDirection = (transform.position - previousPosition).normalized;
+
+        // Calculate the rotation angle based on the movement direction.
+        float rotationAngle = Mathf.Atan2(movementDirection.x, movementDirection.z) * Mathf.Rad2Deg;
+
+        // Calculate the step of rotation based on rotationSpeed and time.
+        float step = ballRotationSpeed * Time.deltaTime;
+
+        // Rotate the object around its own Y-axis in the movement direction with the desired rotation speed.
+        transform.Rotate(0f, rotationAngle * step, 0f, Space.Self);
+    }
+
+    #endregion
+
+    #endregion
+
+    #region ==== GENERAL HELPERS ==============================================================
+
+    #region ---- Get Currrent Ball Holder -----------------------------------------------------
     public MatchPlayer GetBallHolder()
     {
         MatchPlayer ballHolder = null;
@@ -194,9 +244,9 @@ public class Ball : SingletonMonoBehaviour<Ball>
         return ballHolder;
     }
 
-    /* #endregion */
+    #endregion
 
-    /* #region ---- Set No BallHolder (All players are set to IsBallHolder = false) ----------- */
+    #region ---- Set No BallHolder (All players are set to IsBallHolder = false) --------------
     public void SetNoBallHolder()
     {
         foreach(var player in MatchManager.MatchPlayerManager.MatchPlayersList)
@@ -206,9 +256,9 @@ public class Ball : SingletonMonoBehaviour<Ball>
         }   
     }
 
-    /* #endregion */
+    #endregion
 
-    /* #endregion */
-    /* ======================================================================================== */
+    #endregion
+    
 
 }

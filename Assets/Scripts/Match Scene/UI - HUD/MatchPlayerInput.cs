@@ -3,48 +3,45 @@ using UnityEngine;
 
 public class MatchPlayerInput : SingletonMonoBehaviour<MatchPlayerInput>
 {
-    /* #region ==== FIELDS & PROPERTIES ======================================================= */
+    #region ==== FIELDS & PROPERTIES =========================================================
 
-    /* #region ---- Mouse Position ------------------------------------------------------------ */
+    #region ---- Mouse Position --------------------------------------------------------------
     public Vector3 MousePosition {get; private set;}
     public bool MouseOnPitch {get; private set;}
 
-    /* #endregion */
+    #endregion
 
-    /* #region ---- Dependencies -------------------------------------------------------------- */
+    #region ---- Dependencies ----------------------------------------------------------------
     private MatchManager MatchManager;
 
-    /* #endregion */
+    #endregion
     
-    /* #endregion */
-    /* ======================================================================================== */
-
-    /* #region ==== GET DEPENDENCIES ========================================================== */
+    #endregion
+    
+    #region ==== GET DEPENDENCIES ============================================================
     private void getDependencies()
     {
         getSetMatchManager();
     }
 
-    /* #region ---- Get/Set MatchManager (Get Instance and sets itself as ref on the same ----- */
+    #region ---- Get/Set MatchManager (Get Instance and sets itself as ref on the same -------
     public void getSetMatchManager()
     {
         this.MatchManager = MatchManager.Instance;
         MatchManager.SetMatchPlayerInput();
     }
-    /* #endregion */
+    #endregion
 
-    /* #endregion */
-    /* ======================================================================================== */
-
-    /* #region ==== ON ENABLE ================================================================= */
+    #endregion
+    
+    #region ==== ON ENABLE ===================================================================
     private void OnEnable() 
     {
         getDependencies();
     }
-    /* #endregion */
-    /* ======================================================================================== */
-
-    /* #region ==== UPDATE ==================================================================== */
+    #endregion
+    
+    #region ==== UPDATE ======================================================================
     private void Update()
     {
         checkForMouseInput();
@@ -52,23 +49,22 @@ public class MatchPlayerInput : SingletonMonoBehaviour<MatchPlayerInput>
         checkForMousePosOnPitch();
     }
 
-    /* #endregion */
-    /* ======================================================================================== */
-
-    /* #region ==== M O U S E  I N P U T ====================================================== */
+    #endregion
     
-    /* #region ---- Check for Mouse Input ----------------------------------------------------- */
+    #region ==== M O U S E  I N P U T ========================================================
+    
+    #region ---- Check for Mouse Input -------------------------------------------------------
     private void checkForMouseInput()
     {
-        /* #region ---- Left click ------------------------------------------------------------ */
+        #region ---- Left click --------------------------------------------------------------
         if(Input.GetMouseButtonDown(0))
         {
-            /* #region ---- Check for Ball position update ---- */
+            #region ---- Check for Ball position update ------
             MatchManager.Ball.CheckForBallPosUpdate();
 
-            /* #endregion */
+            #endregion
             
-            /* #region ---- Player Mode States ---- */
+            #region ---- Player Mode States ------
             MatchPlayer activePlayer = MatchManager.MatchPlayerManager.CurrentActivePlayer;
             PlayerMode playerMode = activePlayer.PlayerMode;
             
@@ -88,12 +84,12 @@ public class MatchPlayerInput : SingletonMonoBehaviour<MatchPlayerInput>
                     break;
             }
 
-            /* #endregion */
+            #endregion
         }
 
-        /* #endregion */
+        #endregion
 
-        /* #region ---- Right click ------------------------------------------------------------*/
+        #region ---- Right click ------------------------------------------------------------*/
         if(Input.GetMouseButtonDown(1))
         {
             MatchPlayer activePlayer = MatchManager.MatchPlayerManager.CurrentActivePlayer;
@@ -115,9 +111,9 @@ public class MatchPlayerInput : SingletonMonoBehaviour<MatchPlayerInput>
                     break;
             }
         }
-        /* #endregion */
+        #endregion
     
-        /* #region ---- Mouse Pointer on/off pitch ---------------------------------------------*/
+        #region ---- Mouse Pointer on/off pitch ---------------------------------------------*/
         
         // --- On Pitch ---
         if (MouseOnPitch)
@@ -151,13 +147,13 @@ public class MatchPlayerInput : SingletonMonoBehaviour<MatchPlayerInput>
             Cursor.visible = true;
         }
 
-        /* #endregion */
+        #endregion
 
     }
 
-    /* #endregion */
+    #endregion
 
-    /* #region ---- Check for Mouse Position -------------------------------------------------- */
+    #region ---- Check for Mouse Position ----------------------------------------------------
     private void checkForMousePosition()
     {
         Plane plane=new Plane(Vector3.up,new Vector3(0, 0, 0));
@@ -185,9 +181,9 @@ public class MatchPlayerInput : SingletonMonoBehaviour<MatchPlayerInput>
         }
     }
 
-    /* #endregion */
+    #endregion
 
-    /* #region ---- Player MouseEnter / MouseExit --------------------------------------------- */
+    #region ---- Player MouseEnter / MouseExit -----------------------------------------------
     public void OnPlayerMouseEnter(MatchPlayer player)
     {
         player.PlayerHighlightOn();
@@ -198,17 +194,17 @@ public class MatchPlayerInput : SingletonMonoBehaviour<MatchPlayerInput>
         player.PlayerHighlightOff();
     }
 
-    /* #endregion */
+    #endregion
     
-    /* #region ---- Player Mouse Left click --------------------------------------------------- */
+    #region ---- Player Mouse Left click -----------------------------------------------------
     public void OnPlayerLeftClick(MatchPlayer player)
     {
         player.SetPlayerActive();
     }
 
-    /* #endregion */
+    #endregion
     
-    /* #region ---- PitchTile MouseEnter / MouseExit ------------------------------------------ */
+    #region ---- PitchTile MouseEnter / MouseExit --------------------------------------------
     public void OnPitchTileMouseEnter(PitchTile tile)
     {
         MatchPlayer activePlayer = MatchManager.MatchPlayerManager.CurrentActivePlayer;
@@ -228,9 +224,9 @@ public class MatchPlayerInput : SingletonMonoBehaviour<MatchPlayerInput>
         }
     }
 
-    /* #endregion */
+    #endregion
 
-    /* #region ---- PitchTile Mouse Left click ------------------------------------------------ */
+    #region ---- PitchTile Mouse Left click --------------------------------------------------
     public void OnPitchTileLeftClick(PitchTile targetTile)
     {
         MatchPlayer activePlayer = MatchManager.MatchPlayerManager.CurrentActivePlayer;
@@ -251,14 +247,13 @@ public class MatchPlayerInput : SingletonMonoBehaviour<MatchPlayerInput>
         } 
     }
 
-    /* #endregion */
+    #endregion
 
-    /* #endregion */
-    /* ======================================================================================== */
-
-    /* #region ==== P L A Y E R  M O D E  B U T T O N S ======================================= */
+    #endregion
     
-    /* #region ---- Select IDLE Mode ---------------------------------------------------------- */
+    #region ==== P L A Y E R  M O D E  B U T T O N S =========================================
+    
+    #region ---- Select IDLE Mode ------------------------------------------------------------
     public void OnBtnIdleMode()
     {
         MatchManager.MatchPlayerManager.CurrentActivePlayer.SetPlayerMode(PlayerMode.Idle);
@@ -274,9 +269,9 @@ public class MatchPlayerInput : SingletonMonoBehaviour<MatchPlayerInput>
         return;
     }
 
-    /* #endregion */
+    #endregion
 
-    /* #region ---- Select MOVE Mode ---------------------------------------------------------- */
+    #region ---- Select MOVE Mode ------------------------------------------------------------
     public void OnBtnMoveMode()
     {
         MatchManager.MatchPlayerManager.CurrentActivePlayer.SetPlayerMode(PlayerMode.Move);
@@ -293,9 +288,9 @@ public class MatchPlayerInput : SingletonMonoBehaviour<MatchPlayerInput>
         player.SetPlayerMode(PlayerMode.Idle);
     }
 
-    /* #endregion */
+    #endregion
 
-    /* #region ---- Select ROTATE Mode -------------------------------------------------------- */
+    #region ---- Select ROTATE Mode ----------------------------------------------------------
     public void OnBtnRotateMode()
     {
         MatchManager.MatchPlayerManager.CurrentActivePlayer.SetPlayerMode(PlayerMode.Rotate);
@@ -311,9 +306,9 @@ public class MatchPlayerInput : SingletonMonoBehaviour<MatchPlayerInput>
         player.SetPlayerMode(PlayerMode.Idle);
     }
 
-    /* #endregion */
+    #endregion
 
-    /* #region ---- Select PASS Mode ---------------------------------------------------------- */
+    #region ---- Select PASS Mode ------------------------------------------------------------
     public void OnBtnPassMode()
     {
         MatchManager.MatchPlayerManager.CurrentActivePlayer.SetPlayerMode(PlayerMode.Pass);
@@ -333,14 +328,13 @@ public class MatchPlayerInput : SingletonMonoBehaviour<MatchPlayerInput>
         player.SetPlayerMode(PlayerMode.Idle);
     }
 
-    /* #endregion */
+    #endregion
 
-    /* #endregion */
-    /* ======================================================================================== */  
-
-    /* #region ==== C A M E R A  C O N T R O L ================================================ */
+    #endregion
+      
+    #region ==== C A M E R A  C O N T R O L ==================================================
     
-    /* #region ---- Rotate Main Camera -------------------------------------------------------- */
+    #region ---- Rotate Main Camera ----------------------------------------------------------
     public void OnBtnRotateMainCameraLeft()
     {
         MatchManager.CameraManager.RotateLeft();
@@ -351,30 +345,29 @@ public class MatchPlayerInput : SingletonMonoBehaviour<MatchPlayerInput>
         MatchManager.CameraManager.RotateRight();
     }
 
-    /* #endregion */
+    #endregion
 
-    /* #endregion */
-    /* ======================================================================================== */
+    #endregion
+    
+    #region ==== G E N E R A L  U I ==========================================================
 
-    /* #region ==== G E N E R A L  U I ======================================================== */
-
-    /* #region ---- Back to Main Menu --------------------------------------------------------- */
+    #region ---- Back to Main Menu -----------------------------------------------------------
     public void OnBtnMainMenu()
     {
         MatchManager.GameManager.LoadMainMenu();
     }
 
-    /* #endregion */
+    #endregion
     
-    /* #region ---- Toggle Overlay Grid ------------------------------------------------------- */
+    #region ---- Toggle Overlay Grid ---------------------------------------------------------
     public void OnBtnToggleGrid()
     {
         MatchManager.GridOverlay.ToggleOverlayGrid();
     }
 
-    /* #endregion */
+    #endregion
 
-    /* #endregion */
-    /* ======================================================================================== */
+    #endregion
+    
 
 }

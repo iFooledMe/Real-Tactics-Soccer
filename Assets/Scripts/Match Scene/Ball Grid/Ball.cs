@@ -126,7 +126,9 @@ public class Ball : SingletonMonoBehaviour<Ball>
                 break;  
         }
 
-        MatchManager.Ball.SetBallPosition(ballPoint);
+        //MatchManager.Ball.SetBallPositionOld(ballPoint);
+
+        setBallPosition(Player.transform);
     }
 
     /* #endregion */
@@ -136,7 +138,19 @@ public class Ball : SingletonMonoBehaviour<Ball>
     
     
     /* #region ==== S E T  B A L L  P O S I T I O N (to a specified BallGridPoint) ============ */
-    public void SetBallPosition(BallGridPoint ballPoint) 
+    
+    public void setBallPosition(Transform player)
+    {
+        float distance = 0.5f;
+
+        if (player != null)
+        {
+            Vector3 ballPosition = player.position + player.forward * distance;
+            this.transform.position = ballPosition;
+        }
+    }
+
+    public void SetBallPositionOld(BallGridPoint ballPoint) 
     {
         if (ballPoint != null)
         {

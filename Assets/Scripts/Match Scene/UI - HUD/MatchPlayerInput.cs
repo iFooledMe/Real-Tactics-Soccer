@@ -80,7 +80,10 @@ public class MatchPlayerInput : SingletonMonoBehaviour<MatchPlayerInput>
                     //Trigger by OnMouseUp on each PitchTile
                     break; 
                 case PlayerMode.Pass:
-                    //OnMouseLeftClickPass(activePlayer); FOR NOW TRIGGERED ON TILE CLICK.
+                    MatchManager.Ball.ballMovement(
+                            Ball.BallMove.PassGround, 
+                            MatchManager.BallGrid.PointerPlateObj.transform,
+                            activePlayer);
                     break;
             }
 

@@ -13,7 +13,13 @@ public class Ball : SingletonMonoBehaviour<Ball>
 
     private Vector3 previousPosition;
 
+    public enum BallMove
+    {
+        PassGround,
+    }
+
     public float ballRotationSpeed = 5.0f;
+    public float ballPassSpeed = 10.0f;
 
     #region ---- Dependencies -----------------------------------------------------------------
     private MatchManager MatchManager;
@@ -205,6 +211,27 @@ public class Ball : SingletonMonoBehaviour<Ball>
     }
     #endregion
 
+    #region ---- Move Ball ---------------------------------------------------------------------
+    public void ballMovement(BallMove ballMove, Transform target, MatchPlayer activePlayer)
+    {
+        if (activePlayer != null && activePlayer.IsBallHolder)
+        {
+            switch (ballMove)
+            {
+                case BallMove.PassGround:
+                    StartCoroutine(passBallGround(target));
+                    break;
+                default:
+                    break;
+            }
+
+            activePlayer.setAsBallHolder(false);
+        }
+
+    }
+    #endregion
+
+
     #region ---- Rotate Ball -------------------------------------------------------------------
     private void rotateBall()
     {
@@ -219,6 +246,31 @@ public class Ball : SingletonMonoBehaviour<Ball>
 
         // Rotate the object around its own Y-axis in the movement direction with the desired rotation speed.
         transform.Rotate(0f, rotationAngle * step, 0f, Space.Self);
+    }
+
+    #endregion
+
+    #region ---- Pass Ball ---------------------------------------------------------------------
+    private IEnumerator passBallGround(Transform target)
+    {
+        Vector3 initialPosition = transform.position;
+        Vector3 targetPosition = target.position;
+
+        float startTime = Time.time;
+        float journeyLength = Vector3.Distance(initialPosition, targetPosition);
+
+        while (transform.position != targetPosition)
+        {
+            float distanceCovered = (Time.time - startTime) * ballPassSpeed;
+            float fractionOfJourney = distanceCovered / journeyLength;
+
+            transform.position = Vector3.Lerp(initialPosition, targetPosition, fractionOfJourney);
+
+            yield return null;
+        }
+
+        // Ensure that the ball reaches exactly the target position.
+        this.transform.position = targetPosition;
     }
 
     #endregion

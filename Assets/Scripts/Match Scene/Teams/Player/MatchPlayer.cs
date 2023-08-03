@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-    /* #region ==== ENUMS ===================================================================== */
+    #region ==== ENUMS ========================================================================
     public enum PlayerMode
     {
         Idle,
@@ -23,14 +23,14 @@ using UnityEngine;
         Negative
     }
 
-    /* #endregion */
-    /* ======================================================================================== */
+    #endregion
+    
 
 public class MatchPlayer : MonoBehaviour
 {
-    /* #region ==== FIELDS & PROPERTIES ======================================================= */
+    #region ==== FIELDS & PROPERTIES ==========================================================
     
-    /* #region ---- Player Info --------------------------------------------------------------- */
+    #region ---- Player Info ------------------------------------------------------------------
     public Player Player {get; private set;}
 
     public string Name {get; private set;}
@@ -40,19 +40,19 @@ public class MatchPlayer : MonoBehaviour
 
     
 
-    /* #endregion */
+    #endregion
 
-    /* #region ---- Player Stats -------------------------------------------------------------- */
+    #region ---- Player Stats -----------------------------------------------------------------
     public int MaxActionPoints {get; private set;}
-    public int CurrentActionPoints {get; private set;}
+    public int CurrentActionPoints;
 
-    /* #endregion */
+    #endregion
 
-    /* #region ---- Player States ------------------------------------------------------------- */
+    #region ---- Player States ----------------------------------------------------------------
     public PitchTile CurrentTile {get; private set;}
-    
-    public bool IsActive {get; private set;}
-    public bool IsBallHolder {get; private set;}
+
+    public bool IsActive;
+    public bool IsBallHolder;
     private bool updateBallPosition = true; 
 
     private Color defaultColor = Color.green;
@@ -69,24 +69,23 @@ public class MatchPlayer : MonoBehaviour
     private int halfRotation2;
 
 
-    /* #endregion */
+    #endregion
     
-    /* #region ---- Components ---------------------------------------------------------------- */
+    #region ---- Components -------------------------------------------------------------------
     private Renderer bodyRenderer;
     private GameObject directionIndicator;
 
-    /* #endregion */
+    #endregion
 
-    /* #region ---- Dependencies -------------------------------------------------------------- */
+    #region ---- Dependencies -----------------------------------------------------------------
     private MatchManager MatchManager;
     public PlayerActions PlayerActions {get; private set;}
 
-    /* #endregion */
+    #endregion
     
-    /* #endregion */
-    /* ======================================================================================== */
-
-    /* #region ==== GET DEPENDENCIES & COMPONENTS ============================================= */
+    #endregion
+    
+    #region ==== GET DEPENDENCIES & COMPONENTS ================================================
     private void getDependencies()
     {
         getMatchManager();
@@ -99,40 +98,39 @@ public class MatchPlayer : MonoBehaviour
         getDirectionIndicator();
     }
 
-    /* #region ---- Get MatchManager ---------------------------------------------------------- */
+    #region ---- Get MatchManager -------------------------------------------------------------
     public void getMatchManager()
     {
         MatchManager = MatchManager.Instance;
     }
-    /* #endregion */
+    #endregion
 
-    /* #region ---- Get Renderer Component ---------------------------------------------------- */
+    #region ---- Get Renderer Component -------------------------------------------------------
     public void getBodyRenderer()
     {
         GameObject playerBody = this.transform.Find("PlayerBody").gameObject;
         bodyRenderer = playerBody.GetComponent<Renderer>();
     }
-    /* #endregion */
+    #endregion
 
-    /* #region ---- Get Renderer Component ---------------------------------------------------- */
+    #region ---- Get Renderer Component -------------------------------------------------------
     public void getDirectionIndicator()
     {
         directionIndicator = this.transform.Find("Direction").gameObject;
     }
-    /* #endregion */
+    #endregion
 
-    /* #region ---- Set PlayerActions --------------------------------------------------------- */
+    #region ---- Set PlayerActions ------------------------------------------------------------
     public void setPlayerActions()
     {
         this.PlayerActions = new PlayerActions(this);
     }
 
-    /* #endregion */
+    #endregion
 
-    /* #endregion */
-    /* ======================================================================================== */
-
-    /* #region ==== AWAKE / START ============================================================= */
+    #endregion
+    
+    #region ==== AWAKE / START ================================================================
     private void Awake() 
     {
         getDependencies();
@@ -144,10 +142,9 @@ public class MatchPlayer : MonoBehaviour
         UpdateRotationAngle ((int)this.gameObject.transform.eulerAngles.y);
     }
 
-    /* #endregion */
-    /* ======================================================================================== */
-
-    /* #region ==== UPDATE ==================================================================== */
+    #endregion
+    
+    #region ==== UPDATE =======================================================================
     void Update() 
     {
         PlayerActions.ActionSelector(PlayerActions.CurrentAction);
@@ -156,13 +153,12 @@ public class MatchPlayer : MonoBehaviour
 
     }
 
-    /* #endregion */
-    /* ======================================================================================== */
-    
+    #endregion
+     
     //TODO: Move each Player Mode to it's own sub-class???
-    /* #region ==== P L A Y E R  M O D E S  =================================================== */
+    #region ==== P L A Y E R  M O D E S  ======================================================
     
-    /* #region ---- Player Mode SWITCHER ------------------------------------------------------ */
+    #region ---- Player Mode SWITCHER ---------------------------------------------------------
     public void SetPlayerMode(PlayerMode playerMode)
     {
         if (!MatchManager.MatchPlayerManager.PlayInAction)
@@ -190,43 +186,43 @@ public class MatchPlayer : MonoBehaviour
         }
     }
 
-    /* #endregion */
+    #endregion
 
-    /* #region ---- IDLE Mode ----------------------------------------------------------------- */
+    #region ---- IDLE Mode --------------------------------------------------------------------
     private void setIdleMode()
     {
         PlayerMode = PlayerMode.Idle;
     }
 
-    /* #endregion */
+    #endregion
 
-    /* #region ---- MOVE Mode ----------------------------------------------------------------- */
+    #region ---- MOVE Mode --------------------------------------------------------------------
     private void setMoveMode()
     {
         PlayerMode = PlayerMode.Move;
     }
 
-    /* #endregion */
+    #endregion
 
-    /* #region ---- ROTATE Mode --------------------------------------------------------------- */
+    #region ---- ROTATE Mode ------------------------------------------------------------------
     private void setRotateMode()
     {
         PlayerMode = PlayerMode.Rotate;
         MatchManager.PitchGrid.RotateGrid.DrawRotationGrid(this);
     }
 
-    /* #endregion */
+    #endregion
 
-    /* #region ---- PASS Mode ----------------------------------------------------------------- */
+    #region ---- PASS Mode --------------------------------------------------------------------
     private void setPassMode()
     {
         PlayerMode = PlayerMode.Pass;
         MatchManager.BallGrid.ActivateBallGrid();
     }
 
-    /* #endregion */
+    #endregion
 
-    /* #region ---- Clear all Mode States ----------------------------------------------------- */
+    #region ---- Clear all Mode States --------------------------------------------------------
     private void clearAllModeStates()
     {
         clearMovePaths();
@@ -271,14 +267,13 @@ public class MatchPlayer : MonoBehaviour
         MatchManager.Hud.UpdateApCostToString("");
     }
 
-    /* #endregion */
+    #endregion
     
-    /* #endregion */
-    /* ======================================================================================== */
-
-    /* #region ==== U P D A T E  P L A Y E R  S T A T S ======================================= */
+    #endregion
     
-    /* #region ---- General Update Player Stat Method ----------------------------------------- */
+    #region ==== U P D A T E  P L A Y E R  S T A T S ==========================================
+    
+    #region ---- General Update Player Stat Method --------------------------------------------
     public void UpdateStat(PlayerStat stat, int newValue, ValueSign valueSign)
     {
         switch(stat) 
@@ -289,9 +284,9 @@ public class MatchPlayer : MonoBehaviour
         }
     }
 
-    /* #endregion */ 
+    #endregion 
 
-    /* #region ---- Action Points ------------------------------------------------------------- */
+    #region ---- Action Points ----------------------------------------------------------------
     private void updateActionPoints(int updateValue, ValueSign valueSign)
     {
         if (valueSign == ValueSign.Negative)
@@ -313,14 +308,13 @@ public class MatchPlayer : MonoBehaviour
         }
     }
 
-    /* #endregion */ 
+    #endregion 
 
-    /* #endregion */
-    /* ======================================================================================== */
+    #endregion
+    
+    #region ==== P L A Y E R  R O T A T I O N  A N G L E ======================================
 
-    /* #region ==== P L A Y E R  R O T A T I O N  A N G L E =================================== */
-
-    /* #region ---- Get/Set rotation indicator (empty object LookAt a specified target) ------- */
+    #region ---- Get/Set rotation indicator (empty object LookAt a specified target) ----------
     public int GetRotationIndicator(Transform target)
     {
         this.directionIndicator.transform.LookAt(target);
@@ -332,17 +326,17 @@ public class MatchPlayer : MonoBehaviour
         this.directionIndicator.transform.eulerAngles = this.transform.eulerAngles;
     }
 
-    /* #endregion ----------------------------------------------------------------------------- */
+    #endregion --------------------------------------------------------------------------------
     
-    /* #region ---- Player Rotation to face a specified target -------------------------------- */
+    #region ---- Player Rotation to face a specified target -----------------------------------
     public void FaceTarget(Transform target)
     {
         this.transform.LookAt(target);
     }
 
-    /* #endregion ----------------------------------------------------------------------------- */
+    #endregion --------------------------------------------------------------------------------
 
-    /* #region ---- Update RotationAngle ------------------------------------------------------ */
+    #region ---- Update RotationAngle ---------------------------------------------------------
     public void UpdateRotationAngle (int angleY)
     {
         int angleX = (int)this.gameObject.transform.eulerAngles.x;
@@ -430,9 +424,9 @@ public class MatchPlayer : MonoBehaviour
         }
     }
 
-    /* #endregion ----------------------------------------------------------------------------- */
+    #endregion --------------------------------------------------------------------------------
 
-    /* #region ---- Calculate AP Cost for rotation -------------------------------------------- */
+    #region ---- Calculate AP Cost for rotation -----------------------------------------------
     public int CalcRotationApCost (int angleY)
     {
         if (angleY == fullRotation0 || angleY == fullRotation1 || angleY == fullRotation2)
@@ -451,12 +445,11 @@ public class MatchPlayer : MonoBehaviour
         }
     }
 
-    /* #endregion ----------------------------------------------------------------------------- */
+    #endregion --------------------------------------------------------------------------------
 
-    /* #endregion */
-    /* ======================================================================================== */
-
-    /* #region ==== P L A Y E R  I N S T A N T I A T I O N ==================================== */
+    #endregion
+    
+    #region ==== P L A Y E R  I N S T A N T I A T I O N =======================================
 
     public void SetPlayerInfoOnInstantiation(Player player, PitchTile pitchTile, int coordX, int coordZ)
     {
@@ -470,12 +463,11 @@ public class MatchPlayer : MonoBehaviour
         CurrentActionPoints = MaxActionPoints;
     }
 
-    /* #endregion */
-    /* ======================================================================================== */
-
-    /* #region ==== O T H E R  M E T H O D S ================================================== */
+    #endregion
     
-    /* #region ---- Set player Active / Inactive ---------------------------------------------- */
+    #region ==== O T H E R  M E T H O D S =====================================================
+    
+    #region ---- Set player Active / Inactive -------------------------------------------------
     
     // Set Active
     public void SetPlayerActive()
@@ -507,9 +499,9 @@ public class MatchPlayer : MonoBehaviour
         bodyRenderer.material.color = defaultColor;
     }
 
-    /* #endregion */
+    #endregion
 
-    /* #region ---- Set player Coordinates and CurrentTile ------------------------------------ */
+    #region ---- Set player Coordinates and CurrentTile ---------------------------------------
     public void SetCurrentTile(PitchTile tile)
     {
         this.CoordX = tile.CoordX;
@@ -517,9 +509,9 @@ public class MatchPlayer : MonoBehaviour
         this.CurrentTile = tile;
     }
 
-    /* #endregion */
+    #endregion
 
-    /* #region ---- Player Highlight ---------------------------------------------------------- */
+    #region ---- Player Highlight -------------------------------------------------------------
     public void PlayerHighlightOn()
     {
         bodyRenderer.material.color = highLightColor;
@@ -538,9 +530,9 @@ public class MatchPlayer : MonoBehaviour
         } 
     }
 
-    /* #endregion */
+    #endregion
 
-    /* #region ---- Set/Unset Player as BallHolder -------------------------------------------- */
+    #region ---- Set/Unset Player as BallHolder -----------------------------------------------
     public void setAsBallHolder(bool isBallHolder)
     {
         if (isBallHolder)
@@ -553,10 +545,8 @@ public class MatchPlayer : MonoBehaviour
         }
     }
 
-    /* #endregion */
+    #endregion
 
 
-    /* #endregion */
-    /* ======================================================================================== */
-
+    #endregion
 }

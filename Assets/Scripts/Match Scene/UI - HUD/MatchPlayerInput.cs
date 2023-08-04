@@ -1,5 +1,5 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class MatchPlayerInput : SingletonMonoBehaviour<MatchPlayerInput>
 {
@@ -8,6 +8,8 @@ public class MatchPlayerInput : SingletonMonoBehaviour<MatchPlayerInput>
     #region ---- Mouse Position --------------------------------------------------------------
     public Vector3 MousePosition {get; private set;}
     public bool MouseOnPitch {get; private set;}
+
+    private bool MouseOverUi = false;
 
     #endregion
 
@@ -47,6 +49,7 @@ public class MatchPlayerInput : SingletonMonoBehaviour<MatchPlayerInput>
         checkForMouseInput();
         checkForMousePosition();
         checkForMousePosOnPitch();
+        checkForMouseOnUi();
     }
 
     #endregion
@@ -80,10 +83,14 @@ public class MatchPlayerInput : SingletonMonoBehaviour<MatchPlayerInput>
                     //Trigger by OnMouseUp on each PitchTile
                     break; 
                 case PlayerMode.Pass:
-                    MatchManager.Ball.ballMovement(
+                    Debug.Log("Pass ball!");
+                    if (MouseOnPitch)
+                    {
+                        MatchManager.Ball.ballMovement(
                             Ball.BallMove.PassGround, 
                             MatchManager.BallGrid.PointerPlateObj.transform,
                             activePlayer);
+                    }
                     break;
             }
 
@@ -181,6 +188,14 @@ public class MatchPlayerInput : SingletonMonoBehaviour<MatchPlayerInput>
         else
         {
             MouseOnPitch = true;
+        }
+    }
+
+    private void checkForMouseOnUi()
+    {
+        if (EventSystem.current.IsPointerOverGameObject())
+        {
+            MouseOverUi = true;
         }
     }
 

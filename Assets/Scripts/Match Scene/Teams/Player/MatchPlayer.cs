@@ -216,8 +216,15 @@ public class MatchPlayer : MonoBehaviour
     #region ---- PASS Mode --------------------------------------------------------------------
     private void setPassMode()
     {
-        PlayerMode = PlayerMode.Pass;
-        MatchManager.BallGrid.ActivateBallGrid();
+        if (PlayerMode == PlayerMode.Pass)
+        {
+            setIdleMode();
+        }
+        else if (IsBallHolder)
+        {
+            PlayerMode = PlayerMode.Pass;
+            MatchManager.BallGrid.ActivateBallGrid();
+        }
     }
 
     #endregion

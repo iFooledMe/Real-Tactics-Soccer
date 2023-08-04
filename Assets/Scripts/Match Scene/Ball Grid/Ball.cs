@@ -214,7 +214,7 @@ public class Ball : SingletonMonoBehaviour<Ball>
     #region ---- Move Ball ---------------------------------------------------------------------
     public void ballMovement(BallMove ballMove, Transform target, MatchPlayer activePlayer)
     {
-        if (activePlayer != null && activePlayer.IsBallHolder)
+        if (activePlayer is not null && activePlayer.IsBallHolder)
         {
             switch (ballMove)
             {
